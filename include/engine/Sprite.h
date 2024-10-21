@@ -16,7 +16,6 @@ public:
     virtual void update();
     virtual void render();
 
-    // Add more methods and properties as needed
     float getX() const { return x; }
     float getY() const { return y; }
     void setPosition(float newX, float newY) { x = newX; y = newY; }
