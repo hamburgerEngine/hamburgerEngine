@@ -15,3 +15,4 @@ A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar t
 
 - [stb_image](https://github.com/nothings/stb)
 - [glut](https://www.opengl.org/resources/libraries/glut/)
+- [FreeType](https://freetype.org/)
