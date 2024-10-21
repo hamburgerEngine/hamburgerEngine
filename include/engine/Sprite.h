@@ -22,6 +22,8 @@ public:
 
     Scale scale;
 
+    void setScale(float scaleX, float scaleY);
+
 private:
     float x, y;
     int width, height;

@@ -59,3 +59,8 @@ void Sprite::loadTexture(const std::string& imagePath) {
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
 }
+
+void Sprite::setScale(float scaleX, float scaleY) {
+    scale.x = scaleX;
+    scale.y = scaleY;
+}
