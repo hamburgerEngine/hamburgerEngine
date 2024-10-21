@@ -6,7 +6,7 @@ A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar t
 
 - [x] Sprites
 - [x] Text
-- [ ] Spritesheets (png and xml (Sparrow V2))
+- [x] Spritesheets (png and xml (Sparrow V2))
 - [ ] Groups
 - [ ] Events
 

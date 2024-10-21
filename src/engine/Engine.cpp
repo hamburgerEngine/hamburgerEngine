@@ -1,6 +1,7 @@
 #include "../../include/engine/Engine.h"
 #include <iostream>
 #include "../../include/engine/Sprite.h"
+#include "../../include/engine/AnimatedSprite.h"
 #include "../../include/engine/Text.h"
 #include <algorithm>
 
@@ -32,6 +33,9 @@ Engine::~Engine() {
     for (auto sprite : sprites) {
         delete sprite;
     }
+    for (auto animatedSprite : animatedSprites) {
+        delete animatedSprite;
+    }
     for (auto text : texts) {
         delete text;
     }
@@ -42,8 +46,16 @@ void Engine::run() {
 }
 
 void Engine::update() {
+    static float lastTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
+    float currentTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
+    deltaTime = currentTime - lastTime;
+    lastTime = currentTime;
+
     for (auto sprite : sprites) {
         sprite->update();
+    }
+    for (auto animatedSprite : animatedSprites) {
+        animatedSprite->update(deltaTime);
     }
 }
 
@@ -54,7 +66,9 @@ void Engine::render() {
     for (auto sprite : sprites) {
         sprite->render();
     }
-    
+    for (auto animatedSprite : animatedSprites) {
+        animatedSprite->render();
+    }
     for (auto text : texts) {
         text->render();
     }

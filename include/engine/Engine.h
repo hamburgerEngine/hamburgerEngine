@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 #include <vector>
 #include "Sprite.h"
+#include "AnimatedSprite.h"
 #include "Text.h"
 
 class Engine {
@@ -17,6 +18,7 @@ public:
     static Engine* getInstance() { return instance; }
 
     void addSprite(Sprite* sprite) { sprites.push_back(sprite); }
+    void addAnimatedSprite(AnimatedSprite* sprite) { animatedSprites.push_back(sprite); }
     void addText(Text* text) { texts.push_back(text); }
 
 private:
@@ -24,7 +26,9 @@ private:
     int windowWidth;
     int windowHeight;
     std::vector<Sprite*> sprites;
+    std::vector<AnimatedSprite*> animatedSprites;
     std::vector<Text*> texts;
+    float deltaTime;
 
     static void displayCallback();
     static void idleCallback();

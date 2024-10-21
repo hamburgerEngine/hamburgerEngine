@@ -33,6 +33,12 @@
     <ClCompile Include="src\engine\Text.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\AnimatedSprite.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stb_image_impl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Engine.h">
@@ -42,6 +48,9 @@
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="include\engine\Text.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\AnimatedSprite.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>

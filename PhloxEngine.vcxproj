@@ -19,12 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\AnimatedSprite.cpp" />
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
     <ClCompile Include="src\engine\Text.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\stb_image_impl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\engine\AnimatedSprite.h" />
     <ClInclude Include="include\engine\Engine.h" />
     <ClInclude Include="include\engine\Sprite.h" />
     <ClInclude Include="include\engine\Text.h" />
@@ -100,6 +103,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

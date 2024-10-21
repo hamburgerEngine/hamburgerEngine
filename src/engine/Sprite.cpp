@@ -1,6 +1,5 @@
 #include "../../include/engine/Sprite.h"
 #include <GL/glut.h>
-#define STB_IMAGE_IMPLEMENTATION
 #include "../../include/thirdparty/stb_image.h"
 #include <iostream>
 
