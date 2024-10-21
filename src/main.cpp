@@ -7,7 +7,12 @@ int main(int argc, char** argv) {
 
     Sprite* testSprite = new Sprite("assets/images/placeholder.png");
     testSprite->setPosition(100, 100);
-    engine.addSprite(testSprite);
+    //engine.addSprite(testSprite);
+
+    Text* myText = new Text(100, 100, 500);
+    myText->setText("Stay Funky FNF");
+    myText->setFormat("assets/fonts/5by7.ttf", 36, 0xFFFFFFFF); 
+    engine.addText(myText);
 
     engine.run();
     return 0;

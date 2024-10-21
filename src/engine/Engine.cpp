@@ -1,7 +1,8 @@
 #include "../../include/engine/Engine.h"
 #include <iostream>
 #include "../../include/engine/Sprite.h"
-
+#include "../../include/engine/Text.h"
+#include <algorithm>
 
 Engine* Engine::instance = nullptr;
 
@@ -31,6 +32,9 @@ Engine::~Engine() {
     for (auto sprite : sprites) {
         delete sprite;
     }
+    for (auto text : texts) {
+        delete text;
+    }
 }
 
 void Engine::run() {
@@ -49,6 +53,10 @@ void Engine::render() {
 
     for (auto sprite : sprites) {
         sprite->render();
+    }
+    
+    for (auto text : texts) {
+        text->render();
     }
 
     glutSwapBuffers();
