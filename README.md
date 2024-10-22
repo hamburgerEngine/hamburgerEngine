@@ -7,6 +7,7 @@ A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar t
 - [x] Sprites
 - [x] Text
 - [x] Spritesheets (png and xml (Sparrow V2))
+- [ ] States and Substates
 - [ ] Groups
 - [ ] Events
 
