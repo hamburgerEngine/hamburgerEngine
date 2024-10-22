@@ -12,6 +12,9 @@ A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar t
 - [ ] Groups
 - [ ] Events
 
+# Projects made with Phlox Engine:
+
+* [Flappy Bird PE](https://github.com/yophlox/FlappyBird-PE/tree/main) - A simple flappy bird port/clone. - By YoPhlox
 
 # REQUIREMENTS
 
