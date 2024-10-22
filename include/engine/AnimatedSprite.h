@@ -44,6 +44,9 @@ public:
     void addAnimation(const std::string& name, const std::string& prefix, int frameRate, bool loop);
     void playAnimation(const std::string& name);
 
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
+
 private:
     float x, y;
     int width, height;

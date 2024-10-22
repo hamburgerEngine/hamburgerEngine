@@ -33,6 +33,8 @@ public:
     static void keyboardCallback(unsigned char key, int x, int y);
     static void keyboardUpCallback(unsigned char key, int x, int y);
 
+    State* getCurrentState() { return states.empty() ? nullptr : states.top(); }
+
 private:
     static Engine* instance;
     int windowWidth;

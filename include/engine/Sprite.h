@@ -24,11 +24,16 @@ public:
 
     void setScale(float scaleX, float scaleY);
 
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
+
+    const Scale& getScale() const { return scale; }
+
 private:
     float x, y;
-    int width, height;
     unsigned char* imageData;
     unsigned int textureID;
-
+    int width;
+    int height;
     void loadTexture(const std::string& imagePath);
 };
