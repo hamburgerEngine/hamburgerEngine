@@ -23,6 +23,7 @@
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
     <ClCompile Include="src\engine\Text.cpp" />
+    <ClCompile Include="src\gameName\states\PlayState.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stb_image_impl.cpp" />
   </ItemGroup>
@@ -30,7 +31,13 @@
     <ClInclude Include="include\engine\AnimatedSprite.h" />
     <ClInclude Include="include\engine\Engine.h" />
     <ClInclude Include="include\engine\Sprite.h" />
+    <ClInclude Include="include\engine\State.h" />
     <ClInclude Include="include\engine\Text.h" />
+    <ClInclude Include="include\gameName\states\PlayState.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\testgame\README.md" />
+    <None Include="src\gameName\README.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -102,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../include;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>

@@ -1,4 +1,5 @@
 #include "../../include/engine/Engine.h"
+#include "../../include/engine/State.h"
 #include <iostream>
 #include "../../include/engine/Sprite.h"
 #include "../../include/engine/AnimatedSprite.h"
@@ -51,11 +52,8 @@ void Engine::update() {
     deltaTime = currentTime - lastTime;
     lastTime = currentTime;
 
-    for (auto sprite : sprites) {
-        sprite->update();
-    }
-    for (auto animatedSprite : animatedSprites) {
-        animatedSprite->update(deltaTime);
+    if (!states.empty()) {
+        states.top()->update(deltaTime);
     }
 }
 
@@ -63,14 +61,8 @@ void Engine::render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
 
-    for (auto sprite : sprites) {
-        sprite->render();
-    }
-    for (auto animatedSprite : animatedSprites) {
-        animatedSprite->render();
-    }
-    for (auto text : texts) {
-        text->render();
+    if (!states.empty()) {
+        states.top()->render();
     }
 
     glutSwapBuffers();
@@ -93,4 +85,24 @@ void Engine::reshapeCallback(int width, int height) {
     glLoadIdentity();
     gluOrtho2D(0, width, height, 0);
     glMatrixMode(GL_MODELVIEW);
+}
+
+void Engine::pushState(State* state) {
+    states.push(state);
+    state->create();
+}
+
+void Engine::popState() {
+    if (!states.empty()) {
+        states.top()->destroy();
+        delete states.top();
+        states.pop();
+    }
+}
+
+void Engine::switchState(State* state) {
+    if (!states.empty()) {
+        popState();
+    }
+    pushState(state);
 }

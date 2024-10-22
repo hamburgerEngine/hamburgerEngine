@@ -2,9 +2,12 @@
 
 #include <GL/glut.h>
 #include <vector>
+#include <stack>
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
+
+class State;
 
 class Engine {
 public:
@@ -21,6 +24,10 @@ public:
     void addAnimatedSprite(AnimatedSprite* sprite) { animatedSprites.push_back(sprite); }
     void addText(Text* text) { texts.push_back(text); }
 
+    void pushState(State* state);
+    void popState();
+    void switchState(State* state);
+
 private:
     static Engine* instance;
     int windowWidth;
@@ -29,6 +36,7 @@ private:
     std::vector<AnimatedSprite*> animatedSprites;
     std::vector<Text*> texts;
     float deltaTime;
+    std::stack<State*> states;
 
     static void displayCallback();
     static void idleCallback();

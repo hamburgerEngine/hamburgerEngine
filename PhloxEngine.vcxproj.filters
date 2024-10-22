@@ -19,6 +19,18 @@
     <Filter Include="Header Files\engine">
       <UniqueIdentifier>{a4b7f3a0-adda-4c6a-8a1a-3e4572fa7b4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gameName">
+      <UniqueIdentifier>{e23485ee-5a11-4ca0-b082-3740f0eaa1f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gameName\states">
+      <UniqueIdentifier>{262f600e-ec94-4b1a-9acb-4b1aa523e5aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gameName">
+      <UniqueIdentifier>{ba577f1d-9564-426b-8fc0-8a313b39239d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gameName\states">
+      <UniqueIdentifier>{2c5557ae-b004-4e47-ac20-2ff526d868e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -39,6 +51,9 @@
     <ClCompile Include="src\stb_image_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\gameName\states\PlayState.cpp">
+      <Filter>Source Files\gameName\states</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Engine.h">
@@ -53,5 +68,19 @@
     <ClInclude Include="include\engine\AnimatedSprite.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="include\gameName\states\PlayState.h">
+      <Filter>Header Files\gameName\states</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\State.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\testgame\README.md">
+      <Filter>Header Files\gameName</Filter>
+    </None>
+    <None Include="src\gameName\README.md">
+      <Filter>Source Files\gameName</Filter>
+    </None>
   </ItemGroup>
 </Project>
