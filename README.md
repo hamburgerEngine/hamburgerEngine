@@ -2,8 +2,9 @@
 
 A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar to HaxeFlixel as possible.
 
-## Features
+This is all being done by one person so development may be slow.
 
+## TODO
 - [x] Sprites
 - [x] Text
 - [x] Spritesheets (png and xml (Sparrow V2))
@@ -11,6 +12,7 @@ A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar t
 - [x] Input
 - [ ] Groups
 - [ ] Events
+- [ ] GUI (Thinking about using imgui for this.)
 
 # Projects made with Phlox Engine:
 
