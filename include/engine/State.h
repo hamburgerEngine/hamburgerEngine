@@ -1,5 +1,7 @@
 #pragma once
-#include "Engine.h"
+#include <vector>
+
+class SubState;
 
 class State {
 public:
@@ -8,4 +10,12 @@ public:
     virtual void update(float deltaTime) = 0;
     virtual void render() = 0;
     virtual void destroy() = 0;
+
+    virtual void openSubState(SubState* subState);
+    virtual void closeSubState();
+    virtual void updateSubState(float deltaTime);
+    virtual void renderSubState();
+
+protected:
+    std::vector<SubState*> _subStates;
 };

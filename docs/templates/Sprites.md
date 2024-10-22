@@ -1,4 +1,6 @@
-Simple Image/BG Sprite:
+# Sprites
+
+## Simple Image/BG Sprite:
 ```cpp
     Sprite* testSprite = new Sprite("assets/images/placeholder.png"); // asset path
     testSprite->setPosition(100, 100); // position
@@ -6,7 +8,7 @@ Simple Image/BG Sprite:
     engine.addSprite(testSprite); // adds the sprite
 ```
 
-Sprite with Animation (Spritesheet and XML):
+## Sprite with Animation (Spritesheet and XML):
 ```cpp
     AnimatedSprite* testSprite = new AnimatedSprite();
     testSprite->setPosition(100, 100); // x pos, y pos

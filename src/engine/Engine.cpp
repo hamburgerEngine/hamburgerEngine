@@ -1,5 +1,7 @@
 #include "../../include/engine/Engine.h"
 #include "../../include/engine/State.h"
+#include "../../include/engine/SubState.h"
+#include "../../include/engine/Input.h"
 #include <iostream>
 #include "../../include/engine/Sprite.h"
 #include "../../include/engine/AnimatedSprite.h"
@@ -28,6 +30,9 @@ Engine::Engine(int width, int height, const char* title)
     // Enable alpha blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glutKeyboardFunc(Engine::keyboardCallback);
+    glutKeyboardUpFunc(Engine::keyboardUpCallback);
 }
 
 Engine::~Engine() {
@@ -52,6 +57,8 @@ void Engine::update() {
     deltaTime = currentTime - lastTime;
     lastTime = currentTime;
 
+    Input::getInstance().update();
+
     if (!states.empty()) {
         states.top()->update(deltaTime);
     }
@@ -69,11 +76,11 @@ void Engine::render() {
 }
 
 void Engine::displayCallback() {
+    instance->update();
     instance->render();
 }
 
 void Engine::idleCallback() {
-    instance->update();
     glutPostRedisplay();
 }
 
@@ -105,4 +112,21 @@ void Engine::switchState(State* state) {
         popState();
     }
     pushState(state);
+}
+
+void Engine::keyboardCallback(unsigned char key, int x, int y) {
+    Input::getInstance().keyPressed(key);
+}
+
+void Engine::keyboardUpCallback(unsigned char key, int x, int y) {
+    Input::getInstance().keyReleased(key);
+}
+
+void Engine::openSubState(SubState* subState) {
+    std::cout << "Engine::openSubState called" << std::endl;
+    if (!states.empty()) {
+        states.top()->openSubState(subState);
+    } else {
+        std::cout << "No states to open substate on" << std::endl;
+    }
 }

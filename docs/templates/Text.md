@@ -1,3 +1,5 @@
+# Text
+
 ```cpp
     Text* myText = new Text(100, 100, 500); // x,y,width
     myText->setText("Stay Funky FNF"); // text lol

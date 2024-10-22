@@ -8,6 +8,7 @@
 #include "Text.h"
 
 class State;
+class SubState;
 
 class Engine {
 public:
@@ -27,6 +28,10 @@ public:
     void pushState(State* state);
     void popState();
     void switchState(State* state);
+    void openSubState(SubState* subState);
+
+    static void keyboardCallback(unsigned char key, int x, int y);
+    static void keyboardUpCallback(unsigned char key, int x, int y);
 
 private:
     static Engine* instance;
@@ -41,4 +46,6 @@ private:
     static void displayCallback();
     static void idleCallback();
     static void reshapeCallback(int width, int height);
+    static void keyPressedCallback(unsigned char key, int x, int y);
+    static void keyReleasedCallback(unsigned char key, int x, int y);
 };
