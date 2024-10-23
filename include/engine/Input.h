@@ -2,6 +2,7 @@
 #include <map>
 #include <functional>
 #include <array>
+#include <string>
 
 class Input {
 public:
@@ -18,6 +19,8 @@ public:
     bool isKeyJustReleased(unsigned char key);
 
     void setCallback(const std::string& action, std::function<void()> callback);
+
+    std::string getActionForKey(unsigned char key);
 
 private:
     Input();
