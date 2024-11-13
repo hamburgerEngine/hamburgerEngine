@@ -4,6 +4,12 @@ A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar t
 
 This is all being done by one person so development may be slow.
 
+The required libraries are already included because I don't wanna keep redownloading them whenever I decide to reinstall Windows.
+
+# Bugs
+
+- x64 builds don't work.
+
 ## TODO
 - [x] Sprites
 - [x] Text
