@@ -6,6 +6,10 @@ This is all being done by one person so development may be slow.
 
 The required libraries are already included because I don't wanna keep redownloading them whenever I decide to reinstall Windows.
 
+# Building
+
+See [BUILDING.md](BUILDING.md) for more information.
+
 # Bugs
 
 - x64 builds don't work.
