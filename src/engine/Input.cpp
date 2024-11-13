@@ -2,7 +2,6 @@
 #include <iostream>
 #include <functional>
 #include <cctype>
-#include <string>
 
 Input::Input() {
     currentKeyState.fill(false);
@@ -54,15 +53,45 @@ bool Input::isKeyJustReleased(unsigned char key) {
 }
 
 void Input::handleKeyPress(unsigned char key) {
-    std::string action = getActionForKey(key);
-    if (!action.empty() && callbacks.count(action) > 0) {
+    std::string action;
+
+    if (std::isalpha(key)) {
+        action = "press_" + std::string(1, std::tolower(key));
+    } else if (std::isdigit(key)) {
+        action = "press_" + std::string(1, key);
+    } else {
+        switch (key) {
+            case ' ': action = "press_space"; break;
+            case 13: action = "press_enter"; break;
+            case 9: action = "press_tab"; break;
+            case 16: action = "press_shift"; break;
+            default: return;
+        }
+    }
+
+    if (callbacks.count(action) > 0) {
         callbacks[action]();
     }
 }
 
 void Input::handleKeyRelease(unsigned char key) {
-    std::string action = getActionForKey(key);
-    if (!action.empty() && callbacks.count(action) > 0) {
+    std::string action;
+
+    if (std::isalpha(key)) {
+        action = "release_" + std::string(1, std::tolower(key));
+    } else if (std::isdigit(key)) {
+        action = "release_" + std::string(1, key);
+    } else {
+        switch (key) {
+            case ' ': action = "release_space"; break;
+            case 13: action = "release_enter"; break;
+            case 9: action = "release_tab"; break;
+            case 16: action = "release_shift"; break;
+            default: return;
+        }
+    }
+
+    if (callbacks.count(action) > 0) {
         callbacks[action]();
     }
 }
@@ -70,9 +99,4 @@ void Input::handleKeyRelease(unsigned char key) {
 bool Input::isValidKey(unsigned char key) {
     return std::isalpha(key) || std::isdigit(key) || 
            key == ' ' || key == 13 || key == 9 || key == 16;
-}
-
-std::string Input::getActionForKey(unsigned char key) {
-    // placeholder go brr
-    return "";
 }
