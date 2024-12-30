@@ -24,6 +24,9 @@ public:
     const std::string& getText() const { return text; }
     void setFormat(const std::string& fontPath, int fontSize, unsigned int color);
     void render();
+    float getWidth() const { return width; }
+    void setPosition(float x, float y) { this->x = x; this->y = y; }
+    void update(float deltaTime) {} 
 
 private:
     float x, y, width;
