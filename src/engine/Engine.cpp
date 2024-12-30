@@ -109,7 +109,14 @@ void Engine::popState() {
 
 void Engine::switchState(State* state) {
     if (!states.empty()) {
-        popState();
+        State* oldState = states.top();
+        states.pop();
+        oldState->destroy();
+        delete oldState;
+        
+        sprites.clear();
+        animatedSprites.clear();
+        texts.clear();
     }
     pushState(state);
 }

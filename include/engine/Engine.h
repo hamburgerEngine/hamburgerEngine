@@ -38,6 +38,16 @@ public:
 
     State* getCurrentState() { return states.empty() ? nullptr : states.top(); }
 
+    void clearSprites() { sprites.clear(); }
+    void clearAnimatedSprites() { animatedSprites.clear(); }
+    void clearTexts() { texts.clear(); }
+    
+    void clearAllSprites() {
+        sprites.clear();
+        animatedSprites.clear();
+        texts.clear();
+    }
+
 private:
     static Engine* instance;
     int windowWidth;
