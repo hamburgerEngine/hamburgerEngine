@@ -33,6 +33,9 @@ public:
     static void keyboardCallback(unsigned char key, int x, int y);
     static void keyboardUpCallback(unsigned char key, int x, int y);
 
+    int getWindowWidth() const { return windowWidth; }
+    int getWindowHeight() const { return windowHeight; }
+
     State* getCurrentState() { return states.empty() ? nullptr : states.top(); }
 
 private:
