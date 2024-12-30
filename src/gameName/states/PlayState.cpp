@@ -51,6 +51,9 @@ void PlayState::render() {
 void PlayState::destroy() {
     delete backgroundSprite;
     delete playerSprite;
+
+    backgroundSprite = nullptr;
+    playerSprite = nullptr;
 }
 
 void PlayState::openSubState(SubState* subState) {
