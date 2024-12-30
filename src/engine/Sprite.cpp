@@ -3,23 +3,14 @@
 #include "../../include/thirdparty/stb_image.h"
 #include <iostream>
 
-Sprite::Sprite(const std::string& imagePath) : x(0), y(0), width(0), height(0), imageData(nullptr), textureID(0) {
-    loadTexture(imagePath);
-}
+Sprite::Sprite() : imagePath("") {}
 
-Sprite::~Sprite() {
-    if (imageData) {
-        stbi_image_free(imageData);
-    }
-    if (textureID != 0) {
-        glDeleteTextures(1, &textureID);
-    }
-}
+Sprite::Sprite(const std::string& path) : imagePath(path) {}
 
-void Sprite::update() {
-}
+Sprite::~Sprite() {}
 
 void Sprite::render() {
+    if (!visible) return;
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, textureID);
 

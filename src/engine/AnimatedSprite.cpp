@@ -6,18 +6,11 @@
 #include <sstream>
 #include <algorithm>
 
-AnimatedSprite::AnimatedSprite(const std::string& imagePath) : x(0), y(0), width(0), height(0), imageData(nullptr), textureID(0) {
-    loadTexture(imagePath);
-}
+AnimatedSprite::AnimatedSprite() : Sprite() {}
 
-AnimatedSprite::~AnimatedSprite() {
-    if (imageData) {
-        stbi_image_free(imageData);
-    }
-    if (textureID != 0) {
-        glDeleteTextures(1, &textureID);
-    }
-}
+AnimatedSprite::AnimatedSprite(const std::string& path) : Sprite(path) {}
+
+AnimatedSprite::~AnimatedSprite() {}
 
 void AnimatedSprite::update(float deltaTime) {
     if (currentAnimation) {
