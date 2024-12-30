@@ -13,32 +13,34 @@ AnimatedSprite::AnimatedSprite(const std::string& path) : Sprite(path) {}
 AnimatedSprite::~AnimatedSprite() {}
 
 void AnimatedSprite::update(float deltaTime) {
-    if (currentAnimation) {
-        frameTimer += deltaTime;
-        float frameDuration = 1.0f / currentAnimation->frameRate;
-        
-        while (frameTimer >= frameDuration) {
-            currentFrame++;
-            if (currentFrame >= currentAnimation->frames.size()) {
-                if (currentAnimation->loop) {
-                    currentFrame = 0;
-                } else {
-                    currentFrame = currentAnimation->frames.size() - 1;
-                }
+    if (!currentAnimation || !visible) {
+        return;
+    }
+
+    frameTimer += deltaTime;
+    float frameDuration = 1.0f / currentAnimation->frameRate;
+    
+    if (frameTimer >= frameDuration) {
+        currentFrame++;
+        if (currentFrame >= currentAnimation->frames.size()) {
+            if (currentAnimation->loop) {
+                currentFrame = 0; 
+            } else {
+                currentFrame = currentAnimation->frames.size() - 1; 
             }
-            frameTimer -= frameDuration;
         }
+        frameTimer -= frameDuration;
     }
 }
 
 void AnimatedSprite::render() {
-    if (!currentAnimation || currentAnimation->frames.empty()) {
-        std::cerr << "No current animation or animation has no frames" << std::endl;
+    if (!visible || !currentAnimation || currentAnimation->frames.empty()) {
         return;
     }
 
-    const Frame& frame = currentAnimation->frames[currentFrame];
-
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
@@ -46,21 +48,24 @@ void AnimatedSprite::render() {
     glTranslatef(x, y, 0);
     glScalef(scale.x, scale.y, 1.0f);
 
+    const Frame& frame = currentAnimation->frames[currentFrame];
+    
     float texLeft = (float)frame.x / width;
     float texRight = (float)(frame.x + frame.width) / width;
     float texTop = (float)frame.y / height;
     float texBottom = (float)(frame.y + frame.height) / height;
 
     glBegin(GL_QUADS);
-    glTexCoord2f(texLeft, texTop); glVertex2f(0, 0);
-    glTexCoord2f(texRight, texTop); glVertex2f(frame.width, 0);
+    glTexCoord2f(texLeft, texTop);    glVertex2f(0, 0);
+    glTexCoord2f(texRight, texTop);   glVertex2f(frame.width, 0);
     glTexCoord2f(texRight, texBottom); glVertex2f(frame.width, frame.height);
-    glTexCoord2f(texLeft, texBottom); glVertex2f(0, frame.height);
+    glTexCoord2f(texLeft, texBottom);  glVertex2f(0, frame.height);
     glEnd();
 
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND); 
 }
 
 void AnimatedSprite::loadTexture(const std::string& imagePath) {
@@ -85,8 +90,8 @@ void AnimatedSprite::loadTexture(const std::string& imagePath) {
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
