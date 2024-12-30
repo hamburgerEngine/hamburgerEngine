@@ -20,9 +20,8 @@ See [BUILDING.md](BUILDING.md) for more information.
 - [x] Spritesheets (png and xml (Sparrow V2))
 - [x] States and Substates
 - [x] Input
+- [x] Sound
 - [ ] Groups
-- [ ] Events
-- [ ] GUI (Thinking about using imgui for this.)
 
 # Projects made with Phlox Engine:
 

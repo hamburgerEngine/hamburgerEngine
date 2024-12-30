@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
+#include "SoundManager.h"
 
 class State;
 class SubState;
@@ -47,6 +48,8 @@ public:
         animatedSprites.clear();
         texts.clear();
     }
+
+    SoundManager& getSoundManager() { return SoundManager::getInstance(); }
 
 private:
     static Engine* instance;

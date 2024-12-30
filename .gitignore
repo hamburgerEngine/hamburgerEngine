@@ -4,3 +4,5 @@
 /.vs
 /enc_temp_folder
 /Release
+/external/libvorbis
+/external/ogg-master
