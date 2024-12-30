@@ -41,11 +41,16 @@ public:
 
     void setScale(float scaleX, float scaleY);
     void loadFrames(const std::string& imagePath, const std::string& xmlPath);
-    void addAnimation(const std::string& name, const std::string& prefix, int frameRate, bool loop);
+    void addAnimation(const std::string& name, const std::string& prefix, 
+                     int fps, bool loop = true);
+    void addAnimation(const std::string& name, const std::string& prefix, 
+                     const std::vector<int>& indices, int fps, bool loop = true);
     void playAnimation(const std::string& name);
 
     int getWidth() const { return width; }
     int getHeight() const { return height; }
+
+    void addAnimation(const std::string& name, const std::vector<std::string>& frameNames, int fps, bool loop = true);
 
 private:
     float x, y;

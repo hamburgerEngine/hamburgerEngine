@@ -150,29 +150,54 @@ void AnimatedSprite::parseXML(const std::string& xmlPath) {
     }
 }
 
-void AnimatedSprite::addAnimation(const std::string& name, const std::string& prefix, int frameRate, bool loop) {
-    Animation anim;
-    anim.name = name;
-    anim.frameRate = frameRate;
-    anim.loop = loop;
-
-    std::string prefixLower = prefix;
-    std::transform(prefixLower.begin(), prefixLower.end(), prefixLower.begin(), ::tolower);
+void AnimatedSprite::addAnimation(const std::string& name, const std::string& prefix, int fps, bool loop) {
+    Animation animation;
+    animation.name = name;
+    animation.frameRate = fps;
+    animation.loop = loop;
 
     for (const auto& pair : frames) {
-        std::string frameLower = pair.first;
-        std::transform(frameLower.begin(), frameLower.end(), frameLower.begin(), ::tolower);
-        
-        if (frameLower.find(prefixLower) != std::string::npos) {
-            anim.addFrame(pair.second);
+        if (pair.first.find(prefix) != std::string::npos) {
+            animation.addFrame(pair.second);
         }
     }
 
-    animations[name] = anim;
+    animations[name] = animation;
+}
+
+void AnimatedSprite::addAnimation(const std::string& name, const std::string& prefix, 
+                                const std::vector<int>& indices, int fps, bool loop) {
+    Animation animation;
+    animation.name = name;
+    animation.frameRate = fps;
+    animation.loop = loop;
+
+    for (int index : indices) {
+        std::string frameName = prefix + " " + std::to_string(index);
+        if (frames.find(frameName) != frames.end()) {
+            animation.addFrame(frames[frameName]);
+        }
+    }
+
+    animations[name] = animation;
+}
+
+void AnimatedSprite::addAnimation(const std::string& name, const std::vector<std::string>& frameNames, int fps, bool loop) {
+    Animation animation;
+    animation.name = name;
+    animation.frameRate = fps;
+    animation.loop = loop;
+
+    for (const auto& frameName : frameNames) {
+        if (frames.find(frameName) != frames.end()) {
+            animation.addFrame(frames[frameName]);
+        }
+    }
+
+    animations[name] = animation;
 }
 
 void AnimatedSprite::playAnimation(const std::string& name) {
-    std::cout << "Attempting to play animation: " << name << std::endl;
     auto it = animations.find(name);
     if (it != animations.end()) {
         currentAnimation = &it->second;
