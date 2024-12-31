@@ -15,6 +15,8 @@ public:
     virtual void closeSubState();
     virtual void updateSubState(float deltaTime);
     virtual void renderSubState();
+    virtual void keyPressed(unsigned char key, int x, int y) {}
+    virtual void specialKeyPressed(int key, int x, int y) {}
 
 protected:
     std::vector<SubState*> _subStates;

@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+class Camera;
+
 class Sprite {
 protected:
     bool visible = true;
@@ -10,6 +12,7 @@ protected:
     unsigned int textureID = 0;
     int width = 0;
     int height = 0;
+    Camera* camera = nullptr;  
 
 public:
     struct Scale {
@@ -41,6 +44,9 @@ public:
 
     void setVisible(bool visible) { this->visible = visible; }
     bool isVisible() const { return visible; }
+
+    void setCamera(Camera* cam) { camera = cam; }
+    Camera* getCamera() const { return camera; }
 
 protected:
     virtual void loadTexture(const std::string& imagePath);

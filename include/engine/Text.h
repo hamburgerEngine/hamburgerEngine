@@ -6,37 +6,41 @@
 #include <GL/glut.h>
 #include <map>
 
-struct Character {
-    GLuint TextureID;   // ID handle of the glyph texture
-    int Width;          // Width of glyph
-    int Height;         // Height of glyph
-    int BearingX;       // Offset from baseline to left of glyph
-    int BearingY;       // Offset from baseline to top of glyph
-    int Advance;        // Offset to advance to next glyph
-};
-
 class Text {
-public:
-    Text(float x, float y, float width);
-    ~Text();
+private:
+    struct FontCharacter {
+        GLuint textureID;
+        int width;
+        int height;
+        int bearingX;
+        int bearingY;
+        unsigned int advance;
+    };
 
-    void setText(const std::string& text);
-    const std::string& getText() const { return text; }
+public:
+    Text(float x = 0, float y = 0, int z = 0);
+    ~Text();
+    
     void setFormat(const std::string& fontPath, int fontSize, unsigned int color);
+    void setText(const std::string& text);
+    void setPosition(float x, float y);
+    void update(float deltaTime);
     void render();
+    
     float getWidth() const { return width; }
-    void setPosition(float x, float y) { this->x = x; this->y = y; }
-    void update(float deltaTime) {} 
+    float getHeight() const { return height; }
 
 private:
-    float x, y, width;
+    void loadFont(const std::string& fontPath);
+
+    std::map<char, FontCharacter> characters;
     std::string text;
-    std::string fontPath;
-    int fontSize;
+    float x;
+    float y;
+    float width;
+    float height;
     unsigned int color;
+    int fontSize;
     FT_Library ft;
     FT_Face face;
-    std::map<char, Character> Characters;
-
-    void loadFont();
 };

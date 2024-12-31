@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iostream>
 #include "Sprite.h"
 
 class AnimatedSprite : public Sprite {
@@ -35,6 +36,21 @@ public:
     void addAnimation(const std::string& name, const std::vector<std::string>& frameNames, int fps, bool loop = true);
     void playAnimation(const std::string& name);
 
+    bool hasAnimation(const std::string& name) const {
+        return animations.find(name) != animations.end();
+    }
+    
+    virtual void playAnim(const std::string& name, bool force = false);
+    
+    void setOffset(float x, float y) {
+        offsetX = x;
+        offsetY = y;
+    }
+    
+    void setFlipX(bool flip) {
+        scale.x = flip ? -1.0f : 1.0f;
+    }
+
 private:
     std::map<std::string, Frame> frames;
     std::map<std::string, Animation> animations;
@@ -44,4 +60,8 @@ private:
 
     void parseXML(const std::string& xmlPath);
     void loadTexture(const std::string& imagePath) override;
+
+protected:
+    float offsetX = 0;
+    float offsetY = 0;
 };

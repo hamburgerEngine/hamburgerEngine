@@ -1,5 +1,7 @@
 #include "../../include/engine/State.h"
 #include "../../include/engine/SubState.h"
+#include "../../include/engine/Engine.h"
+#include "../../include/engine/Sprite.h"
 #include <iostream>
 
 void State::openSubState(SubState* subState) {
@@ -29,5 +31,20 @@ void State::updateSubState(float deltaTime) {
 void State::renderSubState() {
     if (!_subStates.empty()) {
         _subStates.back()->render();
+    }
+}
+
+void State::update(float deltaTime) {
+    if (!_subStates.empty()) {
+        _subStates.back()->update(deltaTime);
+        return;
+    }
+
+    Engine* engine = Engine::getInstance();
+    for (Sprite* sprite : engine->getSprites()) {
+        if (sprite) sprite->update(deltaTime);
+    }
+    for (AnimatedSprite* sprite : engine->getAnimatedSprites()) {
+        if (sprite) sprite->update(deltaTime);
     }
 }

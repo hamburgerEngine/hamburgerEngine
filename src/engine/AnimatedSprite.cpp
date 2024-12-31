@@ -35,6 +35,9 @@ void AnimatedSprite::update(float deltaTime) {
 
 void AnimatedSprite::render() {
     if (!visible || !currentAnimation || currentAnimation->frames.empty()) {
+        if (!visible) std::cout << "Not visible" << std::endl;
+        if (!currentAnimation) std::cout << "No current animation" << std::endl;
+        if (currentAnimation && currentAnimation->frames.empty()) std::cout << "No frames in animation" << std::endl;
         return;
     }
 
@@ -45,7 +48,7 @@ void AnimatedSprite::render() {
     glBindTexture(GL_TEXTURE_2D, textureID);
 
     glPushMatrix();
-    glTranslatef(x, y, 0);
+    glTranslatef(x + offsetX, y + offsetY, 0);
     glScalef(scale.x, scale.y, 1.0f);
 
     const Frame& frame = currentAnimation->frames[currentFrame];
@@ -144,8 +147,10 @@ void AnimatedSprite::parseXML(const std::string& xmlPath) {
             }
             frames[frame.name] = frame;
             frameCount++;
+            std::cout << "Loaded frame: " << frame.name << std::endl;
         }
     }
+    std::cout << "Total frames loaded: " << frameCount << std::endl;
 }
 
 void AnimatedSprite::addAnimation(const std::string& name, const std::string& prefix, int fps, bool loop) {
@@ -154,12 +159,23 @@ void AnimatedSprite::addAnimation(const std::string& name, const std::string& pr
     animation.frameRate = fps;
     animation.loop = loop;
 
+    std::cout << "Adding animation '" << name << "' with prefix '" << prefix << "'" << std::endl;
+    
+    bool foundFrames = false;
     for (const auto& pair : frames) {
         if (pair.first.find(prefix) != std::string::npos) {
             animation.addFrame(pair.second);
+            foundFrames = true;
+            std::cout << "  Added frame: " << pair.first << std::endl;
         }
     }
 
+    if (!foundFrames) {
+        std::cerr << "Warning: No frames found for animation '" << name << "' with prefix '" << prefix << "'" << std::endl;
+        return; 
+    }
+
+    std::cout << "Total frames in animation: " << animation.frames.size() << std::endl;
     animations[name] = animation;
 }
 
@@ -201,6 +217,19 @@ void AnimatedSprite::playAnimation(const std::string& name) {
         currentAnimation = &it->second;
         currentFrame = 0;
         frameTimer = 0;
+    } else {
+        std::cerr << "Animation not found: " << name << std::endl;
+    }
+}
+
+void AnimatedSprite::playAnim(const std::string& name, bool force) {
+    auto it = animations.find(name);
+    if (it != animations.end()) {
+        if (force || currentAnimation != &it->second) {
+            currentAnimation = &it->second;
+            currentFrame = 0;
+            frameTimer = 0;
+        }
     } else {
         std::cerr << "Animation not found: " << name << std::endl;
     }

@@ -1,4 +1,5 @@
 #include "../../include/engine/Sprite.h"
+#include "../../include/engine/Camera.h"
 #include <GL/glut.h>
 #include "../../include/thirdparty/stb_image.h"
 #include <iostream>
@@ -11,11 +12,21 @@ Sprite::~Sprite() {}
 
 void Sprite::render() {
     if (!visible) return;
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
     glPushMatrix();
-    glTranslatef(x, y, 0);
+    
+    if (camera) {
+        glTranslatef(x, y, 0);
+    } else {
+        glTranslatef(x, y, 0);
+    }
+    
     glScalef(scale.x, scale.y, 1.0f);
 
     glBegin(GL_QUADS);
