@@ -10,10 +10,6 @@ The required libraries are already included because I don't wanna keep redownloa
 
 See [BUILDING.md](BUILDING.md) for more information.
 
-# Bugs
-
-- x64 builds don't work.
-
 ## TODO
 - [x] Sprites
 - [x] Text
