@@ -8,9 +8,6 @@ int main(int argc, char** argv) {
     PlayState* initialState = new PlayState();
     engine.pushState(initialState);
 
-    glutKeyboardFunc(PlayState::keyPressed);
-    glutSpecialFunc(PlayState::specialKeyPressed);
-
     engine.run();
     return 0;
 }

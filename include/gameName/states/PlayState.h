@@ -17,8 +17,8 @@ public:
 
     void openSubState(SubState* subState);
 
-    static void keyPressed(unsigned char key, int x, int y);
-    static void specialKeyPressed(int key, int x, int y);
+    virtual void keyPressed(unsigned char key, int x, int y) override;
+    virtual void specialKeyPressed(int key, int x, int y) override;
     static PlayState* instance;
 
 private:
