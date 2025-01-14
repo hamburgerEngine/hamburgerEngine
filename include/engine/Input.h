@@ -2,6 +2,7 @@
 #include <map>
 #include <functional>
 #include <array>
+#include <string>
 
 class Input {
 public:
