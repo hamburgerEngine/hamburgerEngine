@@ -128,7 +128,7 @@
       <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies the "assets" folder to the export.</Message>
+      <Message>Copies the asset folder to the export dir</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -151,6 +151,12 @@
       <AdditionalDependencies>freeglut.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies the assets folder to the export dir.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -166,6 +172,12 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freetype.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies the asset folder to the export dir</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -187,6 +199,12 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies the assets folder to the export dir.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
