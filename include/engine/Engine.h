@@ -69,4 +69,6 @@ private:
     static void reshapeCallback(int width, int height);
     static void keyPressedCallback(unsigned char key, int x, int y);
     static void keyReleasedCallback(unsigned char key, int x, int y);
+    static void specialKeyCallback(int key, int x, int y);
+    static void specialKeyUpCallback(int key, int x, int y);
 };

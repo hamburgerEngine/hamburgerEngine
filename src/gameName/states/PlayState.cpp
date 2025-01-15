@@ -1,5 +1,6 @@
 #include "../../../include/gameName/states/PlayState.h"
 #include "../../../include/engine/Engine.h"
+#include "../../../include/engine/Input.h"
 #include "../../../include/gameName/substates/PauseSubState.h"
 #include <iostream>
 
@@ -22,11 +23,13 @@ void PlayState::create() {
     playerSprite = new AnimatedSprite();
     playerSprite->setPosition(100, 100);
     playerSprite->loadFrames("assets/images/BOYFRIEND.png", "assets/images/BOYFRIEND.xml");
-    playerSprite->addAnimation("idle", "BF idle dance", 24, true);
-    playerSprite->addAnimation("up", "BF NOTE UP0", 24, false);
+    
+    playerSprite->addAnimation("idle", "BF idle dance0", 24, true);
+    playerSprite->addAnimation("up", "BF NOTE UP0", 24, true);
     playerSprite->addAnimation("down", "BF NOTE DOWN0", 24, true);
     playerSprite->addAnimation("left", "BF NOTE LEFT0", 24, true);   
     playerSprite->addAnimation("right", "BF NOTE RIGHT0", 24, true);
+    
     engine->addAnimatedSprite(playerSprite);
     playerSprite->playAnimation("idle");
 }
@@ -36,6 +39,18 @@ void PlayState::update(float deltaTime) {
         _subStates.back()->update(deltaTime);
     } else {
         playerSprite->update(deltaTime);
+        
+        if (Input::pressed(128)) {
+            playerSprite->playAnimation("up");
+        } else if (Input::pressed(129)) {
+            playerSprite->playAnimation("down");
+        } else if (Input::pressed(130)) {
+            playerSprite->playAnimation("left");
+        } else if (Input::pressed(131)) {
+            playerSprite->playAnimation("right");
+        } else {
+            playerSprite->playAnimation("idle");
+        }
     }
 }
 
@@ -71,30 +86,22 @@ void PlayState::keyPressed(unsigned char key, int x, int y) {
         }
     }
 
-    if (key == 'r')
-    {
+    if (key == 'r') {
         instance->playerSprite->playAnimation("idle");
     }
-
 }
 
 void PlayState::specialKeyPressed(int key, int x, int y) {
+    std::cout << "Special key pressed: " << key << std::endl;
+    
+    int mappedKey;
     switch(key) {
-        case GLUT_KEY_UP:
-            std::cout << "Up arrow pressed" << std::endl;
-            instance->playerSprite->playAnimation("up");
-            break;
-        case GLUT_KEY_DOWN:
-            std::cout << "Down arrow pressed" << std::endl;
-            instance->playerSprite->playAnimation("down");
-            break;
-        case GLUT_KEY_LEFT:
-            std::cout << "Left arrow pressed" << std::endl;
-            instance->playerSprite->playAnimation("left");
-            break;
-        case GLUT_KEY_RIGHT:
-            std::cout << "Right arrow pressed" << std::endl;
-            instance->playerSprite->playAnimation("right");
-            break;
+        case GLUT_KEY_UP:    mappedKey = 128; break;
+        case GLUT_KEY_DOWN:  mappedKey = 129; break;
+        case GLUT_KEY_LEFT:  mappedKey = 130; break;
+        case GLUT_KEY_RIGHT: mappedKey = 131; break;
+        default: return;
     }
+    
+    Input::handleKeyPress(mappedKey);
 }

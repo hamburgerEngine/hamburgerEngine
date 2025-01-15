@@ -33,6 +33,8 @@ Engine::Engine(int width, int height, const char* title)
 
     glutKeyboardFunc(Engine::keyboardCallback);
     glutKeyboardUpFunc(Engine::keyboardUpCallback);
+    glutSpecialFunc(Engine::specialKeyCallback);
+    glutSpecialUpFunc(Engine::specialKeyUpCallback);
 }
 
 Engine::~Engine() {
@@ -136,4 +138,22 @@ void Engine::openSubState(SubState* subState) {
     } else {
         std::cout << "No states to open substate on" << std::endl;
     }
+}
+
+void Engine::specialKeyCallback(int key, int x, int y) {
+    if (!instance->states.empty()) {
+        instance->states.top()->specialKeyPressed(key, x, y);
+    }
+}
+
+void Engine::specialKeyUpCallback(int key, int x, int y) {
+    int mappedKey;
+    switch(key) {
+        case GLUT_KEY_UP:    mappedKey = 128; break;
+        case GLUT_KEY_DOWN:  mappedKey = 129; break;
+        case GLUT_KEY_LEFT:  mappedKey = 130; break;
+        case GLUT_KEY_RIGHT: mappedKey = 131; break;
+        default: return;
+    }
+    Input::getInstance().keyReleased(mappedKey);
 }

@@ -159,23 +159,13 @@ void AnimatedSprite::addAnimation(const std::string& name, const std::string& pr
     animation.frameRate = fps;
     animation.loop = loop;
 
-    std::cout << "Adding animation '" << name << "' with prefix '" << prefix << "'" << std::endl;
-    
-    bool foundFrames = false;
     for (const auto& pair : frames) {
-        if (pair.first.find(prefix) != std::string::npos) {
+        if (pair.first.find(prefix) == 0) {
             animation.addFrame(pair.second);
-            foundFrames = true;
-            std::cout << "  Added frame: " << pair.first << std::endl;
         }
     }
 
-    if (!foundFrames) {
-        std::cerr << "Warning: No frames found for animation '" << name << "' with prefix '" << prefix << "'" << std::endl;
-        return; 
-    }
-
-    std::cout << "Total frames in animation: " << animation.frames.size() << std::endl;
+    std::cout << "Added animation '" << name << "' with " << animation.frames.size() << " frames" << std::endl;
     animations[name] = animation;
 }
 
@@ -214,9 +204,12 @@ void AnimatedSprite::addAnimation(const std::string& name, const std::vector<std
 void AnimatedSprite::playAnimation(const std::string& name) {
     auto it = animations.find(name);
     if (it != animations.end()) {
-        currentAnimation = &it->second;
-        currentFrame = 0;
-        frameTimer = 0;
+        if (!currentAnimation || currentAnimation->name != name) {
+            currentAnimation = &it->second;
+            currentFrame = 0;
+            frameTimer = 0;
+            std::cout << "Playing animation: " << name << " with " << currentAnimation->frames.size() << " frames" << std::endl;
+        }
     } else {
         std::cerr << "Animation not found: " << name << std::endl;
     }

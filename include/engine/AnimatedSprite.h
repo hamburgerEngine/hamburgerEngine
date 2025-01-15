@@ -51,6 +51,12 @@ public:
         scale.x = flip ? -1.0f : 1.0f;
     }
 
+    bool isAnimationPlaying() const {
+        return currentAnimation && 
+               (!currentAnimation->loop && 
+                currentFrame < currentAnimation->frames.size() - 1);
+    }
+
 private:
     std::map<std::string, Frame> frames;
     std::map<std::string, Animation> animations;
