@@ -1,3 +1,9 @@
+# Phlox Engine - Legacy Branch
+
+The Pre-Rewrite version of Phlox Engine!
+
+Um I recommend waiting for the rewrite but you can use this if you want I guess.
+
 # Phlox Engine
 
 A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar to HaxeFlixel as possible.
