@@ -1,8 +1,10 @@
-# Phlox Engine - Legacy Branch
+# Phlox Engine
 
-The Pre-Rewrite version of Phlox Engine!
+The uhh main version of Phlox Engine!
 
-Um I recommend waiting for the rewrite but you can use this if you want I guess.
+There is a rewrite in progress but it's on hold and it's NOWHERE near done!
+
+So use this version for now!!
 
 # Phlox Engine
 
