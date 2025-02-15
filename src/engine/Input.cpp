@@ -1,4 +1,4 @@
-#include "../../include/engine/Input.h"
+#include <Input.h>
 #include <iostream>
 #include <functional>
 #include <cctype>

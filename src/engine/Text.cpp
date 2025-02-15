@@ -1,4 +1,4 @@
-#include "../../include/engine/Text.h"
+#include <Text.h>
 #include <iostream>
 
 Text::Text(float x, float y, int z) 

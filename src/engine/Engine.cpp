@@ -1,11 +1,11 @@
-#include "../../include/engine/Engine.h"
-#include "../../include/engine/State.h"
-#include "../../include/engine/SubState.h"
-#include "../../include/engine/Input.h"
+#include <Engine.h>
+#include <State.h>
+#include <SubState.h>
+#include <Input.h>
 #include <iostream>
-#include "../../include/engine/Sprite.h"
-#include "../../include/engine/AnimatedSprite.h"
-#include "../../include/engine/Text.h"
+#include <Sprite.h>
+#include <AnimatedSprite.h>
+#include <Text.h>
 #include <algorithm>
 
 Engine* Engine::instance = nullptr;

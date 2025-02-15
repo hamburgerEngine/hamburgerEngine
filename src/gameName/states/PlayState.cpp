@@ -1,7 +1,7 @@
-#include "../../../include/gameName/states/PlayState.h"
-#include "../../../include/engine/Engine.h"
-#include "../../../include/engine/Input.h"
-#include "../../../include/gameName/substates/PauseSubState.h"
+#include <states/PlayState.h>
+#include <Engine.h>
+#include <Input.h>
+#include <substates/PauseSubState.h>
 #include <iostream>
 
 PlayState* PlayState::instance = nullptr;

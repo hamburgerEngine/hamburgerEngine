@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\AnimatedSprite.cpp" />
+    <ClCompile Include="src\engine\Discord.cpp" />
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\engine\Input.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
@@ -32,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\AnimatedSprite.h" />
+    <ClInclude Include="include\engine\Discord.h" />
     <ClInclude Include="include\engine\Engine.h" />
     <ClInclude Include="include\engine\Input.h" />
     <ClInclude Include="include\engine\Sprite.h" />
@@ -115,20 +117,23 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Ty\Documents\VS\PhloxEngine\external;../include;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;../external</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;C:\Users\Ty\Documents\VS\PhloxEngine\external;../include;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;../external;$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)lib\x32;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;freeglut.lib;%(AdditionalDependencies);discord-rpc.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
+      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y
+
+XCOPY "$(ProjectDir)external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
+</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies the asset folder to the export dir</Message>
+      <Message>copies shit</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,7 +145,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)external\discord-rpc\include;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,14 +153,17 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)lib\x32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freeglut.lib;freetype.lib;%(AdditionalDependencies);discord-rpc.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
+      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y
+
+XCOPY "$(ProjectDir)external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
+</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies the assets folder to the export dir.</Message>
+      <Message>copies shit</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -164,19 +172,22 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../external;../include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\PhloxEngine\external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;../external;../include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\PhloxEngine\external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)lib\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;freeglut.lib;%(AdditionalDependencies);discord-rpc.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
+      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y
+
+XCOPY "$(ProjectDir)external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
+</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies the asset folder to the export dir</Message>
+      <Message>copies shit</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -187,7 +198,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -197,13 +208,16 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freeglut.lib;freetype.lib;%(AdditionalDependencies);discord-rpc.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y</Command>
+      <Command>XCOPY "$(SolutionDir)assets" "$(TargetDir)\assets\" /E /Y
+
+XCOPY "$(ProjectDir)external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
+</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies the assets folder to the export dir.</Message>
+      <Message>copies shit</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

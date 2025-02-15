@@ -1,7 +1,7 @@
-#include "../../include/engine/State.h"
-#include "../../include/engine/SubState.h"
-#include "../../include/engine/Engine.h"
-#include "../../include/engine/Sprite.h"
+#include <State.h>
+#include <SubState.h>
+#include <Engine.h>
+#include <Sprite.h>
 #include <iostream>
 
 void State::openSubState(SubState* subState) {

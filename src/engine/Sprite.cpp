@@ -1,7 +1,7 @@
-#include "../../include/engine/Sprite.h"
-#include "../../include/engine/Camera.h"
+#include <Sprite.h>
+#include <Camera.h>
 #include <GL/glut.h>
-#include "../../include/thirdparty/stb_image.h"
+#include <stb_image.h>
 #include <iostream>
 
 Sprite::Sprite() : imagePath("") {}

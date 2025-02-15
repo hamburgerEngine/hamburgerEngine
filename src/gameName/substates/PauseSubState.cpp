@@ -1,6 +1,6 @@
-#include "../../../include/gameName/substates/PauseSubState.h"
-#include "../../../include/engine/Engine.h"
-#include "../../../include/engine/Input.h"
+#include <Engine.h>
+#include <Input.h>
+#include <substates/PauseSubState.h>
 #include <iostream>
 
 PauseSubState::PauseSubState() : pauseText(nullptr) {

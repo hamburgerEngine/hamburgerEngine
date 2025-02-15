@@ -69,6 +69,9 @@
     <ClCompile Include="src\engine\Input.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Discord.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Engine.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files\gameName\substates</Filter>
     </ClInclude>
     <ClInclude Include="include\engine\Input.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\Discord.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>

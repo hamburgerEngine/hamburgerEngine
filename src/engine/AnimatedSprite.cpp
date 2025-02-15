@@ -1,6 +1,6 @@
-#include "../../include/engine/AnimatedSprite.h"
+#include <AnimatedSprite.h>
 #include <GL/glut.h>
-#include "../../include/thirdparty/stb_image.h"
+#include <stb_image.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>

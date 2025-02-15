@@ -53,7 +53,6 @@ public:
 
     const std::vector<Sprite*>& getSprites() const { return sprites; }
     const std::vector<AnimatedSprite*>& getAnimatedSprites() const { return animatedSprites; }
-
 private:
     static Engine* instance;
     int windowWidth;
