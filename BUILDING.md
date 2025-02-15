@@ -1,6 +1,6 @@
 # How 2 build - Windows (Visual Studio)
 
-Install Visual Studio Community 2019 and make sure to install the "Desktop development with C++" workload.
+Install Visual Studio Community 2019 (or 2022) and make sure to install the "Desktop development with C++" workload.
 
 Double click on the PhloxEngine.sln file to open the project.
 
