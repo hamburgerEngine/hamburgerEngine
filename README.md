@@ -2,7 +2,7 @@
 
 The uhh main version of Phlox Engine!
 
-There is a rewrite in progress but it's on hold and it's NOWHERE near done!
+There is a rewrite in progress but it's NOWHERE near done!
 
 So use this version for now!!
 
