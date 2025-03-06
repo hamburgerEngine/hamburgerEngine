@@ -1,14 +1,12 @@
-# Phlox Engine
+# hamburgerEngine - Formally known as Phlox Engine
 
-The uhh main version of Phlox Engine!
+The uhh main version of hamburgerEngine!
 
 There is a rewrite in progress but it's NOWHERE near done!
 
 So use this version for now!!
 
-# Phlox Engine
-
-A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar to HaxeFlixel as possible.
+hamburgerEngine is a C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar to HaxeFlixel as possible.
 
 This is all being done by one person so development may be slow.
 
