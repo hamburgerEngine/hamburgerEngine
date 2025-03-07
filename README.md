@@ -1,14 +1,12 @@
-# Phlox Engine
+# hamburger engine - Formally known as Phlox Engine
 
-The uhh main version of Phlox Engine!
+The uhh main version of hamburger engine!
 
 There is a rewrite in progress but it's NOWHERE near done!
 
 So use this version for now!!
 
-# Phlox Engine
-
-A C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar to HaxeFlixel as possible.
+hamburger engine is a C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar to HaxeFlixel as possible.
 
 This is all being done by one person so development may be slow.
 
@@ -27,7 +25,7 @@ See [BUILDING.md](BUILDING.md) for more information.
 - [x] Sound
 - [ ] Groups
 
-# Projects made with Phlox Engine:
+# Projects made with hamburger engine:
 
 * [Flappy Bird PE](https://github.com/yophlox/FlappyBird-PE/tree/main) - A simple flappy bird port/clone. - By YoPhlox
 
