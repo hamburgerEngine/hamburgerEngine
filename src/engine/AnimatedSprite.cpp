@@ -24,9 +24,13 @@ void AnimatedSprite::update(float deltaTime) {
         currentFrame++;
         if (currentFrame >= currentAnimation->frames.size()) {
             if (currentAnimation->loop) {
-                currentFrame = 0; 
+                currentFrame = 0;
             } else {
-                currentFrame = currentAnimation->frames.size() - 1; 
+                currentFrame = currentAnimation->frames.size() - 1;
+                if (onAnimationFinished) {
+                    onAnimationFinished();
+                    onAnimationFinished = nullptr;
+                }
             }
         }
         frameTimer -= frameDuration;
@@ -214,13 +218,14 @@ void AnimatedSprite::playAnimation(const std::string& name) {
     }
 }
 
-void AnimatedSprite::playAnim(const std::string& name, bool force) {
+void AnimatedSprite::playAnim(const std::string& name, bool force, AnimationCallback callback) {
     auto it = animations.find(name);
     if (it != animations.end()) {
         if (force || currentAnimation != &it->second) {
             currentAnimation = &it->second;
             currentFrame = 0;
             frameTimer = 0;
+            onAnimationFinished = callback;
         }
     } else {
         std::cerr << "Animation not found: " << name << std::endl;

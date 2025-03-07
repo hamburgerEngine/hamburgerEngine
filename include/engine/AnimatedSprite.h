@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <functional>
 #include "Sprite.h"
 
 class AnimatedSprite : public Sprite {
@@ -40,8 +41,14 @@ public:
         return animations.find(name) != animations.end();
     }
     
-    virtual void playAnim(const std::string& name, bool force = false);
-    
+    using AnimationCallback = std::function<void()>;
+
+    void setAnimationFinishedCallback(AnimationCallback callback) {
+        onAnimationFinished = callback;
+    }
+
+    void playAnim(const std::string& name, bool force = false, AnimationCallback callback = nullptr);
+
     void setOffset(float x, float y) {
         offsetX = x;
         offsetY = y;
@@ -63,6 +70,7 @@ private:
     Animation* currentAnimation = nullptr;
     int currentFrame = 0;
     float frameTimer = 0;
+    AnimationCallback onAnimationFinished = nullptr;
 
     void parseXML(const std::string& xmlPath);
     void loadTexture(const std::string& imagePath) override;
