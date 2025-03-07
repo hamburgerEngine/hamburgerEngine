@@ -30,6 +30,9 @@ public:
     float getWidth() const { return width; }
     float getHeight() const { return height; }
 
+    void setVisible(bool visible) { isVisible = visible; }
+    bool getVisible() const { return isVisible; }
+
 private:
     void loadFont(const std::string& fontPath);
     float getLineHeight() const;
@@ -45,4 +48,5 @@ private:
     FT_Library ft;
     FT_Face face;
     float lineSpacing = 1.2f;
+    bool isVisible = true;
 };

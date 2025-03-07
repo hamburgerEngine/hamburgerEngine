@@ -98,6 +98,8 @@ float Text::getLineHeight() const {
 }
 
 void Text::render() {
+    if (!isVisible) return;
+    
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
