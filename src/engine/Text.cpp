@@ -93,6 +93,10 @@ void Text::loadFont(const std::string& fontPath) {
     }
 }
 
+float Text::getLineHeight() const {
+    return fontSize * lineSpacing;
+}
+
 void Text::render() {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -102,10 +106,17 @@ void Text::render() {
               ((color >> 8) & 0xFF) / 255.0f, 
               (color & 0xFF) / 255.0f);
 
-    float xpos = x;
-    float ypos = y + fontSize;
-
+    float startX = x;
+    float currentX = startX;
+    float currentY = y + fontSize;
+    
     for (unsigned char c : text) {
+        if (c == '\n') {
+            currentX = startX;
+            currentY += getLineHeight();
+            continue;
+        }
+
         auto it = characters.find(c);
         if (it == characters.end()) {
             std::cerr << "Character not found: " << c << std::endl;
@@ -114,8 +125,8 @@ void Text::render() {
 
         const FontCharacter& ch = it->second;
 
-        float charX = xpos + ch.bearingX;
-        float charY = ypos - ch.bearingY;
+        float charX = currentX + ch.bearingX;
+        float charY = currentY - ch.bearingY;
 
         float w = ch.width;
         float h = ch.height;
@@ -132,7 +143,7 @@ void Text::render() {
 
         glDisable(GL_TEXTURE_2D);
 
-        xpos += (ch.advance >> 6);
+        currentX += (ch.advance >> 6);
     }
 
     glDisable(GL_BLEND);
@@ -143,6 +154,4 @@ void Text::setPosition(float x, float y) {
     this->y = y;
 }
 
-void Text::update(float deltaTime) {
-    // Nothing to update for now
-}
+void Text::update(float deltaTime) {}

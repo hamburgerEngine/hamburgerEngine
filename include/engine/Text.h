@@ -32,6 +32,7 @@ public:
 
 private:
     void loadFont(const std::string& fontPath);
+    float getLineHeight() const;
 
     std::map<char, FontCharacter> characters;
     std::string text;
@@ -43,4 +44,5 @@ private:
     int fontSize;
     FT_Library ft;
     FT_Face face;
+    float lineSpacing = 1.2f;
 };
