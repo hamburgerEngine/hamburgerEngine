@@ -76,7 +76,7 @@ void PlayState::openSubState(SubState* subState) {
     State::openSubState(subState);
 }
 
-void PlayState::keyPressed(unsigned char key, int x, int y) {
+void PlayState::keyPressed(unsigned char key) {
     if (key == 'p') {
         if (instance->_subStates.empty()) {
             PauseSubState* pauseSubState = new PauseSubState();

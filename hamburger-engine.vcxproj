@@ -51,7 +51,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{5a886f09-1c65-46c3-9677-0e8c65b210a2}</ProjectGuid>
-    <RootNamespace>PhloxEngine</RootNamespace>
+    <RootNamespace>hamburger-engine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -101,15 +101,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>HamburgerEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>HamburgerEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>HamburgerEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>HamburgerEngine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;C:\Users\Ty\Documents\VS\PhloxEngine\external;../include;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;../external;$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;../include;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;../external;$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -172,7 +176,7 @@ XCOPY "$(ProjectDir)external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;../external;../include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\PhloxEngine\external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;../external;../include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
