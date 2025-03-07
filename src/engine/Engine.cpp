@@ -126,7 +126,9 @@ void Engine::switchState(State* state) {
 }
 
 void Engine::keyboardCallback(unsigned char key, int x, int y) {
-    Input::getInstance().keyPressed(key);
+    if (!instance->states.empty()) {
+        instance->states.top()->keyPressed(key);
+    }
 }
 
 void Engine::keyboardUpCallback(unsigned char key, int x, int y) {
