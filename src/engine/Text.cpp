@@ -1,5 +1,10 @@
+#ifdef __MINGW32__
+#include "engine/Text.h"
+#include <iostream>
+#else
 #include <Text.h>
 #include <iostream>
+#endif
 
 Text::Text(float x, float y, int z) 
     : x(x), 

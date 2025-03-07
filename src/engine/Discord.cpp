@@ -1,3 +1,5 @@
+#ifndef __MINGW32__
+
 #include "Discord.h"
 #include <time.h>
 #include <chrono>
@@ -59,3 +61,5 @@ void Discord::Update()
 	Discord_UpdatePresence(&discordPresence);
 	Discord_RunCallbacks();
 }
+
+#endif // __MINGW32__

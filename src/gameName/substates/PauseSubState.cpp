@@ -1,7 +1,14 @@
+#ifdef __MINGW32__
+#include "gameName/substates/PauseSubState.h"
+#include "engine/Engine.h"
+#include "engine/Input.h"
+#include <iostream>
+#else
+#include <substates/PauseSubState.h>
 #include <Engine.h>
 #include <Input.h>
-#include <substates/PauseSubState.h>
 #include <iostream>
+#endif
 
 PauseSubState::PauseSubState() : pauseText(nullptr) {
 }

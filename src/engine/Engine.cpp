@@ -1,3 +1,13 @@
+#ifdef __MINGW32__
+#include "engine/Engine.h"
+#include "engine/State.h"
+#include "engine/SubState.h"
+#include "engine/Input.h"
+#include <iostream>
+#include "engine/Sprite.h"
+#include "engine/AnimatedSprite.h"
+#include "engine/Text.h"
+#else
 #include <Engine.h>
 #include <State.h>
 #include <SubState.h>
@@ -7,6 +17,7 @@
 #include <AnimatedSprite.h>
 #include <Text.h>
 #include <algorithm>
+#endif
 
 Engine* Engine::instance = nullptr;
 

@@ -1,6 +1,11 @@
+#ifdef __MINGW32__
+#include "engine/AnimatedSprite.h"
+#include "thirdparty/stb_image.h"
+#else
 #include <AnimatedSprite.h>
-#include <GL/glut.h>
 #include <stb_image.h>
+#endif
+#include <GL/glut.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>

@@ -1,4 +1,7 @@
 #pragma once
+
+#ifndef __MINGW32__
+
 #include <discord_register.h> 
 #include <discord_rpc.h> 
 #include <Windows.h> 
@@ -33,3 +36,5 @@ private:
 	const char* currentSmallImageKey = "";
 	const char* currentSmallImageText = "";
 };
+
+#endif // __MINGW32__

@@ -1,4 +1,8 @@
+#ifdef __MINGW32__
+#include "engine/Input.h"
+#else
 #include <Input.h>
+#endif
 #include <iostream>
 #include <functional>
 #include <cctype>

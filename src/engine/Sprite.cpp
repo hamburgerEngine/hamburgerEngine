@@ -1,8 +1,16 @@
+#ifdef __MINGW32__
+#include "engine/Sprite.h"
+#include "engine/Camera.h"
+#include <GL/glut.h>
+#include "thirdparty/stb_image.h"
+#include <iostream>
+#else
 #include <Sprite.h>
 #include <Camera.h>
 #include <GL/glut.h>
 #include <stb_image.h>
 #include <iostream>
+#endif
 
 Sprite::Sprite() 
     : imagePath("")

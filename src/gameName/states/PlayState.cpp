@@ -1,7 +1,14 @@
+#ifdef __MINGW32__
+#include "gameName/states/PlayState.h"
+#include "engine/Engine.h"
+#include "engine/Input.h"
+#include "gameName/substates/PauseSubState.h"
+#else
 #include <states/PlayState.h>
 #include <Engine.h>
 #include <Input.h>
 #include <substates/PauseSubState.h>
+#endif
 #include <iostream>
 
 PlayState* PlayState::instance = nullptr;
