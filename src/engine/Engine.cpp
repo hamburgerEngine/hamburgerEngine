@@ -64,6 +64,8 @@ void Engine::update() {
     if (!states.empty()) {
         states.top()->update(deltaTime);
     }
+
+    updateTimeouts(deltaTime);
 }
 
 void Engine::render() {
@@ -156,4 +158,23 @@ void Engine::specialKeyUpCallback(int key, int x, int y) {
         default: return;
     }
     Input::getInstance().keyReleased(mappedKey);
+}
+
+void Engine::setTimeout(std::function<void()> callback, float seconds) {
+    Timeout timeout;
+    timeout.callback = callback;
+    timeout.remainingTime = seconds;
+    timeouts.push_back(timeout);
+}
+
+void Engine::updateTimeouts(float deltaTime) {
+    for (auto it = timeouts.begin(); it != timeouts.end();) {
+        it->remainingTime -= deltaTime;
+        if (it->remainingTime <= 0) {
+            it->callback();
+            it = timeouts.erase(it);
+        } else {
+            ++it;
+        }
+    }
 }

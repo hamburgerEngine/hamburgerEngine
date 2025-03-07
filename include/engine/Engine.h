@@ -7,6 +7,7 @@
 #include "AnimatedSprite.h"
 #include "Text.h"
 #include "SoundManager.h"
+#include <functional>
 
 class State;
 class SubState;
@@ -53,6 +54,10 @@ public:
 
     const std::vector<Sprite*>& getSprites() const { return sprites; }
     const std::vector<AnimatedSprite*>& getAnimatedSprites() const { return animatedSprites; }
+
+    void setTimeout(std::function<void()> callback, float seconds);
+    void updateTimeouts(float deltaTime);
+
 private:
     static Engine* instance;
     int windowWidth;
@@ -62,6 +67,12 @@ private:
     std::vector<Text*> texts;
     float deltaTime;
     std::stack<State*> states;
+
+    struct Timeout {
+        std::function<void()> callback;
+        float remainingTime;
+    };
+    std::vector<Timeout> timeouts;
 
     static void displayCallback();
     static void idleCallback();

@@ -23,3 +23,7 @@ Release/PhloxEngine.vcxproj.FileListAbsolute.txt
 *.ilk
 *.txt
 /x64
+/Debug
+/assets
+/src/funkin
+/src/antilogic

@@ -35,7 +35,6 @@ void AnimatedSprite::update(float deltaTime) {
 
 void AnimatedSprite::render() {
     if (!visible || !currentAnimation || currentAnimation->frames.empty()) {
-        if (!visible) std::cout << "Not visible" << std::endl;
         if (!currentAnimation) std::cout << "No current animation" << std::endl;
         if (currentAnimation && currentAnimation->frames.empty()) std::cout << "No frames in animation" << std::endl;
         return;

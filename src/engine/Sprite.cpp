@@ -4,14 +4,32 @@
 #include <stb_image.h>
 #include <iostream>
 
-Sprite::Sprite() : imagePath("") {}
+Sprite::Sprite() 
+    : imagePath("")
+    , visible(true)  
+{
+}
 
-Sprite::Sprite(const std::string& path) : imagePath(path) {}
+Sprite::Sprite(const std::string& path) 
+    : imagePath(path)
+    , visible(true)
+{
+    loadTexture(path);  
+}
 
-Sprite::~Sprite() {}
+Sprite::~Sprite() {
+    if (imageData) {
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    if (textureID) {
+        glDeleteTextures(1, &textureID);
+        textureID = 0;
+    }
+}
 
 void Sprite::render() {
-    if (!visible) return;
+    if (!visible) return; 
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
