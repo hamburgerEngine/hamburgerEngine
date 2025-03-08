@@ -87,9 +87,6 @@
     <ClCompile Include="src\engine\ogmo\Project.cpp">
       <Filter>Source Files\engine\ogmo</Filter>
     </ClCompile>
-    <ClCompile Include="src\engine\ogmo\Types.cpp">
-      <Filter>Source Files\engine\ogmo</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Engine.h">

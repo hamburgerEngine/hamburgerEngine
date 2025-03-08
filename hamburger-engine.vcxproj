@@ -26,7 +26,6 @@
     <ClCompile Include="src\engine\ogmo\Ext.cpp" />
     <ClCompile Include="src\engine\ogmo\Level.cpp" />
     <ClCompile Include="src\engine\ogmo\Project.cpp" />
-    <ClCompile Include="src\engine\ogmo\Types.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
     <ClCompile Include="src\engine\State.cpp" />
     <ClCompile Include="src\engine\Text.cpp" />
