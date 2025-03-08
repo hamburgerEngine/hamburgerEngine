@@ -37,6 +37,12 @@
     <Filter Include="Source Files\gameName\substates">
       <UniqueIdentifier>{f02ac184-10e5-47fe-ab75-06c67b692d7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\ogmo">
+      <UniqueIdentifier>{250fe3f2-7328-4adf-941e-384731bc5b0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\ogmo">
+      <UniqueIdentifier>{a71ccaa2-66c5-4321-b09d-8fc9d5c5004c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -72,6 +78,18 @@
     <ClCompile Include="src\engine\Discord.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\ogmo\Ext.cpp">
+      <Filter>Source Files\engine\ogmo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\ogmo\Level.cpp">
+      <Filter>Source Files\engine\ogmo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\ogmo\Project.cpp">
+      <Filter>Source Files\engine\ogmo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\ogmo\Types.cpp">
+      <Filter>Source Files\engine\ogmo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\engine\Engine.h">
@@ -103,6 +121,18 @@
     </ClInclude>
     <ClInclude Include="include\engine\Discord.h">
       <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\ogmo\Ext.h">
+      <Filter>Header Files\engine\ogmo</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\ogmo\Level.h">
+      <Filter>Header Files\engine\ogmo</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\ogmo\Project.h">
+      <Filter>Header Files\engine\ogmo</Filter>
+    </ClInclude>
+    <ClInclude Include="include\engine\ogmo\Types.h">
+      <Filter>Header Files\engine\ogmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

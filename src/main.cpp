@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     Discord::GetInstance().Update();
     #endif
     
-    Engine engine(800, 600, "Phlox Engine");
+    Engine engine(800, 600, "hamburger engine");
     PlayState* initialState = new PlayState();
     engine.pushState(initialState);
     

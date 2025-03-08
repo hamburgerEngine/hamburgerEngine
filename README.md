@@ -23,7 +23,6 @@ See [BUILDING.md](BUILDING.md) for more information.
 - [x] States and Substates
 - [x] Input
 - [x] Sound
-- [ ] Groups
 
 # Projects made with hamburger engine:
 
