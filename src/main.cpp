@@ -13,13 +13,13 @@ int main(int argc, char** argv) {
     #ifdef __MINGW32__
     // nun
     #else
-    Discord::GetInstance().Initialize("1155959383625318492");    
-    Discord::GetInstance().SetState("Phlox Engine");
-    Discord::GetInstance().SetDetails("Busss...");
-    Discord::GetInstance().SetLargeImage("icon");
-    Discord::GetInstance().SetLargeImageText("Phlox Engine by YoPhlox");
-    Discord::GetInstance().SetSmallImage("tetosigma");
-    Discord::GetInstance().SetSmallImageText("I feel so sigma!");    
+    Discord::GetInstance().Initialize("1347011960088035368");    
+    Discord::GetInstance().SetState("hamburger engine");
+    Discord::GetInstance().SetDetails("Probably Testing Stuff!");
+    Discord::GetInstance().SetLargeImage("hamburger");
+    Discord::GetInstance().SetLargeImageText("hamburger engine by YoPhlox & MaybeKoi");
+    Discord::GetInstance().SetSmallImage("miku");
+    Discord::GetInstance().SetSmallImageText("HOLY SHIT IS THAT HATSUNE MIKU!?");    
     Discord::GetInstance().Update();
     #endif
     
