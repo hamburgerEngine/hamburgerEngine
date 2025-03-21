@@ -18,7 +18,7 @@ The required libraries are already included because I don't wanna keep redownloa
 - [x] Sprites
 - [x] Text
 - [x] Spritesheets (png and xml (Sparrow V2))
-- [x] States and Substates
+- [ ] States and Substates
 - [ ] Input
 - [ ] Sound
 - [ ] Groups
