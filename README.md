@@ -28,6 +28,8 @@ See [BUILDING.md](BUILDING.md) for more information.
 
 * [Flappy Bird PE](https://github.com/yophlox/FlappyBird-PE/tree/main) - A simple flappy bird port/clone. - By YoPhlox
 
+* [Anti-Logic HE](https://github.com/maybekoi/AntiLogic-Git/tree/he-port) - A recreation of my monthly game (that I made for newgrounds)!
+
 # REQUIREMENTS
 
 - [stb_image](https://github.com/nothings/stb)
