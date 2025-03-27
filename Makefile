@@ -9,10 +9,11 @@ BIN_DIR = bin
 		  
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp) \
           $(wildcard $(SRC_DIR)/engine/*.cpp) \
+		  $(wildcard $(SRC_DIR)/engine/ogmo/*.cpp) \
           $(wildcard $(SRC_DIR)/states/*.cpp) \
 		  $(wildcard $(SRC_DIR)/gameName/*.cpp) \
 		  $(wildcard $(SRC_DIR)/gameName/states/*.cpp) \
-		  $(wildcard $(SRC_DIR)/gameName/substates/*.cpp) 
+		  $(wildcard $(SRC_DIR)/gameName/substates/*.cpp) \
 
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SOURCES))
 

@@ -2,6 +2,8 @@
 #include "../../engine/State.h"
 #include "../../engine/Sprite.h"
 #include "../../engine/AnimatedSprite.h"
+#include "../../engine/ogmo/Project.h"
+#include "../../engine/ogmo/Level.h"
 
 void playStateKeyboardCallback(unsigned char key, int x, int y);
 
@@ -22,6 +24,13 @@ public:
     static PlayState* instance;
 
 private:
+    void loadLevel(const std::string& levelPath);
+    void handleTileLayer(const std::vector<int>& tiles, const ogmo::LayerDefinition& layer);
+    void handleEntityLayer(const std::vector<ogmo::EntityDefinition>& entities, const ogmo::LayerDefinition& layer);
+
     Sprite* backgroundSprite;
-    AnimatedSprite* playerSprite;
+    
+    ogmo::Project project;
+    ogmo::Level level;
+    std::vector<Sprite*> levelSprites; // To store level tiles/entities
 };
