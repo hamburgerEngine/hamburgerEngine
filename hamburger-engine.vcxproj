@@ -23,9 +23,6 @@
     <ClCompile Include="src\engine\Discord.cpp" />
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\engine\Input.cpp" />
-    <ClCompile Include="src\engine\ogmo\Ext.cpp" />
-    <ClCompile Include="src\engine\ogmo\Level.cpp" />
-    <ClCompile Include="src\engine\ogmo\Project.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
     <ClCompile Include="src\engine\State.cpp" />
     <ClCompile Include="src\engine\Text.cpp" />
@@ -39,10 +36,6 @@
     <ClInclude Include="include\engine\Discord.h" />
     <ClInclude Include="include\engine\Engine.h" />
     <ClInclude Include="include\engine\Input.h" />
-    <ClInclude Include="include\engine\ogmo\Ext.h" />
-    <ClInclude Include="include\engine\ogmo\Level.h" />
-    <ClInclude Include="include\engine\ogmo\Project.h" />
-    <ClInclude Include="include\engine\ogmo\Types.h" />
     <ClInclude Include="include\engine\Sprite.h" />
     <ClInclude Include="include\engine\State.h" />
     <ClInclude Include="include\engine\SubState.h" />
@@ -129,7 +122,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;../include;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;../external;$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +148,7 @@ XCOPY "$(ProjectDir)external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)external\discord-rpc\include;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -184,7 +177,6 @@ XCOPY "$(ProjectDir)external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;../external;../include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -211,7 +203,7 @@ XCOPY "$(ProjectDir)external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
