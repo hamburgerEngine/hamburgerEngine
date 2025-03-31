@@ -32,20 +32,22 @@
     <ClCompile Include="src\stb_image_impl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\engine\AnimatedSprite.h" />
-    <ClInclude Include="include\engine\Discord.h" />
-    <ClInclude Include="include\engine\Engine.h" />
-    <ClInclude Include="include\engine\Input.h" />
-    <ClInclude Include="include\engine\Sprite.h" />
-    <ClInclude Include="include\engine\State.h" />
-    <ClInclude Include="include\engine\SubState.h" />
-    <ClInclude Include="include\engine\Text.h" />
-    <ClInclude Include="include\gameName\states\PlayState.h" />
-    <ClInclude Include="include\gameName\substates\PauseSubState.h" />
+    <None Include="src\gameName\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="include\testgame\README.md" />
-    <None Include="src\gameName\README.md" />
+    <ClInclude Include="src\engine\AnimatedSprite.h" />
+    <ClInclude Include="src\engine\Camera.h" />
+    <ClInclude Include="src\engine\Discord.h" />
+    <ClInclude Include="src\engine\Engine.h" />
+    <ClInclude Include="src\engine\Input.h" />
+    <ClInclude Include="src\engine\Sound.h" />
+    <ClInclude Include="src\engine\SoundManager.h" />
+    <ClInclude Include="src\engine\Sprite.h" />
+    <ClInclude Include="src\engine\State.h" />
+    <ClInclude Include="src\engine\SubState.h" />
+    <ClInclude Include="src\engine\Text.h" />
+    <ClInclude Include="src\gameName\states\PlayState.h" />
+    <ClInclude Include="src\gameName\substates\PauseSubState.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -121,7 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;../include;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;../external;$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;../src;C:\LIBS\freetype-2.13.3\include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;$(ProjectDir)external;$(ProjectDir)src\gameName;$(ProjectDir)src\thirdparty;$(ProjectDir)src\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -149,7 +151,7 @@ XCOPY "$(ProjectDir)external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)external\discord-rpc\include;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)src\thirdparty;$(ProjectDir)external\discord-rpc\include;$(ProjectDir)src\engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -176,7 +178,7 @@ XCOPY "$(ProjectDir)external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;../external;../include;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;$(ProjectDir)external;../src;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;%(AdditionalIncludeDirectories);$(ProjectDir)src\gameName;$(ProjectDir)src\thirdparty;$(ProjectDir)src\engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -202,7 +204,7 @@ XCOPY "$(ProjectDir)external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;$(ProjectDir)include;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)include\gameName;$(ProjectDir)include\thirdparty;$(ProjectDir)include\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\discord-rpc\include;$(ProjectDir)src;$(ProjectDir)external;%(AdditionalIncludeDirectories);$(ProjectDir)src\gameName;$(ProjectDir)src\thirdparty;$(ProjectDir)src\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>

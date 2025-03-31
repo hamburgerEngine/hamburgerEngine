@@ -74,43 +74,49 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\engine\Engine.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\Sprite.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\Text.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\AnimatedSprite.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gameName\states\PlayState.h">
-      <Filter>Header Files\gameName\states</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\State.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\SubState.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gameName\substates\PauseSubState.h">
-      <Filter>Header Files\gameName\substates</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\Input.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine\Discord.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\testgame\README.md">
-      <Filter>Header Files\gameName</Filter>
-    </None>
     <None Include="src\gameName\README.md">
       <Filter>Source Files\gameName</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\engine\AnimatedSprite.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Camera.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Discord.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Engine.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Input.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Sound.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\SoundManager.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Sprite.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\State.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\SubState.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\Text.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameName\states\PlayState.h">
+      <Filter>Header Files\gameName\states</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameName\substates\PauseSubState.h">
+      <Filter>Header Files\gameName\substates</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
