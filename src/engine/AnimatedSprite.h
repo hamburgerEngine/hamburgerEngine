@@ -64,6 +64,19 @@ public:
                 currentFrame < currentAnimation->frames.size() - 1);
     }
 
+    float alpha = 1.0f;
+    void updateHitbox() {
+        if (currentAnimation && !currentAnimation->frames.empty()) {
+            const Frame& frame = currentAnimation->frames[currentFrame];
+            width = frame.width;
+            height = frame.height;
+        }
+    }
+
+    const std::string& getCurrentAnimation() const {
+        return currentAnimation ? currentAnimation->name : "";
+    }
+
 private:
     std::map<std::string, Frame> frames;
     std::map<std::string, Animation> animations;

@@ -58,6 +58,8 @@ public:
     void setTimeout(std::function<void()> callback, float seconds);
     void updateTimeouts(float deltaTime);
 
+    float getCurrentTime() const { return glutGet(GLUT_ELAPSED_TIME) / 1000.0f; }
+
 private:
     static Engine* instance;
     int windowWidth;
