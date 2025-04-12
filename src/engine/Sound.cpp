@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "../../include/engine/Sound.h"
+#include "Sound.h"
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <iostream>

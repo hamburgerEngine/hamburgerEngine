@@ -1,5 +1,8 @@
 #ifdef __MINGW32__
-#include "engine/Text.h"
+#include "Text.h"
+#include <iostream>
+#elif defined(__SWITCH__)
+#include "Text.h"
 #include <iostream>
 #else
 #include <Text.h>

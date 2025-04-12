@@ -1,8 +1,14 @@
 #ifdef __MINGW32__
-#include "engine/State.h"
-#include "engine/SubState.h"
-#include "engine/Engine.h"
-#include "engine/Sprite.h"
+#include "State.h"
+#include "SubState.h"
+#include "Engine.h"
+#include "Sprite.h"
+#include <iostream>
+#elif defined(__SWITCH__)
+#include "State.h"
+#include "SubState.h"
+#include "Engine.h"
+#include "Sprite.h"
 #include <iostream>
 #else
 #include <State.h>

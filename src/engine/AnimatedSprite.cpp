@@ -1,6 +1,9 @@
 #ifdef __MINGW32__
-#include "engine/AnimatedSprite.h"
-#include "thirdparty/stb_image.h"
+#include "AnimatedSprite.h"
+#include "../thirdparty/stb_image.h"
+#elif defined(__SWITCH__)
+#include "AnimatedSprite.h"
+#include "../thirdparty/stb_image.h"
 #else
 #include <AnimatedSprite.h>
 #include <stb_image.h>

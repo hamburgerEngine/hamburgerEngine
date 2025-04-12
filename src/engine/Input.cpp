@@ -1,5 +1,7 @@
 #ifdef __MINGW32__
-#include "engine/Input.h"
+#include "Input.h"
+#elif defined(__SWITCH__)
+#include "Input.h"
 #else
 #include <Input.h>
 #endif

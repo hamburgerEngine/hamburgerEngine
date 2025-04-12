@@ -1,6 +1,9 @@
 #ifdef __MINGW32__
 #include "engine/Engine.h"
 #include "gameName/states/PlayState.h"
+#elif defined(__SWITCH__)
+#include "engine/Engine.h"
+#include "gameName/states/PlayState.h"
 #else
 #include <Engine.h>
 #include <states/PlayState.h>
@@ -11,6 +14,8 @@
 
 int main(int argc, char** argv) {
     #ifdef __MINGW32__
+    // nun
+    #elif defined(__SWITCH__)
     // nun
     #else
     Discord::GetInstance().Initialize("1347011960088035368");    
@@ -30,6 +35,8 @@ int main(int argc, char** argv) {
     engine.run();
     
     #ifdef __MINGW32__
+    // nun
+    #elif defined(__SWITCH__)
     // nun
     #else
     Discord::GetInstance().Shutdown();

@@ -29,3 +29,4 @@ Release/PhloxEngine.vcxproj.FileListAbsolute.txt
 /src/antilogic
 /bin
 /hamburger-engine/Debug/microsoft
+*.o

@@ -1,6 +1,12 @@
 #ifdef __MINGW32__
-#include "engine/Sprite.h"
-#include "engine/Camera.h"
+#include "Sprite.h"
+#include "Camera.h"
+#include <GL/glut.h>
+#include "thirdparty/stb_image.h"
+#include <iostream>
+#elif defined(__SWITCH__)
+#include "Sprite.h"
+#include "Camera.h"
 #include <GL/glut.h>
 #include "thirdparty/stb_image.h"
 #include <iostream>
