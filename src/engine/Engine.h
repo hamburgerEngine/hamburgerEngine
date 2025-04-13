@@ -7,6 +7,7 @@
 #include "Text.h"
 #include "SoundManager.h"
 #include "SDLManager.h"
+#include "DebugUI.h"
 #include <functional>
 
 class State;
@@ -58,6 +59,8 @@ public:
 
     float getCurrentTime() const { return SDL_GetTicks() / 1000.0f; }
 
+    bool debugMode;
+
 private:
     static Engine* instance;
     int windowWidth;
@@ -70,6 +73,7 @@ private:
     bool running;
     int fps;
     int frameDelay;
+    DebugUI* debugUI;
 
     struct Timeout {
         std::function<void()> callback;

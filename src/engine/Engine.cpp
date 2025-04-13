@@ -40,6 +40,9 @@ Engine::Engine(int width, int height, const char* title, int fps)
     }
 
     Input::initController();
+
+    frameDelay = 1000 / fps;
+    debugUI = new DebugUI();
 }
 
 Engine::~Engine() {
@@ -54,6 +57,8 @@ Engine::~Engine() {
     for (auto text : texts) {
         delete text;
     }
+
+    delete debugUI;
 }
 
 void Engine::run() {
@@ -86,6 +91,7 @@ void Engine::update() {
     }
 
     updateTimeouts(deltaTime);
+    debugUI->update(deltaTime);
 }
 
 void Engine::render() {
@@ -93,6 +99,10 @@ void Engine::render() {
 
     if (!states.empty()) {
         states.top()->render();
+    }
+
+    if (debugMode) {
+        debugUI->render();
     }
 
     SDLManager::getInstance().present();

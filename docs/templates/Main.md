@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
     #endif
     
     Engine engine(1280, 720, "hamburger engine", 60); // Window Width, Window Height, Window Name, Target FPS
+    engine.debugMode = false; // Shows the FPS, Memory, and RAM in the top left corner if set to true
     PlayState* initialState = new PlayState(); // The initial state that you want to go to.
     engine.pushState(initialState);
     

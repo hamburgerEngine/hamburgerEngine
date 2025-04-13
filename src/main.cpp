@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
     #endif
     
     Engine engine(1280, 720, "hamburger engine", 60);
+    engine.debugMode = true;
     PlayState* initialState = new PlayState();
     engine.pushState(initialState);
     
