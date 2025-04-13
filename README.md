@@ -6,7 +6,7 @@ This is all being done by one person so development may be slow.
 
 The required libraries are already included because I don't wanna keep redownloading them whenever I decide to reinstall Windows.
 
-The .nsp file is a forwarder for the switch version by the way, make sure hamburger-engine.nro is in:
+The .nsp file in the docs folder is a forwarder for the switch version by the way, make sure hamburger-engine.nro is in:
 
 ```
 /switch/hamburgerEngine/hamburger-engine.nro
