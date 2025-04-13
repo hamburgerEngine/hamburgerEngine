@@ -40,3 +40,4 @@ VisualC/hamburger-engine.vcxproj.user
 /VisualC/Release/assets
 /VisualC/x64/Release/assets
 /Makefiles/build
+/logs

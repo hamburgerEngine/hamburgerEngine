@@ -14,7 +14,7 @@ The .nsp file is a forwarder for the switch version by the way, make sure hambur
 
 # Building
 
-See [BUILDING.md](BUILDING.md) for more information.
+See [BUILDING.md](docs/BUILDING.md) for more information.
 
 ## TODO
 - [x] Sprites

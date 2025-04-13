@@ -49,7 +49,7 @@ void Input::initController() {
         return;
     }
 
-    SDL_GameControllerAddMappingsFromFile("gamecontrollerdb.txt");
+    SDL_GameControllerAddMappingsFromFile("assets/data/gamecontrollerdb.txt");
 
     for (int i = 0; i < SDL_NumJoysticks(); i++) {
         if (SDL_IsGameController(i)) {
