@@ -16,7 +16,7 @@ The .nsp file in the docs folder is a forwarder for the switch version by the wa
 
 See [BUILDING.md](docs/BUILDING.md) for more information.
 
-## TODO
+## Current Features
 - [x] Sprites
 - [x] Text
 - [x] Spritesheets (png and xml (Sparrow V2))
