@@ -26,7 +26,7 @@ void PauseSubState::create() {
 }
 
 void PauseSubState::update(float deltaTime) {
-    if (Input::getInstance().isKeyJustPressed(SDLK_RETURN) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_START)) {
+    if (Input::justPressed(SDL_SCANCODE_RETURN) || Input::isControllerButtonJustPressed(SDL_CONTROLLER_BUTTON_START)) {
         std::cout << "Start button pressed in PauseSubState, closing" << std::endl;
         getParentState()->closeSubState();
     }

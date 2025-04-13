@@ -20,6 +20,7 @@ public:
     void run();
     void update();
     void render();
+    void quit();
 
     static Engine* getInstance() { return instance; }
 

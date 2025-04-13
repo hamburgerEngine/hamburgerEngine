@@ -2,21 +2,21 @@
 #include "Engine.h"
 #include "State.h"
 #include "SubState.h"
-#include "Input.h"
 #include <iostream>
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
+#include "Input.h"
 #include <SDL2/SDL_mixer.h>
 #else
 #include <Engine.h>
 #include <State.h>
 #include <SubState.h>
-#include <Input.h>
 #include <iostream>
 #include <Sprite.h>
 #include <AnimatedSprite.h>
 #include <Text.h>
+#include <Input.h>
 #include <algorithm>
 #include <SDL2/SDL_mixer.h>
 #endif
@@ -38,6 +38,8 @@ Engine::Engine(int width, int height, const char* title)
         std::cerr << "Failed to initialize SDL_mixer: " << Mix_GetError() << std::endl;
         return;
     }
+
+    Input::initController();
 }
 
 Engine::~Engine() {
@@ -68,8 +70,6 @@ void Engine::update() {
     deltaTime = currentTime - lastTime;
     lastTime = currentTime;
 
-    Input::getInstance().update();
-
     if (!states.empty()) {
         states.top()->update(deltaTime);
     }
@@ -92,13 +92,14 @@ void Engine::handleEvents() {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-                running = false;
-                break;
-            default:
-                Input::getInstance().handleEvent(event);
+                quit();
                 break;
         }
     }
+}
+
+void Engine::quit() {
+    running = false;
 }
 
 void Engine::pushState(State* state) {

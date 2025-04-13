@@ -1,130 +1,74 @@
-# Input System
+# Input
 
-## Usage
+Hamburger Engine's Input system uses (SDL2's ScanCode)[https://wiki.libsdl.org/SDL2/SDL_Scancode] for keyboard input and (SDL_GameControllerButton)[https://wiki.libsdl.org/SDL2/SDL_GameControllerButton] for controller input meaning adding input is as simple as finding the button you want and doing this:
 
-```cpp
-// PlayState.h
-class PlayState : public State {
-public:
-    static void keyPressed(unsigned char key, int x, int y);
-    static void specialKeyPressed(int key, int x, int y);
-    static PlayState* instance;
-};
-
-// PlayState.cpp
-void PlayState::update(float deltaTime) {
-    if (Input::getInstance().isKeyPressed(SDLK_UP)) {
-        sprite->playAnimation("up");
-    } else if (Input::getInstance().isKeyPressed(SDLK_DOWN)) {
-        sprite->playAnimation("down");
-    } else if (Input::getInstance().isKeyPressed(SDLK_LEFT)) {
-        sprite->playAnimation("left");
-    } else if (Input::getInstance().isKeyPressed(SDLK_RIGHT)) {
-        sprite->playAnimation("right");
-    } else {
-        sprite->playAnimation("idle");
-    }
-    // you can also use isKeyJustPressed, and isKeyJustReleased!
-}
-
-void PlayState::specialKeyPressed(int key, int x, int y) {
-    int mappedKey;
-    switch(key) {
-        case GLUT_KEY_UP:    mappedKey = 128; break;
-        case GLUT_KEY_DOWN:  mappedKey = 129; break;
-        case GLUT_KEY_LEFT:  mappedKey = 130; break;
-        case GLUT_KEY_RIGHT: mappedKey = 131; break;
-        default: return;
-    }
-    Input::handleKeyPress(mappedKey);
-}
-```
-
-## Setting Up Input Handling
-
-In your `main.cpp` file, set up both regular and special key callbacks:
+# justPressed
 
 ```cpp
-SDL_Event event;
-while (SDL_PollEvent(&event)) {
-    Input::getInstance().handleEvent(event);
-    // ... other event handling
-}
-Input::getInstance().update();
-```
-
-## Available Keys
-
-You can handle any key supported by SDL2, including:
-
-- A-Z and a-z
-- 0-9
-- Special keys like Space (SDLK_SPACE), Enter (SDLK_RETURN), Tab (SDLK_TAB)
-- Arrow keys (SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT)
-- Function keys (SDLK_F1 through SDLK_F12)
-- Modifier keys (SDLK_LSHIFT, SDLK_RSHIFT, etc.)
-
-## Mouse Input
-
-The input system also supports mouse input:
-
-```cpp
-if (Input::getInstance().isMouseButtonPressed(SDL_BUTTON_LEFT)) {
-    // Left mouse button is pressed
+// keyboar
+if (Input::justPressed(SDL_SCANCODE_RETURN))
+{
+    std::cout << "ENTER/RETURN PRESSED" << std::endl;
 }
 
-// mouse pos
-int mouseX = Input::getInstance().getMouseX();
-int mouseY = Input::getInstance().getMouseY();
+// controllr
+if (Input::isControllerButtonJustPressed(SDL_CONTROLLER_BUTTON_A))
+{
+    std::cout << "Ughhh A button pressed" << std::endl;
+}
+```        
 
-// mouse movement
-int deltaX = Input::getInstance().getMouseDeltaX();
-int deltaY = Input::getInstance().getMouseDeltaY();
+But before you add any input stuff make sure to add:
+```cpp
+#include "../engine/Input.h"
 ```
+to your defines
 
-## Key States
+and in your state and add:
+```cpp
+Input::UpdateKeyStates();
+```
+to your update function!
 
-The input system tracks three states for each key:
-
-- `isKeyPressed`: Key is currently held down
-- `isKeyJustPressed`: Key was pressed this frame
-- `isKeyJustReleased`: Key was released this frame
-
-Same states are available for mouse buttons:
-
-- `isMouseButtonPressed`
-- `isMouseButtonJustPressed`
-- `isMouseButtonJustReleased`
-
-## Controller Shiz
+# justReleased
 
 ```cpp
-Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_B) // controller button, can use isControllerButtonJustPressed, and isControllerButtonJustReleased by the way
-Input::getInstance().getControllerAxis(SDL_CONTROLLER_AXIS_LEFTX)  // controller axis
-```
+// keyboar
+if (Input::justReleased(SDL_SCANCODE_RETURN))
+{
+    std::cout << "RETURN/ENTER RELEASED" << std::endl;
+}
 
-Common button constants you can use:
+// controllr
+if (Input::isControllerButtonJustReleased(SDL_CONTROLLER_BUTTON_A))
+{
+    std::cout << "Ughhh A button pressed" << std::endl;
+}
+```        
+
+But before you add any input stuff make sure to add:
+```cpp
+#include "../engine/Input.h"
 ```
-SDL_CONTROLLER_BUTTON_A
-SDL_CONTROLLER_BUTTON_B
-SDL_CONTROLLER_BUTTON_X
-SDL_CONTROLLER_BUTTON_Y
-SDL_CONTROLLER_BUTTON_START
-SDL_CONTROLLER_BUTTON_BACK
-SDL_CONTROLLER_BUTTON_LEFTSHOULDER
-SDL_CONTROLLER_BUTTON_RIGHTSHOULDER
-SDL_CONTROLLER_BUTTON_DPAD_UP
-SDL_CONTROLLER_BUTTON_DPAD_DOWN
-SDL_CONTROLLER_BUTTON_DPAD_LEFT
-SDL_CONTROLLER_BUTTON_DPAD_RIGHT
-SDL_CONTROLLER_BUTTON_START 
+to your defines
+
+and in your state and add:
+```cpp
+Input::UpdateKeyStates();
 ```
-Common axis constants:
-```
-SDL_CONTROLLER_AXIS_LEFTX
-SDL_CONTROLLER_AXIS_LEFTY
-SDL_CONTROLLER_AXIS_RIGHTX
-SDL_CONTROLLER_AXIS_RIGHTY
-SDL_CONTROLLER_AXIS_TRIGGERLEFT
-SDL_CONTROLLER_AXIS_TRIGGERRIGHT
+to your update function!
+
+avaliable stuff:
+
+```cpp
+// controller:
+isControllerButtonJustPressed()
+isControllerButtonJustReleased()
+isControllerButtonPressed()
+getControllerAxis()
+
+// keyboar
+justReleased()
+justPressed()
+pressed()
 ```
