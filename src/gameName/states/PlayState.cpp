@@ -26,12 +26,13 @@ PlayState::~PlayState() {
 void PlayState::create() {
     Engine* engine = Engine::getInstance();
 
-    backgroundSprite = new Sprite("assets/images/background.png");
+    backgroundSprite = new Sprite();
+    backgroundSprite->loadTexture(Paths::image("background"));
     engine->addSprite(backgroundSprite);
 
     playerSprite = new AnimatedSprite();
     playerSprite->setPosition(100, 100);
-    playerSprite->loadFrames("assets/images/BOYFRIEND.png", "assets/images/BOYFRIEND.xml");
+    playerSprite->loadFrames(Paths::image("BOYFRIEND"), Paths::xml("images/BOYFRIEND"));
     
     playerSprite->addAnimation("idle", "BF idle dance0", 24, true);
     playerSprite->addAnimation("up", "BF NOTE UP0", 24, true);
@@ -43,7 +44,7 @@ void PlayState::create() {
     engine->addAnimatedSprite(playerSprite);
     playerSprite->playAnimation("idle");
 
-    SoundManager::getInstance().playMusic("assets/music/RunFNFInst.ogg");
+    SoundManager::getInstance().playMusic(Paths::music("RunFNFInst"));
     Log::getInstance().info("PlayState initialized lol! Also a log test.");
 }
 
@@ -53,27 +54,27 @@ void PlayState::update(float deltaTime) {
     } else {
         playerSprite->update(deltaTime);
         
-        if (Input::getInstance().isKeyPressed(SDLK_UP) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_UP)) {
+        if (Input::getInstance().isKeyJustPressed(SDLK_UP) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_UP)) {
             playerSprite->playAnimation("up");
             #ifdef __SWITCH__ 
                 Log::getInstance().info("Up pressed");
             #endif
-        } else if (Input::getInstance().isKeyPressed(SDLK_DOWN) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_DOWN)) {
+        } else if (Input::getInstance().isKeyJustPressed(SDLK_DOWN) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_DOWN)) {
             playerSprite->playAnimation("down");
             #ifdef __SWITCH__ 
                 Log::getInstance().info("Down pressed");
             #endif
-        } else if (Input::getInstance().isKeyPressed(SDLK_LEFT) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_LEFT)) {
+        } else if (Input::getInstance().isKeyJustPressed(SDLK_LEFT) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_LEFT)) {
             playerSprite->playAnimation("left");
             #ifdef __SWITCH__ 
                 Log::getInstance().info("Left pressed");
             #endif
-        } else if (Input::getInstance().isKeyPressed(SDLK_RIGHT) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_RIGHT)) {
+        } else if (Input::getInstance().isKeyJustPressed(SDLK_RIGHT) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_RIGHT)) {
             playerSprite->playAnimation("right");
             #ifdef __SWITCH__ 
                 Log::getInstance().info("Right pressed");
             #endif
-        } else if (Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A)) {
+        } else if (Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A) || Input::getInstance().isKeyJustPressed(SDLK_SPACE)) {
             playerSprite->playAnimation("hey");
             #ifdef __SWITCH__ 
                 Log::getInstance().info("A pressed");

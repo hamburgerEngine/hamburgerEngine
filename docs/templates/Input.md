@@ -24,6 +24,7 @@ void PlayState::update(float deltaTime) {
     } else {
         sprite->playAnimation("idle");
     }
+    // you can also use isKeyJustPressed, and isKeyJustReleased!
 }
 
 void PlayState::specialKeyPressed(int key, int x, int y) {

@@ -40,6 +40,7 @@
     <ClCompile Include="..\src\engine\Engine.cpp" />
     <ClCompile Include="..\src\engine\Input.cpp" />
     <ClCompile Include="..\src\engine\Log.cpp" />
+    <ClCompile Include="..\src\engine\Paths.cpp" />
     <ClCompile Include="..\src\engine\SDLManager.cpp" />
     <ClCompile Include="..\src\engine\Sound.cpp" />
     <ClCompile Include="..\src\engine\SoundManager.cpp" />
@@ -131,7 +132,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\x32;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x32;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -160,7 +161,7 @@ XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\x32;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x32;</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
@@ -186,7 +187,7 @@ XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -216,7 +217,7 @@ XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>

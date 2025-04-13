@@ -5,11 +5,13 @@
 #include "../../engine/Sprite.h"
 #include "../../engine/AnimatedSprite.h"
 #include "../../engine/Log.h"
+#include "../../engine/Paths.h"
 #else
 #include <State.h>
 #include <Sprite.h>
 #include <AnimatedSprite.h>
 #include <Log.h>
+#include <Paths.h>
 #endif
 
 class PlayState : public State {

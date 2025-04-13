@@ -48,6 +48,15 @@ public:
     void setCamera(Camera* cam) { camera = cam; }
     Camera* getCamera() const { return camera; }
 
-protected:
+    void setTexture(SDL_Texture* tex) { 
+        if (texture) {
+            SDL_DestroyTexture(texture);
+        }
+        texture = tex;
+        if (texture) {
+            SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+        }
+    }
+
     virtual void loadTexture(const std::string& imagePath);
 };
