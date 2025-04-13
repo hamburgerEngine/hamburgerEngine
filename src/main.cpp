@@ -1,12 +1,16 @@
 #ifdef __MINGW32__
 #include "engine/Engine.h"
 #include "gameName/states/PlayState.h"
+#include "engine/Input.h"
 #elif defined(__SWITCH__)
 #include "engine/Engine.h"
 #include "gameName/states/PlayState.h"
+#include "engine/Input.h"
+#include <switch.h>
 #else
 #include <Engine.h>
 #include <states/PlayState.h>
+#include <Input.h>
 #include <Discord.h>
 #endif
 

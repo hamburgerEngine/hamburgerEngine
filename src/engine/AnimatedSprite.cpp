@@ -1,11 +1,4 @@
-#ifdef __MINGW32__
-#include "AnimatedSprite.h"
-#include "SDLManager.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#elif defined(__SWITCH__)
+#ifdef __MINGW32__ || defined(__SWITCH__)
 #include "AnimatedSprite.h"
 #include "SDLManager.h"
 #include <iostream>

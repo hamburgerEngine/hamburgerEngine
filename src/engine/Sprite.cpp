@@ -1,9 +1,4 @@
-#ifdef __MINGW32__
-#include "Sprite.h"
-#include "Camera.h"
-#include "SDLManager.h"
-#include <iostream>
-#elif defined(__SWITCH__)
+#ifdef __MINGW32__ || defined(__SWITCH__)
 #include "Sprite.h"
 #include "Camera.h"
 #include "SDLManager.h"

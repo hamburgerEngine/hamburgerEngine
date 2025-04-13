@@ -1,14 +1,4 @@
-#ifdef __MINGW32__
-#include "Engine.h"
-#include "State.h"
-#include "SubState.h"
-#include "Input.h"
-#include <iostream>
-#include "Sprite.h"
-#include "AnimatedSprite.h"
-#include "Text.h"
-#include <SDL2/SDL_mixer.h>
-#elif defined(__SWITCH__)
+#ifdef __MINGW32__ || defined(__SWITCH__)
 #include "Engine.h"
 #include "State.h"
 #include "SubState.h"

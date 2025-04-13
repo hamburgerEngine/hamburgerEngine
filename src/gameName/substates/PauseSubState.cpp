@@ -1,4 +1,4 @@
-#ifdef __MINGW32__
+#ifdef __MINGW32__ || defined(__SWITCH__)
 #include "gameName/substates/PauseSubState.h"
 #include "engine/Engine.h"
 #include "engine/Input.h"
@@ -26,8 +26,8 @@ void PauseSubState::create() {
 }
 
 void PauseSubState::update(float deltaTime) {
-    if (Input::getInstance().isKeyJustPressed('p')) {
-        std::cout << "P key pressed in PauseSubState, closing" << std::endl;
+    if (Input::getInstance().isKeyJustPressed(SDLK_RETURN) || Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_START)) {
+        std::cout << "Start button pressed in PauseSubState, closing" << std::endl;
         getParentState()->closeSubState();
     }
 }

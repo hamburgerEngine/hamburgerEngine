@@ -21,7 +21,6 @@ x64/Release/PhloxEngine.vcxproj.FileListAbsolute.txt
 Release/PhloxEngine.vcxproj.FileListAbsolute.txt
 /Debug/assets
 *.ilk
-*.txt
 /x64
 /Debug
 /assets

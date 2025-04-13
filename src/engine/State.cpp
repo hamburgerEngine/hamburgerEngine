@@ -1,10 +1,4 @@
-#ifdef __MINGW32__
-#include "State.h"
-#include "SubState.h"
-#include "Engine.h"
-#include "Sprite.h"
-#include <iostream>
-#elif defined(__SWITCH__)
+#ifdef __MINGW32__ || defined(__SWITCH__)
 #include "State.h"
 #include "SubState.h"
 #include "Engine.h"

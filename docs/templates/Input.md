@@ -94,3 +94,36 @@ Same states are available for mouse buttons:
 - `isMouseButtonPressed`
 - `isMouseButtonJustPressed`
 - `isMouseButtonJustReleased`
+
+## Controller Shiz
+
+```cpp
+Input::getInstance().isControllerButtonPressed(SDL_CONTROLLER_BUTTON_B) // controller button, can use isControllerButtonJustPressed, and isControllerButtonJustReleased by the way
+Input::getInstance().getControllerAxis(SDL_CONTROLLER_AXIS_LEFTX)  // controller axis
+```
+
+Common button constants you can use:
+```
+SDL_CONTROLLER_BUTTON_A
+SDL_CONTROLLER_BUTTON_B
+SDL_CONTROLLER_BUTTON_X
+SDL_CONTROLLER_BUTTON_Y
+SDL_CONTROLLER_BUTTON_START
+SDL_CONTROLLER_BUTTON_BACK
+SDL_CONTROLLER_BUTTON_LEFTSHOULDER
+SDL_CONTROLLER_BUTTON_RIGHTSHOULDER
+SDL_CONTROLLER_BUTTON_DPAD_UP
+SDL_CONTROLLER_BUTTON_DPAD_DOWN
+SDL_CONTROLLER_BUTTON_DPAD_LEFT
+SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+SDL_CONTROLLER_BUTTON_START 
+```
+Common axis constants:
+```
+SDL_CONTROLLER_AXIS_LEFTX
+SDL_CONTROLLER_AXIS_LEFTY
+SDL_CONTROLLER_AXIS_RIGHTX
+SDL_CONTROLLER_AXIS_RIGHTY
+SDL_CONTROLLER_AXIS_TRIGGERLEFT
+SDL_CONTROLLER_AXIS_TRIGGERRIGHT
+```
