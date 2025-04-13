@@ -34,7 +34,19 @@ int main(int argc, char** argv) {
     PlayState* initialState = new PlayState();
     engine.pushState(initialState);
     
+    #ifdef __SWITCH__
+    while (appletMainLoop()) {
+        Input::UpdateControllerStates();
+        if (Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_BACK) || 
+            Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_START)) {
+            engine.quit();
+            break;
+        }
+        engine.run();
+    }
+    #else
     engine.run();
+    #endif
     
     #ifdef __MINGW32__
     // nun
