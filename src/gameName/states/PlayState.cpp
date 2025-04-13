@@ -3,11 +3,13 @@
 #include "engine/Engine.h"
 #include "engine/Input.h"
 #include "gameName/substates/PauseSubState.h"
+#include "engine/SoundManager.h"
 #else
 #include <states/PlayState.h>
 #include <Engine.h>
 #include <Input.h>
 #include <substates/PauseSubState.h>
+#include <SoundManager.h>
 #endif
 #include <iostream>
 
@@ -39,6 +41,8 @@ void PlayState::create() {
     
     engine->addAnimatedSprite(playerSprite);
     playerSprite->playAnimation("idle");
+
+    SoundManager::getInstance().playMusic("assets/music/RunFNFInst.ogg");
 }
 
 void PlayState::update(float deltaTime) {
@@ -47,13 +51,13 @@ void PlayState::update(float deltaTime) {
     } else {
         playerSprite->update(deltaTime);
         
-        if (Input::pressed(128)) {
+        if (Input::pressed(SDLK_UP)) {
             playerSprite->playAnimation("up");
-        } else if (Input::pressed(129)) {
+        } else if (Input::pressed(SDLK_DOWN)) {
             playerSprite->playAnimation("down");
-        } else if (Input::pressed(130)) {
+        } else if (Input::pressed(SDLK_LEFT)) {
             playerSprite->playAnimation("left");
-        } else if (Input::pressed(131)) {
+        } else if (Input::pressed(SDLK_RIGHT)) {
             playerSprite->playAnimation("right");
         } else {
             playerSprite->playAnimation("idle");
@@ -103,10 +107,10 @@ void PlayState::specialKeyPressed(int key, int x, int y) {
     
     int mappedKey;
     switch(key) {
-        case GLUT_KEY_UP:    mappedKey = 128; break;
-        case GLUT_KEY_DOWN:  mappedKey = 129; break;
-        case GLUT_KEY_LEFT:  mappedKey = 130; break;
-        case GLUT_KEY_RIGHT: mappedKey = 131; break;
+        case SDLK_UP:    mappedKey = SDLK_UP; break;
+        case SDLK_DOWN:  mappedKey = SDLK_DOWN; break;
+        case SDLK_LEFT:  mappedKey = SDLK_LEFT; break;
+        case SDLK_RIGHT: mappedKey = SDLK_RIGHT; break;
         default: return;
     }
     

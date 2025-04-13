@@ -1,46 +1,14 @@
 #include "SoundManager.h"
-#include <AL/al.h>
-#include <AL/alc.h>
 #include <iostream>
 
-SoundManager::SoundManager() : currentMusic(nullptr) {
-    ALCdevice* device = alcOpenDevice(nullptr);
-    if (!device) {
-        std::cerr << "Failed to open audio device" << std::endl;
-        return;
-    }
-
-    ALCcontext* context = alcCreateContext(device, nullptr);
-    if (!context) {
-        std::cerr << "Failed to create audio context" << std::endl;
-        alcCloseDevice(device);
-        return;
-    }
-
-    if (!alcMakeContextCurrent(context)) {
-        std::cerr << "Failed to make audio context current" << std::endl;
-        alcDestroyContext(context);
-        alcCloseDevice(device);
-        return;
-    }
-}
+SoundManager::SoundManager() : currentMusic(nullptr) {}
 
 SoundManager::~SoundManager() {
     for (auto& pair : sounds) {
         delete pair.second;
     }
     if (currentMusic) {
-        delete currentMusic;
-    }
-
-    ALCcontext* context = alcGetCurrentContext();
-    if (context) {
-        ALCdevice* device = alcGetContextsDevice(context);
-        alcMakeContextCurrent(nullptr);
-        alcDestroyContext(context);
-        if (device) {
-            alcCloseDevice(device);
-        }
+        Mix_FreeMusic(currentMusic);
     }
 }
 
@@ -51,40 +19,58 @@ SoundManager& SoundManager::getInstance() {
 
 void SoundManager::playMusic(const std::string& path, float volume) {
     if (currentMusic) {
-        currentMusic->stop();
-        delete currentMusic;
+        Mix_FreeMusic(currentMusic);
     }
 
-    currentMusic = new Sound();
-    if (currentMusic->load(path)) {
-        currentMusic->setLoop(true);
-        currentMusic->setVolume(volume);
-        currentMusic->play();
+    currentMusic = Mix_LoadMUS(path.c_str());
+    if (!currentMusic) {
+        std::cerr << "Failed to load music: " << Mix_GetError() << std::endl;
+        return;
+    }
+
+    Mix_VolumeMusic(static_cast<int>(volume * MIX_MAX_VOLUME));
+    if (Mix_PlayMusic(currentMusic, -1) == -1) {
+        std::cerr << "Failed to play music: " << Mix_GetError() << std::endl;
+    }
+}
+
+void SoundManager::loopMusic(const std::string& path, float volume, int loops) {
+    if (currentMusic) {
+        Mix_FreeMusic(currentMusic);
+    }
+
+    currentMusic = Mix_LoadMUS(path.c_str());
+    if (!currentMusic) {
+        std::cerr << "Failed to load music: " << Mix_GetError() << std::endl;
+        return;
+    }
+
+    Mix_VolumeMusic(static_cast<int>(volume * MIX_MAX_VOLUME));
+    if (Mix_PlayMusic(currentMusic, loops) == -1) {
+        std::cerr << "Failed to play music: " << Mix_GetError() << std::endl;
     }
 }
 
 void SoundManager::pauseMusic() {
-    if (currentMusic) {
-        currentMusic->pause();
+    if (currentMusic && Mix_PlayingMusic()) {
+        Mix_PauseMusic();
     }
 }
 
 void SoundManager::resumeMusic() {
-    if (currentMusic) {
-        currentMusic->resume();
+    if (currentMusic && Mix_PausedMusic()) {
+        Mix_ResumeMusic();
     }
 }
 
 void SoundManager::stopMusic() {
     if (currentMusic) {
-        currentMusic->stop();
+        Mix_HaltMusic();
     }
 }
 
 void SoundManager::setMusicVolume(float volume) {
-    if (currentMusic) {
-        currentMusic->setVolume(volume);
-    }
+    Mix_VolumeMusic(static_cast<int>(volume * MIX_MAX_VOLUME));
 }
 
 Sound* SoundManager::loadSound(const std::string& path) {

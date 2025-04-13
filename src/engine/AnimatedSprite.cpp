@@ -1,18 +1,25 @@
 #ifdef __MINGW32__
 #include "AnimatedSprite.h"
-#include "../thirdparty/stb_image.h"
-#elif defined(__SWITCH__)
-#include "AnimatedSprite.h"
-#include "../thirdparty/stb_image.h"
-#else
-#include <AnimatedSprite.h>
-#include <stb_image.h>
-#endif
-#include <GL/glut.h>
+#include "SDLManager.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#elif defined(__SWITCH__)
+#include "AnimatedSprite.h"
+#include "SDLManager.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#else
+#include <AnimatedSprite.h>
+#include <SDLManager.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#endif
 
 AnimatedSprite::AnimatedSprite() : Sprite() {}
 
@@ -52,64 +59,53 @@ void AnimatedSprite::render() {
         return;
     }
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    glPushMatrix();
-    glTranslatef(x + offsetX, y + offsetY, 0);
-    glScalef(scale.x, scale.y, 1.0f);
-
     const Frame& frame = currentAnimation->frames[currentFrame];
     
-    float texLeft = (float)frame.x / width;
-    float texRight = (float)(frame.x + frame.width) / width;
-    float texTop = (float)frame.y / height;
-    float texBottom = (float)(frame.y + frame.height) / height;
+    SDL_Rect srcRect = {
+        frame.x,
+        frame.y,
+        frame.width,
+        frame.height
+    };
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(texLeft, texTop);    glVertex2f(0, 0);
-    glTexCoord2f(texRight, texTop);   glVertex2f(frame.width, 0);
-    glTexCoord2f(texRight, texBottom); glVertex2f(frame.width, frame.height);
-    glTexCoord2f(texLeft, texBottom);  glVertex2f(0, frame.height);
-    glEnd();
+    SDL_Rect destRect = {
+        static_cast<int>(x + offsetX),
+        static_cast<int>(y + offsetY),
+        static_cast<int>(frame.width * scale.x),
+        static_cast<int>(frame.height * scale.y)
+    };
 
-    glPopMatrix();
-
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_BLEND); 
+    SDL_RendererFlip flip = scale.x < 0 ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    SDL_RenderCopyEx(SDLManager::getInstance().getRenderer(), texture, &srcRect, &destRect, 0, nullptr, flip);
 }
 
 void AnimatedSprite::loadTexture(const std::string& imagePath) {
-    if (imageData) {
+    if (texture) {
         std::cout << "Texture already loaded, skipping." << std::endl;
         return;
     }
 
     std::cout << "Attempting to load image from: " << imagePath << std::endl;
     
-    int channels;
-    imageData = stbi_load(imagePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
-
-    if (!imageData) {
+    SDL_Surface* surface = IMG_Load(imagePath.c_str());
+    if (!surface) {
         std::cerr << "Failed to load image: " << imagePath << std::endl;
-        std::cerr << "STB Image error: " << stbi_failure_reason() << std::endl;
+        std::cerr << "SDL_image error: " << IMG_GetError() << std::endl;
         return;
     }
 
-    std::cout << "Image loaded successfully. Width: " << width << ", Height: " << height << ", Channels: " << channels << std::endl;
+    width = surface->w;
+    height = surface->h;
 
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    texture = SDL_CreateTextureFromSurface(SDLManager::getInstance().getRenderer(), surface);
+    SDL_FreeSurface(surface);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    if (!texture) {
+        std::cerr << "Failed to create texture from surface: " << SDL_GetError() << std::endl;
+        return;
+    }
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    std::cout << "Image loaded successfully. Width: " << width << ", Height: " << height << std::endl;
 }
 
 void AnimatedSprite::setScale(float scaleX, float scaleY) {

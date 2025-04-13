@@ -2,9 +2,17 @@
 
 ```cpp
 // StateName.cpp
-#include "../../../include/gameName/states/StateName.h"
-#include "../../../include/engine/Engine.h"
-#include "../../../include/gameName/substates/PauseSubState.h"
+#ifdef __MINGW32__
+#include "gameName/states/PlayState.h"
+#include "engine/Engine.h"
+#include "engine/Input.h"
+#include "gameName/substates/PauseSubState.h"
+#else
+#include <states/PlayState.h>
+#include <Engine.h>
+#include <Input.h>
+#include <substates/PauseSubState.h>
+#endif
 #include <iostream>
 
 StateName* StateName::instance = nullptr;

@@ -1,5 +1,5 @@
 #pragma once
-#include <GL/glut.h>
+#include <SDL2/SDL.h>
 
 class Camera {
 public:

@@ -58,6 +58,7 @@ The Sound class provides several methods to control playback:
 - `stop()`: Stop playback completely
 - `setVolume(float)`: Set volume (0.0f to 1.0f)
 - `setLoop(bool)`: Enable/disable looping
+- `loopMusic(string)`: Enable/disable looping for music
 - `isPlaying()`: Check if sound is currently playing
 
 ```cpp

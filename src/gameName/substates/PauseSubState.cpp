@@ -2,11 +2,13 @@
 #include "gameName/substates/PauseSubState.h"
 #include "engine/Engine.h"
 #include "engine/Input.h"
+#include "engine/SDLManager.h"
 #include <iostream>
 #else
 #include <substates/PauseSubState.h>
 #include <Engine.h>
 #include <Input.h>
+#include <SDLManager.h>
 #include <iostream>
 #endif
 
@@ -31,13 +33,10 @@ void PauseSubState::update(float deltaTime) {
 }
 
 void PauseSubState::render() {
-    glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
-    glBegin(GL_QUADS);
-    glVertex2f(0, 0);
-    glVertex2f(800, 0);
-    glVertex2f(800, 600);
-    glVertex2f(0, 600);
-    glEnd();
+    SDL_SetRenderDrawColor(SDLManager::getInstance().getRenderer(), 0, 0, 0, 128);
+    SDL_Rect overlay = {0, 0, 800, 600};
+    SDL_RenderFillRect(SDLManager::getInstance().getRenderer(), &overlay);
+    SDL_SetRenderDrawColor(SDLManager::getInstance().getRenderer(), 255, 255, 255, 255);
 
     pauseText->render();
 }

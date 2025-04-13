@@ -10,8 +10,6 @@
 #include <Discord.h>
 #endif
 
-#include <GL/glut.h>
-
 int main(int argc, char** argv) {
     #ifdef __MINGW32__
     // nun

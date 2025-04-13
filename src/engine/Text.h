@@ -1,22 +1,10 @@
 #pragma once
 
 #include <string>
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include <GL/glut.h>
-#include <map>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 class Text {
-private:
-    struct FontCharacter {
-        GLuint textureID;
-        int width;
-        int height;
-        int bearingX;
-        int bearingY;
-        unsigned int advance;
-    };
-
 public:
     Text(float x = 0, float y = 0, int z = 0);
     ~Text();
@@ -29,24 +17,33 @@ public:
     
     float getWidth() const { return width; }
     float getHeight() const { return height; }
+    float getLineHeight() const { return lineHeight; }
+    void setLineSpacing(float spacing) { lineSpacing = spacing; }
+    float getLineSpacing() const { return lineSpacing; }
 
     void setVisible(bool visible) { isVisible = visible; }
     bool getVisible() const { return isVisible; }
 
+    TTF_Font* getFont() const { return font; }
+    const std::string& getText() const { return text; }
+    float getX() const { return x; }
+    float getY() const { return y; }
+
 private:
     void loadFont(const std::string& fontPath);
-    float getLineHeight() const;
+    void updateTexture();
+    void renderText(const std::string& text, float x, float y);
 
-    std::map<char, FontCharacter> characters;
     std::string text;
     float x;
     float y;
     float width;
     float height;
+    float lineHeight;
+    float lineSpacing;
     unsigned int color;
     int fontSize;
-    FT_Library ft;
-    FT_Face face;
-    float lineSpacing = 1.2f;
-    bool isVisible = true;
+    TTF_Font* font;
+    SDL_Texture* texture;
+    bool isVisible;
 };

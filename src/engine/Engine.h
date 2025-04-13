@@ -1,12 +1,12 @@
 #pragma once
 
-#include <GL/glut.h>
 #include <vector>
 #include <stack>
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
 #include "SoundManager.h"
+#include "SDLManager.h"
 #include <functional>
 
 class State;
@@ -32,9 +32,6 @@ public:
     void switchState(State* state);
     void openSubState(SubState* subState);
 
-    static void keyboardCallback(unsigned char key, int x, int y);
-    static void keyboardUpCallback(unsigned char key, int x, int y);
-
     int getWindowWidth() const { return windowWidth; }
     int getWindowHeight() const { return windowHeight; }
 
@@ -58,7 +55,7 @@ public:
     void setTimeout(std::function<void()> callback, float seconds);
     void updateTimeouts(float deltaTime);
 
-    float getCurrentTime() const { return glutGet(GLUT_ELAPSED_TIME) / 1000.0f; }
+    float getCurrentTime() const { return SDL_GetTicks() / 1000.0f; }
 
 private:
     static Engine* instance;
@@ -69,6 +66,7 @@ private:
     std::vector<Text*> texts;
     float deltaTime;
     std::stack<State*> states;
+    bool running;
 
     struct Timeout {
         std::function<void()> callback;
@@ -76,11 +74,5 @@ private:
     };
     std::vector<Timeout> timeouts;
 
-    static void displayCallback();
-    static void idleCallback();
-    static void reshapeCallback(int width, int height);
-    static void keyPressedCallback(unsigned char key, int x, int y);
-    static void keyReleasedCallback(unsigned char key, int x, int y);
-    static void specialKeyCallback(int key, int x, int y);
-    static void specialKeyUpCallback(int key, int x, int y);
+    void handleEvents();
 };

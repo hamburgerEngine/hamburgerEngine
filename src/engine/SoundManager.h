@@ -2,12 +2,14 @@
 #include <map>
 #include <string>
 #include "Sound.h"
+#include <SDL2/SDL_mixer.h>
 
 class SoundManager {
 public:
     static SoundManager& getInstance();
     
     void playMusic(const std::string& path, float volume = 1.0f);
+    void loopMusic(const std::string& path, float volume = 1.0f, int loops = -1);
     void pauseMusic();
     void resumeMusic();
     void stopMusic();
@@ -21,5 +23,5 @@ private:
     ~SoundManager();
     
     std::map<std::string, Sound*> sounds;
-    Sound* currentMusic;
+    Mix_Music* currentMusic;
 }; 

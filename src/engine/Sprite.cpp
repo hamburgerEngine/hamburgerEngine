@@ -1,20 +1,17 @@
 #ifdef __MINGW32__
 #include "Sprite.h"
 #include "Camera.h"
-#include <GL/glut.h>
-#include "thirdparty/stb_image.h"
+#include "SDLManager.h"
 #include <iostream>
 #elif defined(__SWITCH__)
 #include "Sprite.h"
 #include "Camera.h"
-#include <GL/glut.h>
-#include "thirdparty/stb_image.h"
+#include "SDLManager.h"
 #include <iostream>
 #else
 #include <Sprite.h>
 #include <Camera.h>
-#include <GL/glut.h>
-#include <stb_image.h>
+#include <SDLManager.h>
 #include <iostream>
 #endif
 
@@ -32,65 +29,41 @@ Sprite::Sprite(const std::string& path)
 }
 
 Sprite::~Sprite() {
-    if (imageData) {
-        stbi_image_free(imageData);
-        imageData = nullptr;
-    }
-    if (textureID) {
-        glDeleteTextures(1, &textureID);
-        textureID = 0;
+    if (texture) {
+        SDL_DestroyTexture(texture);
+        texture = nullptr;
     }
 }
 
 void Sprite::render() {
-    if (!visible) return; 
+    if (!visible || !texture) return; 
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    SDL_Rect destRect;
+    destRect.x = static_cast<int>(x);
+    destRect.y = static_cast<int>(y);
+    destRect.w = static_cast<int>(width * scale.x);
+    destRect.h = static_cast<int>(height * scale.y);
 
-    glPushMatrix();
-    
-    if (camera) {
-        glTranslatef(x, y, 0);
-    } else {
-        glTranslatef(x, y, 0);
-    }
-    
-    glScalef(scale.x, scale.y, 1.0f);
-
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex2f(0, 0);
-    glTexCoord2f(1, 0); glVertex2f(width, 0);
-    glTexCoord2f(1, 1); glVertex2f(width, height);
-    glTexCoord2f(0, 1); glVertex2f(0, height);
-    glEnd();
-
-    glPopMatrix();
-
-    glDisable(GL_TEXTURE_2D);
+    SDL_RenderCopy(SDLManager::getInstance().getRenderer(), texture, nullptr, &destRect);
 }
 
 void Sprite::loadTexture(const std::string& imagePath) {
-    int channels;
-    imageData = stbi_load(imagePath.c_str(), &width, &height, &channels, STBI_rgb_alpha);
-
-    if (!imageData) {
+    SDL_Surface* surface = IMG_Load(imagePath.c_str());
+    if (!surface) {
         std::cerr << "Failed to load image: " << imagePath << std::endl;
         return;
     }
 
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    width = surface->w;
+    height = surface->h;
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    texture = SDL_CreateTextureFromSurface(SDLManager::getInstance().getRenderer(), surface);
+    SDL_FreeSurface(surface);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    if (!texture) {
+        std::cerr << "Failed to create texture from surface: " << SDL_GetError() << std::endl;
+        return;
+    }
 }
 
 void Sprite::setScale(float scaleX, float scaleY) {

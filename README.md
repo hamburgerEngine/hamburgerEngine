@@ -1,6 +1,6 @@
 # hamburger engine - Formally known as Phlox Engine
 
-hamburger engine is a C++ game engine built with OpenGL and GLFW. Attempting to keep it as similar to HaxeFlixel as possible.
+hamburger engine is a C++ game engine built with SDL2. Attempting to keep it as similar to HaxeFlixel as possible.
 
 This is all being done by one person so development may be slow.
 
@@ -26,6 +26,7 @@ See [BUILDING.md](BUILDING.md) for more information.
 
 # REQUIREMENTS
 
-- [stb_image](https://github.com/nothings/stb)
-- [glut](https://www.opengl.org/resources/libraries/glut/)
-- [FreeType](https://freetype.org/)
+- [SDL2](https://github.com/libsdl-org/SDL)
+- [SDL2_ttf](https://github.com/libsdl-org/SDL_ttf)
+- [SDL_image](https://github.com/libsdl-org/SDL_ttf)
+- [SDL_mixer](https://github.com/libsdl-org/SDL_mixer)

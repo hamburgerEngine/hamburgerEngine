@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
-#include <vorbis/vorbisfile.h>
-#include <AL/al.h>
+#include <SDL2/SDL_mixer.h>
 
 class Sound {
 public:
@@ -18,13 +17,10 @@ public:
     bool isPlaying() const;
 
 private:
-    OggVorbis_File vorbisFile;
+    Mix_Chunk* sound;
     bool isLoaded;
     bool playing;
     bool looping;
     float volume;
-    FILE* file;
-    
-    ALuint buffer;
-    ALuint source;
+    int channel;
 }; 
