@@ -14,7 +14,7 @@ class SubState;
 
 class Engine {
 public:
-    Engine(int width, int height, const char* title);
+    Engine(int width, int height, const char* title, int fps);
     ~Engine();
 
     void run();
@@ -68,6 +68,8 @@ private:
     float deltaTime;
     std::stack<State*> states;
     bool running;
+    int fps;
+    int frameDelay;
 
     struct Timeout {
         std::function<void()> callback;

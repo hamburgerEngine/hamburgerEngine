@@ -1,3 +1,8 @@
+# Main
+
+Basically shit for main.cpp, nothing much to write here but I'ma leave this:
+
+```cpp
 #ifdef __MINGW32__
 #include "engine/Engine.h"
 #include "gameName/states/PlayState.h"
@@ -20,18 +25,18 @@ int main(int argc, char** argv) {
     #elif defined(__SWITCH__)
     // nun
     #else
-    Discord::GetInstance().Initialize("1347011960088035368");    
-    Discord::GetInstance().SetState("hamburger engine");
-    Discord::GetInstance().SetDetails("Probably Testing Stuff!");
-    Discord::GetInstance().SetLargeImage("hamburger");
-    Discord::GetInstance().SetLargeImageText("hamburger engine by YoPhlox & MaybeKoi");
-    Discord::GetInstance().SetSmallImage("miku");
-    Discord::GetInstance().SetSmallImageText("HOLY SHIT IS THAT HATSUNE MIKU!?");    
+    Discord::GetInstance().Initialize("1347011960088035368"); // Discord APPID  
+    Discord::GetInstance().SetState("hamburger engine"); // Discord State
+    Discord::GetInstance().SetDetails("Probably Testing Stuff!"); // Discord Details
+    Discord::GetInstance().SetLargeImage("hamburger"); // Discord Large Image
+    Discord::GetInstance().SetLargeImageText("hamburger engine by YoPhlox & MaybeKoi"); // Discord Large Image Text
+    Discord::GetInstance().SetSmallImage("miku"); // Discord Small Image
+    Discord::GetInstance().SetSmallImageText("HOLY SHIT IS THAT HATSUNE MIKU!?"); // Discord Small Image Text
     Discord::GetInstance().Update();
     #endif
     
-    Engine engine(1280, 720, "hamburger engine", 60);
-    PlayState* initialState = new PlayState();
+    Engine engine(1280, 720, "hamburger engine", 60); // Window Width, Window Height, Window Name, Target FPS
+    PlayState* initialState = new PlayState(); // The initial state that you want to go to.
     engine.pushState(initialState);
     
     #ifdef __SWITCH__

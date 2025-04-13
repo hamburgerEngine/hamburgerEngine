@@ -23,8 +23,8 @@
 
 Engine* Engine::instance = nullptr;
 
-Engine::Engine(int width, int height, const char* title)
-    : windowWidth(width), windowHeight(height), running(true) {
+Engine::Engine(int width, int height, const char* title, int fps)
+    : windowWidth(width), windowHeight(height), running(true), fps(fps) {
     if (instance == nullptr) {
         instance = this;
     }
@@ -57,10 +57,21 @@ Engine::~Engine() {
 }
 
 void Engine::run() {
+    const float frameDelay = 1000.0f / fps;
+    Uint32 frameStart;
+    float frameTime;
+
     while (running) {
+        frameStart = SDL_GetTicks();
+
         handleEvents();
         update();
         render();
+
+        frameTime = SDL_GetTicks() - frameStart;
+        if (frameDelay > frameTime) {
+            SDL_Delay(frameDelay - frameTime);
+        }
     }
 }
 
