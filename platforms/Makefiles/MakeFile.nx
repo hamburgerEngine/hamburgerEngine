@@ -41,7 +41,7 @@ BUILD		:=	build
 SOURCES		:=	../../src ../../src/engine ../../src/gameName ../../src/gameName/states ../../src/gameName/substates
 DATA		:=	data
 INCLUDES	:=	../../src ../../src/engine ../../src/gameName ../../src/gameName/states ../../src/gameName/substates
-ROMFS	:=	romfs
+ROMFS	:=	../NX/romfs
 
 APP_TITLE := "Hamburger Engine"
 APP_AUTHOR := "maybekoi"
