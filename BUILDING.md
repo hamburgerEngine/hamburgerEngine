@@ -6,7 +6,7 @@ Double click on the PhloxEngine.sln file to open the project.
 
 Press F5 to build and run the engine. (Make sure you're on x86 Release!!)
 
-# How 2 build - Windows (MSYS2) - No idea if this actually works.
+## How 2 build - Windows (MSYS2) - No idea if this actually works.
 
 Install msys2.
 
@@ -17,7 +17,7 @@ pacman -Syu
 pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_ttf
 ```
 
-# How 2 build - Arch Linux
+## How 2 build - Arch Linux
 
 First run:
 
@@ -31,7 +31,7 @@ Then run:
 make
 ```
 
-# How to build - Ubuntu
+## How to build - Ubuntu
 
 First run:
 
