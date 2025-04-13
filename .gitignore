@@ -33,3 +33,9 @@ Release/PhloxEngine.vcxproj.FileListAbsolute.txt
 *.elf
 *.nro
 *.nacp
+/VisualC/.vs
+VisualC/hamburger-engine.vcxproj.user
+/VisualC/x64/Debug/assets
+/VisualC/Debug/assets
+/VisualC/Release/assets
+/VisualC/x64/Release/assets
