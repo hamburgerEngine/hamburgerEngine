@@ -7,59 +7,90 @@
 #endif
 #include <iostream>
 
-Input::Input() {
-    currentKeyState.fill(false);
-    previousKeyState.fill(false);
-    justPressedState.fill(false);
-    justReleasedState.fill(false);
+Input::Input() : mouseX(0), mouseY(0), mouseDeltaX(0), mouseDeltaY(0) {}
+
+Input::~Input() {}
+
+void Input::handleEvent(const SDL_Event& event) {
+    switch (event.type) {
+        case SDL_KEYDOWN:
+            if (!event.key.repeat) {
+                currentKeyState[event.key.keysym.sym] = true;
+                justPressedState[event.key.keysym.sym] = true;
+            }
+            break;
+            
+        case SDL_KEYUP:
+            currentKeyState[event.key.keysym.sym] = false;
+            justReleasedState[event.key.keysym.sym] = true;
+            break;
+            
+        case SDL_MOUSEBUTTONDOWN:
+            currentMouseState[event.button.button] = true;
+            justPressedMouseState[event.button.button] = true;
+            break;
+            
+        case SDL_MOUSEBUTTONUP:
+            currentMouseState[event.button.button] = false;
+            justReleasedMouseState[event.button.button] = true;
+            break;
+            
+        case SDL_MOUSEMOTION:
+            mouseDeltaX = event.motion.xrel;
+            mouseDeltaY = event.motion.yrel;
+            mouseX = event.motion.x;
+            mouseY = event.motion.y;
+            break;
+    }
 }
 
 void Input::update() {
-    previousKeyState = currentKeyState;
-    justPressedState.fill(false);
-    justReleasedState.fill(false);
-}
-
-void Input::keyPressed(unsigned char key) {
-    if (isValidKey(key)) {
-        if (!currentKeyState[key]) {
-            currentKeyState[key] = true;
-            justPressedState[key] = true;
-        }
+    for (auto& pair : currentKeyState) {
+        previousKeyState[pair.first] = pair.second;
     }
-}
-
-void Input::specialKeyPressed(int key) {
-    if (isValidKey(key)) {
-        if (!currentKeyState[key]) {
-            currentKeyState[key] = true;
-            justPressedState[key] = true;
-        }
+    justPressedState.clear();
+    justReleasedState.clear();
+    
+    for (auto& pair : currentMouseState) {
+        previousMouseState[pair.first] = pair.second;
     }
+    justPressedMouseState.clear();
+    justReleasedMouseState.clear();
+    
+    mouseDeltaX = 0;
+    mouseDeltaY = 0;
 }
 
-void Input::keyReleased(unsigned char key) {
-    if (isValidKey(key)) {
-        currentKeyState[key] = false;
-        justReleasedState[key] = true;
-    }
+bool Input::isKeyPressed(SDL_Keycode key) const {
+    auto it = currentKeyState.find(key);
+    return it != currentKeyState.end() && it->second;
 }
 
-void Input::specialKeyReleased(int key) {
-    if (isValidKey(key)) {
-        currentKeyState[key] = false;
-        justReleasedState[key] = true;
-    }
+bool Input::isKeyJustPressed(SDL_Keycode key) const {
+    auto it = justPressedState.find(key);
+    return it != justPressedState.end() && it->second;
 }
 
-bool Input::isKeyPressed(int key) {
-    return isValidKey(key) && currentKeyState[key];
+bool Input::isKeyJustReleased(SDL_Keycode key) const {
+    auto it = justReleasedState.find(key);
+    return it != justReleasedState.end() && it->second;
 }
 
-bool Input::isKeyJustPressed(int key) {
-    return isValidKey(key) && justPressedState[key];
+bool Input::isMouseButtonPressed(Uint8 button) const {
+    auto it = currentMouseState.find(button);
+    return it != currentMouseState.end() && it->second;
 }
 
-bool Input::isKeyJustReleased(int key) {
-    return isValidKey(key) && justReleasedState[key];
+bool Input::isMouseButtonJustPressed(Uint8 button) const {
+    auto it = justPressedMouseState.find(button);
+    return it != justPressedMouseState.end() && it->second;
+}
+
+bool Input::isMouseButtonJustReleased(Uint8 button) const {
+    auto it = justReleasedMouseState.find(button);
+    return it != justReleasedMouseState.end() && it->second;
+}
+
+void Input::setCallback(const std::string& action, std::function<void()> callback) {
+    callbacks[action] = callback;
 }

@@ -104,13 +104,8 @@ void Engine::handleEvents() {
             case SDL_QUIT:
                 running = false;
                 break;
-            case SDL_KEYDOWN:
-                if (!states.empty()) {
-                    states.top()->keyPressed(event.key.keysym.sym);
-                }
-                break;
-            case SDL_KEYUP:
-                Input::getInstance().keyReleased(event.key.keysym.sym);
+            default:
+                Input::getInstance().handleEvent(event);
                 break;
         }
     }

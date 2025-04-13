@@ -4,6 +4,12 @@
 #include "engine/Input.h"
 #include "gameName/substates/PauseSubState.h"
 #include "engine/SoundManager.h"
+#elif defined(__SWITCH__)
+#include "gameName/states/PlayState.h"
+#include "engine/Engine.h"
+#include "engine/Input.h"
+#include "gameName/substates/PauseSubState.h"
+#include "engine/SoundManager.h"
 #else
 #include <states/PlayState.h>
 #include <Engine.h>
@@ -51,15 +57,28 @@ void PlayState::update(float deltaTime) {
     } else {
         playerSprite->update(deltaTime);
         
-        if (Input::pressed(SDLK_UP)) {
+        if (Input::getInstance().isKeyPressed(SDLK_UP)) {
             playerSprite->playAnimation("up");
-        } else if (Input::pressed(SDLK_DOWN)) {
+        } else if (Input::getInstance().isKeyPressed(SDLK_DOWN)) {
             playerSprite->playAnimation("down");
-        } else if (Input::pressed(SDLK_LEFT)) {
+        } else if (Input::getInstance().isKeyPressed(SDLK_LEFT)) {
             playerSprite->playAnimation("left");
-        } else if (Input::pressed(SDLK_RIGHT)) {
+        } else if (Input::getInstance().isKeyPressed(SDLK_RIGHT)) {
             playerSprite->playAnimation("right");
         } else {
+            playerSprite->playAnimation("idle");
+        }
+
+        if (Input::getInstance().isKeyJustPressed(SDLK_p)) {
+            if (_subStates.empty()) {
+                PauseSubState* pauseSubState = new PauseSubState();
+                openSubState(pauseSubState);
+            } else {
+                closeSubState();
+            }
+        }
+
+        if (Input::getInstance().isKeyJustPressed(SDLK_r)) {
             playerSprite->playAnimation("idle");
         }
     }
@@ -85,34 +104,4 @@ void PlayState::destroy() {
 void PlayState::openSubState(SubState* subState) {
     std::cout << "PlayState::openSubState called" << std::endl;
     State::openSubState(subState);
-}
-
-void PlayState::keyPressed(unsigned char key) {
-    if (key == 'p') {
-        if (instance->_subStates.empty()) {
-            PauseSubState* pauseSubState = new PauseSubState();
-            instance->openSubState(pauseSubState);
-        } else {
-            instance->closeSubState();
-        }
-    }
-
-    if (key == 'r') {
-        instance->playerSprite->playAnimation("idle");
-    }
-}
-
-void PlayState::specialKeyPressed(int key, int x, int y) {
-    std::cout << "Special key pressed: " << key << std::endl;
-    
-    int mappedKey;
-    switch(key) {
-        case SDLK_UP:    mappedKey = SDLK_UP; break;
-        case SDLK_DOWN:  mappedKey = SDLK_DOWN; break;
-        case SDLK_LEFT:  mappedKey = SDLK_LEFT; break;
-        case SDLK_RIGHT: mappedKey = SDLK_RIGHT; break;
-        default: return;
-    }
-    
-    Input::handleKeyPress(mappedKey);
 }

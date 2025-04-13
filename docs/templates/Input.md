@@ -13,13 +13,13 @@ public:
 
 // PlayState.cpp
 void PlayState::update(float deltaTime) {
-    if (Input::pressed(128)) {         // Up Arrow
+    if (Input::getInstance().isKeyPressed(SDLK_UP)) {
         sprite->playAnimation("up");
-    } else if (Input::pressed(129)) {  // Down Arrow
+    } else if (Input::getInstance().isKeyPressed(SDLK_DOWN)) {
         sprite->playAnimation("down");
-    } else if (Input::pressed(130)) {  // Left Arrow
+    } else if (Input::getInstance().isKeyPressed(SDLK_LEFT)) {
         sprite->playAnimation("left");
-    } else if (Input::pressed(131)) {  // Right Arrow
+    } else if (Input::getInstance().isKeyPressed(SDLK_RIGHT)) {
         sprite->playAnimation("right");
     } else {
         sprite->playAnimation("idle");
@@ -44,42 +44,53 @@ void PlayState::specialKeyPressed(int key, int x, int y) {
 In your `main.cpp` file, set up both regular and special key callbacks:
 
 ```cpp
-glutKeyboardFunc(Engine::keyboardCallback);
-glutKeyboardUpFunc(Engine::keyboardUpCallback);
-glutSpecialFunc(Engine::specialKeyCallback);
-glutSpecialUpFunc(Engine::specialKeyUpCallback);
+SDL_Event event;
+while (SDL_PollEvent(&event)) {
+    Input::getInstance().handleEvent(event);
+    // ... other event handling
+}
+Input::getInstance().update();
 ```
 
 ## Available Keys
 
-You can handle any key supported by GLUT, including:
+You can handle any key supported by SDL2, including:
 
 - A-Z and a-z
 - 0-9
-- Special keys like Space, Enter, Tab, etc.
-- Arrow keys (mapped to 128-131)
+- Special keys like Space (SDLK_SPACE), Enter (SDLK_RETURN), Tab (SDLK_TAB)
+- Arrow keys (SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT)
+- Function keys (SDLK_F1 through SDLK_F12)
+- Modifier keys (SDLK_LSHIFT, SDLK_RSHIFT, etc.)
 
-For regular keys (like letters and numbers), use `keyPressed`. For special keys (arrow keys), you need to implement `specialKeyPressed` and map them to the correct values:
+## Mouse Input
+
+The input system also supports mouse input:
 
 ```cpp
-// PlayState.h
-class PlayState : public State {
-public:
-    static void keyPressed(unsigned char key, int x, int y);
-    static void specialKeyPressed(int key, int x, int y);
-    static PlayState* instance;
-};
-
-// PlayState.cpp
-void PlayState::specialKeyPressed(int key, int x, int y) {
-    int mappedKey;
-    switch(key) {
-        case GLUT_KEY_UP:    mappedKey = 128; break;
-        case GLUT_KEY_DOWN:  mappedKey = 129; break;
-        case GLUT_KEY_LEFT:  mappedKey = 130; break;
-        case GLUT_KEY_RIGHT: mappedKey = 131; break;
-        default: return;
-    }
-    Input::handleKeyPress(mappedKey);
+if (Input::getInstance().isMouseButtonPressed(SDL_BUTTON_LEFT)) {
+    // Left mouse button is pressed
 }
+
+// mouse pos
+int mouseX = Input::getInstance().getMouseX();
+int mouseY = Input::getInstance().getMouseY();
+
+// mouse movement
+int deltaX = Input::getInstance().getMouseDeltaX();
+int deltaY = Input::getInstance().getMouseDeltaY();
 ```
+
+## Key States
+
+The input system tracks three states for each key:
+
+- `isKeyPressed`: Key is currently held down
+- `isKeyJustPressed`: Key was pressed this frame
+- `isKeyJustReleased`: Key was released this frame
+
+Same states are available for mouse buttons:
+
+- `isMouseButtonPressed`
+- `isMouseButtonJustPressed`
+- `isMouseButtonJustReleased`

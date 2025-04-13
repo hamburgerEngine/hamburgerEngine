@@ -1,7 +1,18 @@
 #pragma once
+
+#ifdef __MINGW32__
 #include "../../engine/State.h"
 #include "../../engine/Sprite.h"
 #include "../../engine/AnimatedSprite.h"
+#elif defined(__SWITCH__)
+#include "../../engine/State.h"
+#include "../../engine/Sprite.h"
+#include "../../engine/AnimatedSprite.h"
+#else
+#include <State.h>
+#include <Sprite.h>
+#include <AnimatedSprite.h>
+#endif
 
 class PlayState : public State {
 public:
@@ -14,9 +25,6 @@ public:
     void destroy() override;
 
     void openSubState(SubState* subState);
-
-    void keyPressed(unsigned char key) override;
-    virtual void specialKeyPressed(int key, int x, int y) override;
     static PlayState* instance;
 
 private:

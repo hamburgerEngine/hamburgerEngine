@@ -1,7 +1,7 @@
 #pragma once
+#include <SDL2/SDL.h>
 #include <map>
 #include <functional>
-#include <array>
 #include <string>
 
 class Input {
@@ -11,46 +11,40 @@ public:
         return instance;
     }
 
-    void keyPressed(unsigned char key);
-    void keyReleased(unsigned char key);
-    void specialKeyPressed(int key);
-    void specialKeyReleased(int key);
-    bool isKeyPressed(int key);
-    bool isKeyJustPressed(int key);
-    bool isKeyJustReleased(int key);
+    void handleEvent(const SDL_Event& event);
     void update();
-
-    static void handleKeyPress(int key) {
-        getInstance().specialKeyPressed(key);
-    }
     
-    static void handleKeyRelease(int key) {
-        getInstance().specialKeyReleased(key);
-    }
+    bool isKeyPressed(SDL_Keycode key) const;
+    bool isKeyJustPressed(SDL_Keycode key) const;
+    bool isKeyJustReleased(SDL_Keycode key) const;
     
-    static bool justPressed(int key) {
-        return getInstance().isKeyJustPressed(key);
-    }
+    bool isMouseButtonPressed(Uint8 button) const;
+    bool isMouseButtonJustPressed(Uint8 button) const;
+    bool isMouseButtonJustReleased(Uint8 button) const;
     
-    static bool pressed(int key) {
-        return getInstance().isKeyPressed(key);
-    }
-    
-    static bool justReleased(int key) {
-        return getInstance().isKeyJustReleased(key);
-    }
+    int getMouseX() const { return mouseX; }
+    int getMouseY() const { return mouseY; }
+    int getMouseDeltaX() const { return mouseDeltaX; }
+    int getMouseDeltaY() const { return mouseDeltaY; }
 
     void setCallback(const std::string& action, std::function<void()> callback);
 
 private:
     Input();
-    std::array<bool, 256> currentKeyState;
-    std::array<bool, 256> previousKeyState;
-    std::array<bool, 256> justPressedState;
-    std::array<bool, 256> justReleasedState;
-    std::map<std::string, std::function<void()>> callbacks;
+    ~Input();
 
-    bool isValidKey(int key) const {
-        return key >= 0 && key < 256;
-    }
+    std::map<SDL_Keycode, bool> currentKeyState;
+    std::map<SDL_Keycode, bool> previousKeyState;
+    std::map<SDL_Keycode, bool> justPressedState;
+    std::map<SDL_Keycode, bool> justReleasedState;
+    
+    std::map<Uint8, bool> currentMouseState;
+    std::map<Uint8, bool> previousMouseState;
+    std::map<Uint8, bool> justPressedMouseState;
+    std::map<Uint8, bool> justReleasedMouseState;
+    
+    int mouseX, mouseY;
+    int mouseDeltaX, mouseDeltaY;
+    
+    std::map<std::string, std::function<void()>> callbacks;
 };
