@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <SDL2/SDL.h>
 
 class Camera;
 
@@ -8,8 +9,7 @@ protected:
     bool visible = true;
     std::string imagePath;
     float x = 0, y = 0;
-    unsigned char* imageData = nullptr;
-    unsigned int textureID = 0;
+    SDL_Texture* texture = nullptr;
     int width = 0;
     int height = 0;
     Camera* camera = nullptr;  

@@ -25,17 +25,17 @@
     <Filter Include="Header Files\gameName\states">
       <UniqueIdentifier>{262f600e-ec94-4b1a-9acb-4b1aa523e5aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gameName">
-      <UniqueIdentifier>{ba577f1d-9564-426b-8fc0-8a313b39239d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gameName\states">
-      <UniqueIdentifier>{2c5557ae-b004-4e47-ac20-2ff526d868e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\gameName\substates">
       <UniqueIdentifier>{64f8144d-652b-47a7-9faf-a82d39766042}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gameName">
+      <UniqueIdentifier>{156c58a3-e6a0-45ed-a362-45f52045c5fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gameName\states">
+      <UniqueIdentifier>{8b38ab19-0796-4b75-8f3a-519e945ae05b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\gameName\substates">
-      <UniqueIdentifier>{f02ac184-10e5-47fe-ab75-06c67b692d7e}</UniqueIdentifier>
+      <UniqueIdentifier>{0307a0e7-098d-4698-bf1e-7d4d5c71c015}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,12 +57,6 @@
     <ClCompile Include="src\stb_image_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameName\states\PlayState.cpp">
-      <Filter>Source Files\gameName\states</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gameName\substates\PauseSubState.cpp">
-      <Filter>Source Files\gameName\substates</Filter>
-    </ClCompile>
     <ClCompile Include="src\engine\State.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
@@ -72,11 +66,15 @@
     <ClCompile Include="src\engine\Discord.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\gameName\README.md">
-      <Filter>Source Files\gameName</Filter>
-    </None>
+    <ClCompile Include="src\engine\SDLManager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameName\states\PlayState.cpp">
+      <Filter>Source Files\gameName\states</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameName\substates\PauseSubState.cpp">
+      <Filter>Source Files\gameName\substates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\AnimatedSprite.h">

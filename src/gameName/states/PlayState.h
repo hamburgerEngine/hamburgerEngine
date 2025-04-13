@@ -3,8 +3,6 @@
 #include "../../engine/Sprite.h"
 #include "../../engine/AnimatedSprite.h"
 
-void playStateKeyboardCallback(unsigned char key, int x, int y);
-
 class PlayState : public State {
 public:
     PlayState();

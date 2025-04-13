@@ -1,162 +1,129 @@
 #ifdef __MINGW32__
 #include "Text.h"
+#include "SDLManager.h"
 #include <iostream>
+#include <sstream>
 #elif defined(__SWITCH__)
 #include "Text.h"
+#include "SDLManager.h"
 #include <iostream>
+#include <sstream>
 #else
 #include <Text.h>
+#include <SDLManager.h>
 #include <iostream>
+#include <sstream>
 #endif
 
 Text::Text(float x, float y, int z) 
-    : x(x), 
-      y(y), 
-      width(0.0f), 
-      height(0.0f),
-      text(""),
-      color(0xFFFFFFFF),
-      fontSize(12),
-      ft(nullptr),
-      face(nullptr) {
-    
-    if (FT_Init_FreeType(&ft)) {
-        std::cerr << "Could not init FreeType Library" << std::endl;
-        throw std::runtime_error("FreeType initialization failed");
-    }
+    : x(x), y(y), width(0), height(0), text(""), color(0xFFFFFFFF),
+      fontSize(12), font(nullptr), texture(nullptr), isVisible(true),
+      lineHeight(0), lineSpacing(1.2f) {
 }
 
 Text::~Text() {
-    if (face) {
-        FT_Done_Face(face);
+    if (texture) {
+        SDL_DestroyTexture(texture);
+        texture = nullptr;
     }
-    if (ft) {
-        FT_Done_FreeType(ft);
-    }
-    
-    for (const auto& pair : characters) {
-        GLuint texID = pair.second.textureID;
-        glDeleteTextures(1, &texID);
+    if (font) {
+        TTF_CloseFont(font);
+        font = nullptr;
     }
 }
 
 void Text::setText(const std::string& text) {
     this->text = text;
+    updateTexture();
 }
 
 void Text::setFormat(const std::string& fontPath, int fontSize, unsigned int color) {
     this->fontSize = fontSize;
     this->color = color;
     loadFont(fontPath);
+    updateTexture();
 }
 
 void Text::loadFont(const std::string& fontPath) {
-    if (face) {
-        FT_Done_Face(face);
+    if (font) {
+        TTF_CloseFont(font);
+    }
+    font = TTF_OpenFont(fontPath.c_str(), fontSize);
+    if (!font) {
+        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+        return;
+    }
+    
+    int fontHeight = TTF_FontHeight(font);
+    lineHeight = static_cast<float>(fontHeight);
+}
+
+void Text::updateTexture() {
+    if (!font || text.empty()) return;
+
+    if (texture) {
+        SDL_DestroyTexture(texture);
+        texture = nullptr;
     }
 
-    if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
-        std::cerr << "Failed to load font" << std::endl;
+    std::istringstream iss(text);
+    std::string line;
+    float maxWidth = 0;
+    int lineCount = 0;
+    
+    while (std::getline(iss, line)) {
+        int w, h;
+        TTF_SizeText(font, line.c_str(), &w, &h);
+        maxWidth = std::max(maxWidth, static_cast<float>(w));
+        lineCount++;
+    }
+    
+    width = maxWidth;
+    height = static_cast<float>(lineCount) * lineHeight * lineSpacing;
+}
+
+void Text::renderText(const std::string& text, float x, float y) {
+    SDL_Color sdlColor = {
+        static_cast<Uint8>((color >> 24) & 0xFF),
+        static_cast<Uint8>((color >> 16) & 0xFF),
+        static_cast<Uint8>((color >> 8) & 0xFF),
+        static_cast<Uint8>(color & 0xFF)
+    };
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), sdlColor);
+    if (!surface) {
+        std::cerr << "Failed to create text surface: " << TTF_GetError() << std::endl;
         return;
     }
 
-    FT_Set_Pixel_Sizes(face, 0, fontSize);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(SDLManager::getInstance().getRenderer(), surface);
+    SDL_FreeSurface(surface);
 
-    for (unsigned char c = 0; c < 128; c++) {
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
-            std::cerr << "Failed to load Glyph for character " << c << std::endl;
-            continue;
-        }
-
-        GLuint texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_ALPHA,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            0,
-            GL_ALPHA,
-            GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
-        );
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        FontCharacter fontChar = {
-            texture,
-            static_cast<int>(face->glyph->bitmap.width),
-            static_cast<int>(face->glyph->bitmap.rows),
-            face->glyph->bitmap_left,
-            face->glyph->bitmap_top,
-            static_cast<unsigned int>(face->glyph->advance.x)
-        };
-        characters[c] = fontChar;
+    if (!textTexture) {
+        std::cerr << "Failed to create texture from surface: " << SDL_GetError() << std::endl;
+        return;
     }
-}
 
-float Text::getLineHeight() const {
-    return fontSize * lineSpacing;
+    SDL_Rect destRect;
+    destRect.x = static_cast<int>(x);
+    destRect.y = static_cast<int>(y);
+    SDL_QueryTexture(textTexture, nullptr, nullptr, &destRect.w, &destRect.h);
+    
+    SDL_RenderCopy(SDLManager::getInstance().getRenderer(), textTexture, nullptr, &destRect);
+    SDL_DestroyTexture(textTexture);
 }
 
 void Text::render() {
-    if (!isVisible) return;
+    if (!isVisible || !font) return;
     
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    glColor4f((color >> 24) / 255.0f, 
-              ((color >> 16) & 0xFF) / 255.0f, 
-              ((color >> 8) & 0xFF) / 255.0f, 
-              (color & 0xFF) / 255.0f);
-
-    float startX = x;
-    float currentX = startX;
-    float currentY = y + fontSize;
+    std::istringstream iss(text);
+    std::string line;
+    float currentY = y;
     
-    for (unsigned char c : text) {
-        if (c == '\n') {
-            currentX = startX;
-            currentY += getLineHeight();
-            continue;
-        }
-
-        auto it = characters.find(c);
-        if (it == characters.end()) {
-            std::cerr << "Character not found: " << c << std::endl;
-            continue;
-        }
-
-        const FontCharacter& ch = it->second;
-
-        float charX = currentX + ch.bearingX;
-        float charY = currentY - ch.bearingY;
-
-        float w = ch.width;
-        float h = ch.height;
-
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, ch.textureID);
-
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 0.0f); glVertex2f(charX, charY);
-        glTexCoord2f(1.0f, 0.0f); glVertex2f(charX + w, charY);
-        glTexCoord2f(1.0f, 1.0f); glVertex2f(charX + w, charY + h);
-        glTexCoord2f(0.0f, 1.0f); glVertex2f(charX, charY + h);
-        glEnd();
-
-        glDisable(GL_TEXTURE_2D);
-
-        currentX += (ch.advance >> 6);
+    while (std::getline(iss, line)) {
+        renderText(line, x, currentY);
+        currentY += lineHeight * lineSpacing;
     }
-
-    glDisable(GL_BLEND);
 }
 
 void Text::setPosition(float x, float y) {
