@@ -30,3 +30,7 @@ Release/PhloxEngine.vcxproj.FileListAbsolute.txt
 /bin
 /hamburger-engine/Debug/microsoft
 *.o
+/build
+*.elf
+*.nro
+*.nacp

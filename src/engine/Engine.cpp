@@ -7,7 +7,7 @@
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #elif defined(__SWITCH__)
 #include "Engine.h"
 #include "State.h"
@@ -17,7 +17,7 @@
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #else
 #include <Engine.h>
 #include <State.h>

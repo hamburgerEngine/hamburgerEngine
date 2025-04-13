@@ -14,7 +14,7 @@ Run these commands:
 
 ```bash
 pacman -Syu
-pacman -S make mingw-w64-x86_64-gcc mingw-w64-x86_64-freeglut mingw-w64-x86_64-freetype mingw-w64-x86_64-mesa mingw-w64-x86_64-openal mingw-w64-x86_64-libvorbis
+pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_ttf
 ```
 
 # How 2 build - Arch Linux
@@ -22,7 +22,7 @@ pacman -S make mingw-w64-x86_64-gcc mingw-w64-x86_64-freeglut mingw-w64-x86_64-f
 First run:
 
 ```bash
-sudo pacman -S freetype2 freeglut
+sudo pacman -S sdl2 sdl2_image sdl2_mixer sdl2_ttf
 ```
 
 Then run:
@@ -36,11 +36,26 @@ make
 First run:
 
 ```bash
-sudo apt-get install libfreetype-dev libfreetype6 libfreetype6-dev glut
+sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 ```
 
 Then run:
 
 ```bash
 make
+```
+
+## Nintendo Switch (DevKitPro)
+
+First run:
+
+```bash
+pacman -S switch-sdl2 switch-sdl2_image switch-sdl2_mixer switch-sdl2_ttf
+```
+
+then run:
+
+```bash
+nacptool --create "Hamburger Engine" "maybekoi" "1.0.0" hamburger-engine.nacp # reminder to change the title, author, and version to your game's info!
+make -f Makefile.nx
 ```

@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     Discord::GetInstance().Update();
     #endif
     
-    Engine engine(800, 600, "hamburger engine");
+    Engine engine(1280, 720, "hamburger engine");
     PlayState* initialState = new PlayState();
     engine.pushState(initialState);
     

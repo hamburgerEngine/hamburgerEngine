@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef __MINGW32__
+#if !defined(__MINGW32__) && !defined(__SWITCH__)
 
 #include <discord_register.h> 
 #include <discord_rpc.h> 
