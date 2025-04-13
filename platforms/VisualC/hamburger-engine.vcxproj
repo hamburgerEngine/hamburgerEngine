@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\engine\AnimatedSprite.cpp" />
+    <ClCompile Include="..\..\src\engine\Button.cpp" />
     <ClCompile Include="..\..\src\engine\Camera.cpp" />
     <ClCompile Include="..\..\src\engine\DebugUI.cpp" />
     <ClCompile Include="..\..\src\engine\Discord.cpp" />

@@ -15,7 +15,7 @@
 
 PlayState* PlayState::instance = nullptr;
 
-PlayState::PlayState() : backgroundSprite(nullptr), playerSprite(nullptr) {
+PlayState::PlayState() : backgroundSprite(nullptr), playerSprite(nullptr), button(nullptr) {
     instance = this; // haxeflixel reference
 }
 
@@ -44,6 +44,16 @@ void PlayState::create() {
     engine->addAnimatedSprite(playerSprite);
     playerSprite->playAnimation("idle");
 
+    button = new Button(400, 100, "Click Me", []() {
+        Log::getInstance().info("Button clicked!");
+    });
+
+    button->setBackgroundColor(0xFF0000FF);
+    button->setHoverColor(0xFF8080FF);
+    button->setPadding(15.0f);
+    button->setFormat("assets/fonts/vcr.ttf", 24, 0xFFFFFFFF);
+    button->setVisible(true);
+
     SoundManager::getInstance().playMusic(Paths::music("RunFNFInst"));
     Log::getInstance().info("PlayState initialized lol! Also a log test.");
 }
@@ -56,6 +66,7 @@ void PlayState::update(float deltaTime) {
         _subStates.back()->update(deltaTime);
     } else {
         playerSprite->update(deltaTime);
+        button->update(deltaTime);
         
         if (Input::pressed(SDL_SCANCODE_UP) || Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_UP)) {
             playerSprite->playAnimation("up");
@@ -113,17 +124,20 @@ void PlayState::render() {
     if (!_subStates.empty()) {
         _subStates.back()->render();
     }
+
+    button->render();
 }
 
 void PlayState::destroy() {
     delete backgroundSprite;
     delete playerSprite;
-
+    delete button;
+    
     backgroundSprite = nullptr;
     playerSprite = nullptr;
+    button = nullptr;
 }
 
 void PlayState::openSubState(SubState* subState) {
-    std::cout << "PlayState::openSubState called" << std::endl;
     State::openSubState(subState);
 }

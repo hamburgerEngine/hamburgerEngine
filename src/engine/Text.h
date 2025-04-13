@@ -7,13 +7,13 @@
 class Text {
 public:
     Text(float x = 0, float y = 0, int z = 0);
-    ~Text();
+    virtual ~Text();
     
     void setFormat(const std::string& fontPath, int fontSize, unsigned int color);
     void setText(const std::string& text);
     void setPosition(float x, float y);
-    void update(float deltaTime);
-    void render();
+    virtual void update(float deltaTime);
+    virtual void render();
     
     float getWidth() const { return width; }
     float getHeight() const { return height; }
@@ -29,14 +29,16 @@ public:
     float getX() const { return x; }
     float getY() const { return y; }
 
+protected:
+    float x;
+    float y;
+
 private:
     void loadFont(const std::string& fontPath);
     void updateTexture();
     void renderText(const std::string& text, float x, float y);
 
     std::string text;
-    float x;
-    float y;
     float width;
     float height;
     float lineHeight;
