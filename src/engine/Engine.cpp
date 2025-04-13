@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
+#include <SDL_mixer.h>
 #elif defined(__SWITCH__)
 #include "Engine.h"
 #include "State.h"
@@ -16,6 +17,7 @@
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 #include "Text.h"
+#include <SDL_mixer.h>
 #else
 #include <Engine.h>
 #include <State.h>
@@ -26,6 +28,7 @@
 #include <AnimatedSprite.h>
 #include <Text.h>
 #include <algorithm>
+#include <SDL2/SDL_mixer.h>
 #endif
 
 Engine* Engine::instance = nullptr;
@@ -40,9 +43,16 @@ Engine::Engine(int width, int height, const char* title)
         std::cerr << "Failed to initialize SDL!" << std::endl;
         return;
     }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        std::cerr << "Failed to initialize SDL_mixer: " << Mix_GetError() << std::endl;
+        return;
+    }
 }
 
 Engine::~Engine() {
+    Mix_CloseAudio();
+    
     for (auto sprite : sprites) {
         delete sprite;
     }

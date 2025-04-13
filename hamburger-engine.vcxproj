@@ -24,6 +24,8 @@
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\engine\Input.cpp" />
     <ClCompile Include="src\engine\SDLManager.cpp" />
+    <ClCompile Include="src\engine\Sound.cpp" />
+    <ClCompile Include="src\engine\SoundManager.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
     <ClCompile Include="src\engine\State.cpp" />
     <ClCompile Include="src\engine\Text.cpp" />

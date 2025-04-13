@@ -3,8 +3,8 @@
 ```cpp
 // SubStateName.h
 #pragma once
-#include "../../engine/SubState.h"
-#include "../../engine/Text.h"
+#include <engine/SubState.h>
+#include <engine/Text.h>
 
 class SubStateName : public SubState {
 public:
@@ -23,9 +23,9 @@ private:
 
 ```cpp
 // SubStateName.cpp
-#include "../../../include/gameName/substates/SubStateName.h"
-#include "../../../include/engine/Engine.h"
-#include "../../../include/engine/Input.h"
+#include <substates/SubStateName.h>
+#include <engine/Engine.h>
+#include <engine/Input.h>
 #include <iostream>
 
 SubStateName::SubStateName() : pauseText(nullptr) {

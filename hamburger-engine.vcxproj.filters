@@ -75,6 +75,12 @@
     <ClCompile Include="src\gameName\substates\PauseSubState.cpp">
       <Filter>Source Files\gameName\substates</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\Sound.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\SoundManager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\AnimatedSprite.h">

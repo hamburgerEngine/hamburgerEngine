@@ -3,11 +3,13 @@
 #include "engine/Engine.h"
 #include "engine/Input.h"
 #include "gameName/substates/PauseSubState.h"
+#include "engine/SoundManager.h"
 #else
 #include <states/PlayState.h>
 #include <Engine.h>
 #include <Input.h>
 #include <substates/PauseSubState.h>
+#include <SoundManager.h>
 #endif
 #include <iostream>
 
@@ -39,6 +41,8 @@ void PlayState::create() {
     
     engine->addAnimatedSprite(playerSprite);
     playerSprite->playAnimation("idle");
+
+    SoundManager::getInstance().playMusic("assets/music/RunFNFInst.ogg");
 }
 
 void PlayState::update(float deltaTime) {
