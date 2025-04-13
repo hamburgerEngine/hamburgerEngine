@@ -44,3 +44,16 @@ VisualC/hamburger-engine.vcxproj.user
 Makefiles/antiLogic-HE/AntiLogic \[01ee18c0f6dd0000\].nsp
 /Makefiles/antiLogic-HE
 Makefiles/antiLogic-HE_EXTRACT_TO_SWITCH_FOLDER.zip
+/platforms/Makefiles/antiLogic-HE
+platforms/Makefiles/antiLogic-HE_EXTRACT_TO_SWITCH_FOLDER.zip
+/platforms/Makefiles/build
+/platforms/VisualC/.vs/hamburger-engine
+/platforms/VisualC/Debug/assets
+platforms/VisualC/hamburger-engine.vcxproj.user
+/platforms/VisualC/Release/assets
+/platforms/VisualC/x64/Debug/assets
+/platforms/VisualC/x64/Release/assets
+/platforms/VisualC/x64/Release
+/platforms/VisualC/x64/Debug
+/platforms/VisualC/Release
+/platforms/VisualC/Debug

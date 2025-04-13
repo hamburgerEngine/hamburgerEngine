@@ -70,7 +70,7 @@ void PlayState::update(float deltaTime) {
         } else if (Input::pressed(SDL_SCANCODE_LEFT) || Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_LEFT)) {
             playerSprite->playAnimation("left");
             #ifdef __SWITCH__ 
-                Log::info("Left pressed");
+                Log::getInstance().info("Left pressed");
             #endif
         } else if (Input::pressed(SDL_SCANCODE_RIGHT) || Input::isControllerButtonPressed(SDL_CONTROLLER_BUTTON_DPAD_RIGHT)) {
             playerSprite->playAnimation("right");

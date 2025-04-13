@@ -3,7 +3,7 @@ CXXFLAGS = -std=c++11 -Wall -Wextra
 INCLUDES = -I./include -I/usr/include/freetype2 -I./external
 LIBS = -lopengl32 -lfreeglut -lglu32 -lfreetype -lopenal -lvorbisfile -lvorbis -logg
 
-SRC_DIR = ../src
+SRC_DIR = ../../src
 OBJ_DIR = obj
 BIN_DIR = bin
 		  

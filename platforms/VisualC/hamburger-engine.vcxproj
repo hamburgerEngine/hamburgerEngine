@@ -34,23 +34,23 @@
     <ClInclude Include="src\gameName\substates\PauseSubState.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\engine\AnimatedSprite.cpp" />
-    <ClCompile Include="..\src\engine\Camera.cpp" />
-    <ClCompile Include="..\src\engine\Discord.cpp" />
-    <ClCompile Include="..\src\engine\Engine.cpp" />
-    <ClCompile Include="..\src\engine\Input.cpp" />
-    <ClCompile Include="..\src\engine\Log.cpp" />
-    <ClCompile Include="..\src\engine\Paths.cpp" />
-    <ClCompile Include="..\src\engine\SDLManager.cpp" />
-    <ClCompile Include="..\src\engine\Sound.cpp" />
-    <ClCompile Include="..\src\engine\SoundManager.cpp" />
-    <ClCompile Include="..\src\engine\Sprite.cpp" />
-    <ClCompile Include="..\src\engine\State.cpp" />
-    <ClCompile Include="..\src\engine\Text.cpp" />
-    <ClCompile Include="..\src\gameName\states\PlayState.cpp" />
-    <ClCompile Include="..\src\gameName\substates\PauseSubState.cpp" />
-    <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\stb_image_impl.cpp" />
+    <ClCompile Include="..\..\src\engine\AnimatedSprite.cpp" />
+    <ClCompile Include="..\..\src\engine\Camera.cpp" />
+    <ClCompile Include="..\..\src\engine\Discord.cpp" />
+    <ClCompile Include="..\..\src\engine\Engine.cpp" />
+    <ClCompile Include="..\..\src\engine\Input.cpp" />
+    <ClCompile Include="..\..\src\engine\Log.cpp" />
+    <ClCompile Include="..\..\src\engine\Paths.cpp" />
+    <ClCompile Include="..\..\src\engine\SDLManager.cpp" />
+    <ClCompile Include="..\..\src\engine\Sound.cpp" />
+    <ClCompile Include="..\..\src\engine\SoundManager.cpp" />
+    <ClCompile Include="..\..\src\engine\Sprite.cpp" />
+    <ClCompile Include="..\..\src\engine\State.cpp" />
+    <ClCompile Include="..\..\src\engine\Text.cpp" />
+    <ClCompile Include="..\..\src\gameName\states\PlayState.cpp" />
+    <ClCompile Include="..\..\src\gameName\substates\PauseSubState.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\stb_image_impl.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -126,19 +126,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\external\discord-rpc\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;../src;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;$(ProjectDir)..\external;$(ProjectDir)..\src\gameName;$(ProjectDir)..\src\thirdparty;$(ProjectDir)..\src\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\external\discord-rpc\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;../../src;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;$(ProjectDir)..\..\external;$(ProjectDir)..\..\src\gameName;$(ProjectDir)..\..\src\thirdparty;$(ProjectDir)..\..\src\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x32;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\lib\x32;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)..\assets" "$(TargetDir)\assets\" /E /Y
+      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /E /Y
 
-XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
+XCOPY "$(ProjectDir)..\..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>
@@ -154,21 +154,21 @@ XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\src;$(ProjectDir)..\external;%(AdditionalIncludeDirectories);$(ProjectDir)..\src\gameName;$(ProjectDir)..\src\thirdparty;$(ProjectDir)..\external\discord-rpc\include;$(ProjectDir)..\src\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src;$(ProjectDir)..\..\external;%(AdditionalIncludeDirectories);$(ProjectDir)..\..\src\gameName;$(ProjectDir)..\..\src\thirdparty;$(ProjectDir)..\..\external\discord-rpc\include;$(ProjectDir)..\..\src\engine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x32;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\lib\x32;</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)..\assets" "$(TargetDir)\assets\" /E /Y
+      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /E /Y
 
-XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
+XCOPY "$(ProjectDir)..\..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>
@@ -181,19 +181,19 @@ XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x86\*.*" "$(TargetDir)" /Y
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\external\discord-rpc\include;$(ProjectDir)..\external;../src;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;%(AdditionalIncludeDirectories);$(ProjectDir)..\src\gameName;$(ProjectDir)..\src\thirdparty;$(ProjectDir)..\src\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\external\discord-rpc\include;$(ProjectDir)..\..\external;../../src;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\include;C:\Users\Ty\Documents\VS\hamburger-engine\external;%(AdditionalIncludeDirectories);$(ProjectDir)..\..\src\gameName;$(ProjectDir)..\..\src\thirdparty;$(ProjectDir)..\..\src\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\lib\x64;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)..\assets" "$(TargetDir)\assets\" /E /Y
+      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /E /Y
 
-XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
+XCOPY "$(ProjectDir)..\..\external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>
@@ -208,7 +208,7 @@ XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\external\discord-rpc\include;$(ProjectDir)..\src;$(ProjectDir)..\external;%(AdditionalIncludeDirectories);$(ProjectDir)..\src\gameName;$(ProjectDir)..\src\thirdparty;$(ProjectDir)..\src\engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\external\discord-rpc\include;$(ProjectDir)..\..\src;$(ProjectDir)..\..\external;%(AdditionalIncludeDirectories);$(ProjectDir)..\..\src\gameName;$(ProjectDir)..\..\src\thirdparty;$(ProjectDir)..\..\src\engine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
@@ -217,13 +217,13 @@ XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\external\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies);discord-rpc.lib;SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2main.lib;SDL2test.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)..\assets" "$(TargetDir)\assets\" /E /Y
+      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /E /Y
 
-XCOPY "$(ProjectDir)..\external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
+XCOPY "$(ProjectDir)..\..\external\discord-rpc\dll\x64\*.*" "$(TargetDir)" /Y
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>

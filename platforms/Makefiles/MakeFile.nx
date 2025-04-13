@@ -38,9 +38,9 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	hamburger-engine
 BUILD		:=	build
-SOURCES		:=	../src ../src/engine ../src/gameName ../src/gameName/states ../src/gameName/substates
+SOURCES		:=	../../src ../../src/engine ../../src/gameName ../../src/gameName/states ../../src/gameName/substates
 DATA		:=	data
-INCLUDES	:=	../src ../src/engine ../src/gameName ../src/gameName/states ../src/gameName/substates
+INCLUDES	:=	../../src ../../src/engine ../../src/gameName ../../src/gameName/states ../../src/gameName/substates
 ROMFS	:=	romfs
 
 APP_TITLE := "Hamburger Engine"

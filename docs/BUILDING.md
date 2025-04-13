@@ -4,7 +4,7 @@
 
 Install Visual Studio Community 2019 (or 2022) and make sure to install the "Desktop development with C++" workload.
 
-Double click on the hamburger-engine.sln file to open the project in the VisualC folder.
+Double click on the hamburger-engine.sln file to open the project in the platforms/VisualC folder.
 
 Press F5 to build and run the engine.
 
@@ -30,7 +30,7 @@ sudo pacman -S sdl2 sdl2_image sdl2_mixer sdl2_ttf
 Then run:
 
 ```bash
-make
+cd platforms && cd Makefiles && make
 ```
 
 ## Ubuntu
@@ -44,7 +44,7 @@ sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 Then run:
 
 ```bash
-make
+cd platforms && cd Makefiles && make
 ```
 
 ## Nintendo Switch (DevKitPro)
@@ -58,6 +58,5 @@ pacman -S switch-sdl2 switch-sdl2_image switch-sdl2_mixer switch-sdl2_ttf
 then run:
 
 ```bash
-nacptool --create "Hamburger Engine" "maybekoi" "1.0.0" hamburger-engine.nacp # reminder to change the title, author, and version to your game's info!
-make -f Makefile.nx
+cd platforms && cd Makefiles && make -f Makefile.nx
 ```
