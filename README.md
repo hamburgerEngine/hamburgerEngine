@@ -23,6 +23,8 @@ See [BUILDING.md](docs/BUILDING.md) for more information.
 - [x] States and Substates
 - [x] Input
 - [x] Sound
+- [x] Buttons
+- [x] Debug UI
 
 # Projects made with hamburger engine:
 
