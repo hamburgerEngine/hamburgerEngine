@@ -57,3 +57,4 @@ platforms/VisualC/hamburger-engine.vcxproj.user
 /platforms/VisualC/x64/Debug
 /platforms/VisualC/Release
 /platforms/VisualC/Debug
+/.vscode
