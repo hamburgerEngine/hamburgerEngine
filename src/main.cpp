@@ -30,8 +30,12 @@ int main(int argc, char** argv) {
     Discord::GetInstance().Update();
     #endif
     
-    Engine engine(1280, 720, "hamburger engine", 60);
-    engine.debugMode = true;
+    int width = 1280;
+    int height = 720;
+    int fps = 60;
+    bool debug = true;
+    Engine engine(width, height, "hamburger engine", fps);
+    engine.debugMode = debug;
     PlayState* initialState = new PlayState();
     engine.pushState(initialState);
     

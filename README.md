@@ -25,6 +25,7 @@ See [BUILDING.md](docs/BUILDING.md) for more information.
 - [x] Sound
 - [x] Buttons
 - [x] Debug UI
+- [x] Video Playback (Audio is kindy iffy but it does work.)
 
 # Projects made with hamburger engine:
 
@@ -38,3 +39,4 @@ See [BUILDING.md](docs/BUILDING.md) for more information.
 - [SDL2_ttf](https://github.com/libsdl-org/SDL_ttf)
 - [SDL_image](https://github.com/libsdl-org/SDL_ttf)
 - [SDL_mixer](https://github.com/libsdl-org/SDL_mixer)
+- [FFMPEG](https://github.com/BtbN/FFmpeg-Builds/releases)
