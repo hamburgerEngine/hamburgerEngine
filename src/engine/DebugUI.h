@@ -3,6 +3,13 @@
 #include "Text.h"
 #include <string>
 
+#ifdef _WIN32
+#include <windows.h>
+#include <psapi.h>
+#elif defined(__SWITCH__)
+#include <switch.h>
+#endif
+
 class DebugUI {
 public:
     DebugUI();
@@ -22,4 +29,7 @@ private:
     
     void updateFPS(float deltaTime);
     void updateMemoryStats();
+    
+    void updateMemoryStatsWindows();
+    void updateMemoryStatsSwitch();
 }; 

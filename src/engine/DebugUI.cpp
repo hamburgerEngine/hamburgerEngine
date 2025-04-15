@@ -2,8 +2,11 @@
 #include "Engine.h"
 #include <sstream>
 #include <iomanip>
+
+#ifdef _WIN32
 #include <windows.h>
 #include <psapi.h>
+#endif
 
 DebugUI::DebugUI() {
     fpsText = new Text(10, 10, 500);
@@ -49,6 +52,15 @@ void DebugUI::updateFPS(float deltaTime) {
 }
 
 void DebugUI::updateMemoryStats() {
+#ifdef _WIN32
+    updateMemoryStatsWindows();
+#elif defined(__SWITCH__)
+    updateMemoryStatsSwitch();
+#endif
+}
+
+#ifdef _WIN32
+void DebugUI::updateMemoryStatsWindows() {
     PROCESS_MEMORY_COUNTERS_EX pmc;
     if (GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
         std::stringstream ramSS;
@@ -61,4 +73,26 @@ void DebugUI::updateMemoryStats() {
               << (pmc.PrivateUsage / (1024.0f * 1024.0f)) << " MB";
         memoryText->setText(memSS.str());
     }
-} 
+}
+#endif
+
+#ifdef __SWITCH__
+void DebugUI::updateMemoryStatsSwitch() {
+    u64 totalMemory = 0;
+    u64 freeMemory = 0;
+    svcGetSystemInfo(&totalMemory, 0, 0, 0);
+    svcGetSystemInfo(&freeMemory, 0, 0, 1);
+    
+    u64 usedMemory = totalMemory - freeMemory;
+    
+    std::stringstream ramSS;
+    ramSS << "RAM: " << std::fixed << std::setprecision(1) 
+          << (usedMemory / (1024.0f * 1024.0f)) << " MB";
+    ramText->setText(ramSS.str());
+
+    std::stringstream memSS;
+    memSS << "Memory: " << std::fixed << std::setprecision(1) 
+          << (totalMemory / (1024.0f * 1024.0f)) << " MB";
+    memoryText->setText(memSS.str());
+}
+#endif 

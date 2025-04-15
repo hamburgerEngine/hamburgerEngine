@@ -64,8 +64,7 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= `aarch64-none-elf-pkg-config SDL2_ttf SDL2_image SDL2_gfx SDL2_mixer --libs`
-#-lmodplug -lmpg123 -lvorbisidec -logg#-lSDL2 #-lSDL2_image -lSDL2_mixer -lSDL2_ttf
+LIBS	:= `aarch64-none-elf-pkg-config SDL2_ttf SDL2_image SDL2_gfx SDL2_mixer --libs` -lavcodec -lavformat -lavutil -lswscale -lswresample -ldav1d -lz -lnx -lavcodec
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

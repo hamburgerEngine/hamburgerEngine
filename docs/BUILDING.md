@@ -52,7 +52,7 @@ cd platforms && cd Makefiles && make
 First run:
 
 ```bash
-pacman -S switch-sdl2 switch-sdl2_image switch-sdl2_mixer switch-sdl2_ttf
+pacman -S switch-sdl2 switch-sdl2_image switch-sdl2_mixer switch-sdl2_ttf switch-ffmpeg switch-zlib switch-dav1d
 ```
 
 then run:
