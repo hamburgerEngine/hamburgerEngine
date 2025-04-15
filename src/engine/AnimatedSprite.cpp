@@ -47,8 +47,8 @@ void AnimatedSprite::update(float deltaTime) {
 
 void AnimatedSprite::render() {
     if (!visible || !currentAnimation || currentAnimation->frames.empty()) {
-        if (!currentAnimation) std::cout << "No current animation" << std::endl;
-        if (currentAnimation && currentAnimation->frames.empty()) std::cout << "No frames in animation" << std::endl;
+        if (!currentAnimation) Log::getInstance().error("No current animation");
+        if (currentAnimation && currentAnimation->frames.empty()) Log::getInstance().error("No frames in animation");
         return;
     }
 
@@ -74,16 +74,16 @@ void AnimatedSprite::render() {
 
 void AnimatedSprite::loadTexture(const std::string& imagePath) {
     if (texture) {
-        std::cout << "Texture already loaded, skipping." << std::endl;
+        Log::getInstance().info("Texture already loaded, skipping.");
         return;
     }
 
-    std::cout << "Attempting to load image from: " << imagePath << std::endl;
+    Log::getInstance().info("Attempting to load image from: " + imagePath);
     
     SDL_Surface* surface = IMG_Load(imagePath.c_str());
     if (!surface) {
-        std::cerr << "Failed to load image: " << imagePath << std::endl;
-        std::cerr << "SDL_image error: " << IMG_GetError() << std::endl;
+        Log::getInstance().error("Failed to load image: " + imagePath);
+        Log::getInstance().error("SDL_image error: " + std::string(IMG_GetError()));
         return;
     }
 
@@ -94,11 +94,11 @@ void AnimatedSprite::loadTexture(const std::string& imagePath) {
     SDL_FreeSurface(surface);
 
     if (!texture) {
-        std::cerr << "Failed to create texture from surface: " << SDL_GetError() << std::endl;
+        Log::getInstance().error("Failed to create texture from surface: " + std::string(SDL_GetError()));
         return;
     }
 
-    std::cout << "Image loaded successfully. Width: " << width << ", Height: " << height << std::endl;
+    Log::getInstance().info("Image loaded successfully. Width: " + std::to_string(width) + ", Height: " + std::to_string(height));
 }
 
 void AnimatedSprite::setScale(float scaleX, float scaleY) {
@@ -112,10 +112,10 @@ void AnimatedSprite::loadFrames(const std::string& imagePath, const std::string&
 }
 
 void AnimatedSprite::parseXML(const std::string& xmlPath) {
-    std::cout << "Attempting to parse XML file: " << xmlPath << std::endl;
+    Log::getInstance().info("Attempting to parse XML file: " + xmlPath);
     std::ifstream file(xmlPath);
     if (!file.is_open()) {
-        std::cerr << "Failed to open XML file: " << xmlPath << std::endl;
+        Log::getInstance().error("Failed to open XML file: " + xmlPath);
         return;
     }
 
@@ -147,10 +147,8 @@ void AnimatedSprite::parseXML(const std::string& xmlPath) {
             }
             frames[frame.name] = frame;
             frameCount++;
-            std::cout << "Loaded frame: " << frame.name << std::endl;
         }
     }
-    std::cout << "Total frames loaded: " << frameCount << std::endl;
 }
 
 void AnimatedSprite::addAnimation(const std::string& name, const std::string& prefix, int fps, bool loop) {
@@ -165,7 +163,6 @@ void AnimatedSprite::addAnimation(const std::string& name, const std::string& pr
         }
     }
 
-    std::cout << "Added animation '" << name << "' with " << animation.frames.size() << " frames" << std::endl;
     animations[name] = animation;
 }
 
@@ -208,10 +205,9 @@ void AnimatedSprite::playAnimation(const std::string& name) {
             currentAnimation = &it->second;
             currentFrame = 0;
             frameTimer = 0;
-            std::cout << "Playing animation: " << name << " with " << currentAnimation->frames.size() << " frames" << std::endl;
         }
     } else {
-        std::cerr << "Animation not found: " << name << std::endl;
+        Log::getInstance().error("Animation not found: " + name);
     }
 }
 
@@ -225,6 +221,6 @@ void AnimatedSprite::playAnim(const std::string& name, bool force, AnimationCall
             onAnimationFinished = callback;
         }
     } else {
-        std::cerr << "Animation not found: " << name << std::endl;
+        Log::getInstance().error("Animation not found: " + name);
     }
 }

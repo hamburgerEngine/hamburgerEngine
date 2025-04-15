@@ -24,13 +24,13 @@ void SoundManager::playMusic(const std::string& path, float volume) {
 
     currentMusic = Mix_LoadMUS(path.c_str());
     if (!currentMusic) {
-        std::cerr << "Failed to load music: " << Mix_GetError() << std::endl;
+        Log::getInstance().error("Failed to load music: " + std::string(Mix_GetError()));
         return;
     }
 
     Mix_VolumeMusic(static_cast<int>(volume * MIX_MAX_VOLUME));
     if (Mix_PlayMusic(currentMusic, -1) == -1) {
-        std::cerr << "Failed to play music: " << Mix_GetError() << std::endl;
+        Log::getInstance().error("Failed to play music: " + std::string(Mix_GetError()));
     }
 }
 
@@ -41,13 +41,13 @@ void SoundManager::loopMusic(const std::string& path, float volume, int loops) {
 
     currentMusic = Mix_LoadMUS(path.c_str());
     if (!currentMusic) {
-        std::cerr << "Failed to load music: " << Mix_GetError() << std::endl;
+        Log::getInstance().error("Failed to load music: " + std::string(Mix_GetError()));
         return;
     }
 
     Mix_VolumeMusic(static_cast<int>(volume * MIX_MAX_VOLUME));
     if (Mix_PlayMusic(currentMusic, loops) == -1) {
-        std::cerr << "Failed to play music: " << Mix_GetError() << std::endl;
+        Log::getInstance().error("Failed to play music: " + std::string(Mix_GetError()));
     }
 }
 

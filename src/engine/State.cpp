@@ -13,7 +13,7 @@
 #endif
 
 void State::openSubState(SubState* subState) {
-    std::cout << "State::openSubState called" << std::endl;
+    Log::getInstance().info("State::openSubState called");
     subState->setParentState(this);
     _subStates.push_back(subState);
     subState->create();

@@ -45,7 +45,7 @@ void Sprite::render() {
 void Sprite::loadTexture(const std::string& imagePath) {
     SDL_Surface* surface = IMG_Load(imagePath.c_str());
     if (!surface) {
-        std::cerr << "Failed to load image: " << imagePath << std::endl;
+        Log::getInstance().error("Failed to load image: " + imagePath);
         return;
     }
 
@@ -56,7 +56,7 @@ void Sprite::loadTexture(const std::string& imagePath) {
     SDL_FreeSurface(surface);
 
     if (!texture) {
-        std::cerr << "Failed to create texture from surface: " << SDL_GetError() << std::endl;
+        Log::getInstance().error("Failed to create texture from surface: " + std::string(SDL_GetError()));
         return;
     }
 }

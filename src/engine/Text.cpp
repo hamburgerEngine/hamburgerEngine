@@ -45,7 +45,7 @@ void Text::loadFont(const std::string& fontPath) {
     }
     font = TTF_OpenFont(fontPath.c_str(), fontSize);
     if (!font) {
-        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+        Log::getInstance().error("Failed to load font: " + std::string(TTF_GetError()));
         return;
     }
     
@@ -87,7 +87,7 @@ void Text::renderText(const std::string& text, float x, float y) {
 
     SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), sdlColor);
     if (!surface) {
-        std::cerr << "Failed to create text surface: " << TTF_GetError() << std::endl;
+        Log::getInstance().error("Failed to create text surface: " + std::string(TTF_GetError()));
         return;
     }
 
@@ -95,7 +95,7 @@ void Text::renderText(const std::string& text, float x, float y) {
     SDL_FreeSurface(surface);
 
     if (!textTexture) {
-        std::cerr << "Failed to create texture from surface: " << SDL_GetError() << std::endl;
+        Log::getInstance().error("Failed to create texture from surface: " + std::string(SDL_GetError()));
         return;
     }
 

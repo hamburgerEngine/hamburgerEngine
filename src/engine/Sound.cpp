@@ -13,7 +13,7 @@ Sound::~Sound() {
 bool Sound::load(const std::string& path) {
     sound = Mix_LoadWAV(path.c_str());
     if (!sound) {
-        std::cerr << "Failed to load sound: " << Mix_GetError() << std::endl;
+        Log::getInstance().error("Failed to load sound: " + std::string(Mix_GetError()));
         return false;
     }
 
@@ -27,7 +27,7 @@ void Sound::play() {
     int loops = looping ? -1 : 0;
     channel = Mix_PlayChannel(-1, sound, loops);
     if (channel == -1) {
-        std::cerr << "Failed to play sound: " << Mix_GetError() << std::endl;
+        Log::getInstance().error("Failed to play sound: " + std::string(Mix_GetError()));
         return;
     }
     
