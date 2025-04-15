@@ -35,8 +35,8 @@ See [BUILDING.md](docs/BUILDING.md) for more information.
 
 # REQUIREMENTS
 
-- [SDL2](https://github.com/libsdl-org/SDL)
-- [SDL2_ttf](https://github.com/libsdl-org/SDL_ttf)
-- [SDL_image](https://github.com/libsdl-org/SDL_ttf)
-- [SDL_mixer](https://github.com/libsdl-org/SDL_mixer)
+- [SDL2](https://github.com/libsdl-org/SDL/releases/tag/release-2.32.4)
+- [SDL2_ttf](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.24.0)
+- [SDL_image](https://github.com/libsdl-org/SDL_image/releases/tag/release-2.8.8)
+- [SDL_mixer](https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.8.1)
 - [FFMPEG](https://github.com/BtbN/FFmpeg-Builds/releases)

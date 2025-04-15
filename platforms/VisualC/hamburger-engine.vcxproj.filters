@@ -84,5 +84,14 @@
     <ClCompile Include="..\..\src\engine\Button.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\engine\VideoPlayer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gameName\states\VideoState.cpp">
+      <Filter>Source Files\gameName\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gameName\states\BaseState.cpp">
+      <Filter>Source Files\gameName\states</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
