@@ -1,4 +1,4 @@
-# hamburger engine - Formally known as Phlox Engine
+# hamburger engine - Formerly known as Phlox Engine
 
 hamburger engine is a C++ game engine built with SDL2. Attempting to keep it as similar to HaxeFlixel as possible.
 
