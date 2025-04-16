@@ -33,15 +33,25 @@ void Input::initController() {
         return;
     }
 
-    SDL_GameControllerAddMappingsFromFile("assets/data/gamecontrollerdb.txt");
+    Log::getInstance().info("Loading game controller mappings from assets/data/gamecontrollerdb.txt");
+    int mappingsLoaded = SDL_GameControllerAddMappingsFromFile("assets/data/gamecontrollerdb.txt");
+    Log::getInstance().info("Loaded " + std::to_string(mappingsLoaded) + " controller mappings");
 
-    for (int i = 0; i < SDL_NumJoysticks(); i++) {
+    int numJoysticks = SDL_NumJoysticks();
+    Log::getInstance().info("Found " + std::to_string(numJoysticks) + " joystick devices");
+
+    for (int i = 0; i < numJoysticks; i++) {
         if (SDL_IsGameController(i)) {
+            Log::getInstance().info("Joystick " + std::to_string(i) + " is a game controller: " + std::string(SDL_GameControllerNameForIndex(i)));
             sdlController = SDL_GameControllerOpen(i);
             if (sdlController) {
-                Log::getInstance().info("Controller connected: " + std::string(SDL_GameControllerName(sdlController)));
+                Log::getInstance().info("Successfully opened controller: " + std::string(SDL_GameControllerName(sdlController)));
                 break;
+            } else {
+                Log::getInstance().error("Failed to open controller: " + std::string(SDL_GetError()));
             }
+        } else {
+            Log::getInstance().info("Joystick " + std::to_string(i) + " is not a game controller");
         }
     }
     #endif
@@ -123,6 +133,12 @@ void Input::UpdateControllerStates() {
         for (int i = 0; i < SDL_CONTROLLER_AXIS_MAX; i++) {
             controllerAxisState[static_cast<SDL_GameControllerAxis>(i)] = 
                 SDL_GameControllerGetAxis(sdlController, static_cast<SDL_GameControllerAxis>(i));
+        }
+    } else {
+        static bool logged = false;
+        if (!logged) {
+            Log::getInstance().warning("No controller connected or initialized");
+            logged = true;
         }
     }
     #endif

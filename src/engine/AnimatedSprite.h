@@ -77,6 +77,14 @@ public:
         return currentAnimation ? currentAnimation->name : "";
     }
 
+    const std::map<std::string, Animation>& getAnimations() const {
+        return animations;
+    }
+
+    void copyAnimationsFrom(const AnimatedSprite& other) {
+        animations = other.getAnimations();
+    }
+
 private:
     std::map<std::string, Frame> frames;
     std::map<std::string, Animation> animations;
