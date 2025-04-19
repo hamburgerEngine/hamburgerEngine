@@ -1,5 +1,5 @@
 #include "Button.h"
-#include "SDLManager.h"
+#include "../core/SDLManager.h"
 
 Button::Button(float x, float y, const std::string& text, std::function<void()> onClick)
     : Text(x, y), onClick(onClick), padding(10.0f), hovered(false), pressed(false) {

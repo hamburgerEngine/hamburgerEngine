@@ -1,5 +1,5 @@
 #include "DebugUI.h"
-#include "Engine.h"
+#include "../core/Engine.h"
 #include <sstream>
 #include <iomanip>
 

@@ -6,7 +6,7 @@
 #else
 #include <Input.h>
 #endif
-#include "Log.h"
+#include "../utils/Log.h"
 
 std::unordered_set<SDL_Scancode> Input::currentPressedKeys;
 std::unordered_set<SDL_Scancode> Input::previousPressedKeys;

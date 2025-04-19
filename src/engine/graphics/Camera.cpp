@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "SDLManager.h"
+#include "../core/SDLManager.h"
 
 Camera::Camera() {}
 

@@ -3,10 +3,10 @@
 #include "State.h"
 #include "SubState.h"
 #include <iostream>
-#include "Sprite.h"
-#include "AnimatedSprite.h"
-#include "Text.h"
-#include "Input.h"
+#include "../graphics/Sprite.h"
+#include "../graphics/AnimatedSprite.h"
+#include "../graphics/Text.h"
+#include "../input/Input.h"
 #include <SDL2/SDL_mixer.h>
 #else
 #include <Engine.h>

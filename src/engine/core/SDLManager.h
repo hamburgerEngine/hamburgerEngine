@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
-#include "Log.h"
+#include "../utils/Log.h"
 
 class SDLManager {
 public:

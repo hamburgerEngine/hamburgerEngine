@@ -6,9 +6,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
-#include "Sprite.h"
-#include "Sound.h"
-#include "AnimatedSprite.h"
+#include "../graphics/Sprite.h"
+#include "../audio/Sound.h"
+#include "../graphics/AnimatedSprite.h"
 
 class Paths {
 public:

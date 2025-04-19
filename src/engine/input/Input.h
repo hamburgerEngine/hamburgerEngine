@@ -1,9 +1,9 @@
 #pragma once
 
 #ifdef __MINGW32__
-#include "SDLManager.h"
+#include "../core/SDLManager.h"
 #elif defined(__SWITCH__)
-#include "SDLManager.h"
+#include "../core/SDLManager.h"
 #include <switch.h>
 #else
 #include <SDLManager.h>

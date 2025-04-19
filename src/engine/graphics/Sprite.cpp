@@ -1,7 +1,7 @@
 #ifdef __MINGW32__ || defined(__SWITCH__)
 #include "Sprite.h"
 #include "Camera.h"
-#include "SDLManager.h"
+#include "../core/SDLManager.h"
 #include <iostream>
 #else
 #include <Sprite.h>

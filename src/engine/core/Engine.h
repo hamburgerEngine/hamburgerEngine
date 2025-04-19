@@ -2,12 +2,12 @@
 
 #include <vector>
 #include <stack>
-#include "Sprite.h"
-#include "AnimatedSprite.h"
-#include "Text.h"
-#include "SoundManager.h"
+#include "../graphics/Sprite.h"
+#include "../graphics/AnimatedSprite.h"
+#include "../graphics/Text.h"
+#include "../audio/SoundManager.h"
 #include "SDLManager.h"
-#include "DebugUI.h"
+#include "../debug/DebugUI.h"
 #include <functional>
 
 class State;

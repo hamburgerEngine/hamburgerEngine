@@ -1,7 +1,7 @@
 #include "VideoPlayer.h"
-#include "SDLManager.h"
-#include "Log.h"
-#include "Engine.h"
+#include "../core/SDLManager.h"
+#include "../utils/Log.h"
+#include "../core/Engine.h"
 
 VideoPlayer::VideoPlayer()
     : formatContext(nullptr), videoCodecContext(nullptr), audioCodecContext(nullptr),

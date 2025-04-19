@@ -1,6 +1,6 @@
 #ifdef __MINGW32__ || defined(__SWITCH__)
 #include "Text.h"
-#include "SDLManager.h"
+#include "../core/SDLManager.h"
 #include <iostream>
 #include <sstream>
 #else
