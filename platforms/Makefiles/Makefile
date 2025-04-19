@@ -9,6 +9,12 @@ BIN_DIR = bin
 		  
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp) \
           $(wildcard $(SRC_DIR)/engine/*.cpp) \
+		  $(wildcard $(SRC_DIR)/engine/audio/*.cpp) \
+		  $(wildcard $(SRC_DIR)/engine/core/*.cpp) \
+		  $(wildcard $(SRC_DIR)/engine/debug/*.cpp) \
+		  $(wildcard $(SRC_DIR)/engine/graphics/*.cpp) \
+		  $(wildcard $(SRC_DIR)/engine/input/*.cpp) \
+		  $(wildcard $(SRC_DIR)/engine/utils/*.cpp) \
           $(wildcard $(SRC_DIR)/states/*.cpp) \
 		  $(wildcard $(SRC_DIR)/gameName/*.cpp) \
 		  $(wildcard $(SRC_DIR)/gameName/states/*.cpp) \

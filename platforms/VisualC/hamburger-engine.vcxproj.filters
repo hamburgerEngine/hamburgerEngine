@@ -25,47 +25,26 @@
     <Filter Include="Source Files\gameName\substates">
       <UniqueIdentifier>{0307a0e7-098d-4698-bf1e-7d4d5c71c015}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\engine\audio">
+      <UniqueIdentifier>{dcdc47fa-4d15-427d-b5da-42481f283abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\core">
+      <UniqueIdentifier>{ea865951-e467-4f76-b341-2ba3b0190d3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\debug">
+      <UniqueIdentifier>{e3dbd311-ec2e-41c9-ad8e-95cf99cb7b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\graphics">
+      <UniqueIdentifier>{7b241189-78ed-47ce-8389-3e83408686e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\input">
+      <UniqueIdentifier>{bb21f442-894f-48b1-918e-11cafdaa7719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\utils">
+      <UniqueIdentifier>{8a9dc9a1-c7f5-4652-84d0-551a65082d7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\engine\AnimatedSprite.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Camera.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Discord.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Engine.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Input.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Log.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Paths.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\SDLManager.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Sound.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\SoundManager.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Sprite.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\State.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Text.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\gameName\states\PlayState.cpp">
       <Filter>Source Files\gameName\states</Filter>
     </ClCompile>
@@ -78,20 +57,59 @@
     <ClCompile Include="..\..\src\stb_image_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\engine\DebugUI.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\Button.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\engine\VideoPlayer.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\gameName\states\VideoState.cpp">
       <Filter>Source Files\gameName\states</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\gameName\states\BaseState.cpp">
       <Filter>Source Files\gameName\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\audio\Sound.cpp">
+      <Filter>Source Files\engine\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\audio\SoundManager.cpp">
+      <Filter>Source Files\engine\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\core\Engine.cpp">
+      <Filter>Source Files\engine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\core\SDLManager.cpp">
+      <Filter>Source Files\engine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\core\State.cpp">
+      <Filter>Source Files\engine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\debug\DebugUI.cpp">
+      <Filter>Source Files\engine\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\graphics\AnimatedSprite.cpp">
+      <Filter>Source Files\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\graphics\Button.cpp">
+      <Filter>Source Files\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\graphics\Camera.cpp">
+      <Filter>Source Files\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\graphics\Sprite.cpp">
+      <Filter>Source Files\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\graphics\Text.cpp">
+      <Filter>Source Files\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\graphics\VideoPlayer.cpp">
+      <Filter>Source Files\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\input\Input.cpp">
+      <Filter>Source Files\engine\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\utils\Discord.cpp">
+      <Filter>Source Files\engine\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\utils\Log.cpp">
+      <Filter>Source Files\engine\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\utils\Paths.cpp">
+      <Filter>Source Files\engine\utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

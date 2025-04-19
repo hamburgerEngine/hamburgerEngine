@@ -1,19 +1,19 @@
 #pragma once
 
 #ifdef __MINGW32__ || defined(__SWITCH__)
-#include "../../engine/State.h"
-#include "../../engine/Sprite.h"
-#include "../../engine/AnimatedSprite.h"
-#include "../../engine/Log.h"
-#include "../../engine/Paths.h"
-#include "../../engine/Button.h"
+#include "../../engine/core/State.h"
+#include "../../engine/graphics/Sprite.h"
+#include "../../engine/graphics/AnimatedSprite.h"
+#include "../../engine/utils/Log.h"
+#include "../../engine/utils/Paths.h"
+#include "../../engine/graphics/Button.h"
 #else
-#include <State.h>
-#include <Sprite.h>
-#include <AnimatedSprite.h>
-#include <Log.h>
-#include <Paths.h>
-#include <Button.h>
+#include <core/State.h>
+#include <graphics/Sprite.h>
+#include <graphics/AnimatedSprite.h>
+#include <utils/Log.h>
+#include <utils/Paths.h>
+#include <graphics/Button.h>
 #endif
 
 class PlayState : public State {

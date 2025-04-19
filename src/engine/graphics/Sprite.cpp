@@ -4,9 +4,9 @@
 #include "../core/SDLManager.h"
 #include <iostream>
 #else
-#include <Sprite.h>
-#include <Camera.h>
-#include <SDLManager.h>
+#include <graphics/Sprite.h>
+#include <graphics/Camera.h>
+#include <core/SDLManager.h>
 #include <iostream>
 #endif
 

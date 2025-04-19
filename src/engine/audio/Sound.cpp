@@ -1,6 +1,6 @@
 #include "Sound.h"
 #include <iostream>
-#include "Log.h"
+#include "../utils/Log.h"
 
 Sound::Sound() : sound(nullptr), isLoaded(false), playing(false), looping(false), volume(1.0f), channel(-1) {
 }

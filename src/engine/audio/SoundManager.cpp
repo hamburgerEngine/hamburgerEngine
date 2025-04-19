@@ -1,6 +1,6 @@
 #include "SoundManager.h"
 #include <iostream>
-#include "Log.h"
+#include "../utils/Log.h"
 
 SoundManager::SoundManager() : currentMusic(nullptr) {}
 

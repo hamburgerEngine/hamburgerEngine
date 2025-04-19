@@ -6,7 +6,7 @@
 #include "../core/SDLManager.h"
 #include <switch.h>
 #else
-#include <SDLManager.h>
+#include <core/SDLManager.h>
 #endif
 #include <unordered_set>
 #include <unordered_map>

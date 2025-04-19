@@ -1,15 +1,15 @@
 #ifdef __MINGW32__  || defined(__SWITCH__)
 #include "gameName/states/BaseState.h"
-#include "engine/Engine.h"
-#include "engine/Input.h"
+#include "../engine/core/Engine.h"
+#include "engine/input/Input.h"
 #include "gameName/substates/PauseSubState.h"
-#include "engine/SoundManager.h"
+#include "engine/audio/SoundManager.h"
 #else
 #include <states/BaseState.h>
-#include <Engine.h>
-#include <Input.h>
+#include <core/Engine.h>
+#include <input/Input.h>
 #include <substates/PauseSubState.h>
-#include <SoundManager.h>
+#include <audio/SoundManager.h>
 #endif
 #include <iostream>
 

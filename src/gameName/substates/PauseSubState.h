@@ -1,6 +1,6 @@
 #pragma once
-#include "../../engine/SubState.h"
-#include "../../engine/Text.h"
+#include "../../engine/core/SubState.h"
+#include "../../engine/graphics/Text.h"
 
 class PauseSubState : public SubState {
 public:

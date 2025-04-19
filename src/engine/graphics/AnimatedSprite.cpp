@@ -6,8 +6,8 @@
 #include <sstream>
 #include <algorithm>
 #else
-#include <AnimatedSprite.h>
-#include <SDLManager.h>
+#include <graphics/AnimatedSprite.h>
+#include <core/SDLManager.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>

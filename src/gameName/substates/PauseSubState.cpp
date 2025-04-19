@@ -6,9 +6,9 @@
 #include <iostream>
 #else
 #include <substates/PauseSubState.h>
-#include <Engine.h>
-#include <Input.h>
-#include <SDLManager.h>
+#include <core/Engine.h>
+#include <input/Input.h>
+#include <core/SDLManager.h>
 #include <iostream>
 #endif
 

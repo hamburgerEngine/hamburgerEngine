@@ -4,8 +4,8 @@
 #include <iostream>
 #include <sstream>
 #else
-#include <Text.h>
-#include <SDLManager.h>
+#include <graphics/Text.h>
+#include <core/SDLManager.h>
 #include <iostream>
 #include <sstream>
 #endif

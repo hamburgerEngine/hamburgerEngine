@@ -1,13 +1,13 @@
 #pragma once
 
 #ifdef __MINGW32__ || defined(__SWITCH__)
-#include "../../engine/State.h"
-#include "../../engine/VideoPlayer.h"   
-#include "../../engine/Log.h"
+#include "../../engine/core/State.h"
+#include "../../engine/graphics/VideoPlayer.h"   
+#include "../../engine/utils/Log.h"
 #else
-#include <State.h>
-#include <VideoPlayer.h>
-#include <Log.h>
+#include <core/State.h>
+#include <graphics/VideoPlayer.h>
+#include <utils/Log.h>
 #endif
 
 class VideoState : public State {

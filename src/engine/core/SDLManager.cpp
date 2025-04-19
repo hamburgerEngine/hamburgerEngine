@@ -1,4 +1,8 @@
-#include <SDLManager.h>
+#ifdef __MINGW32__ || defined(__SWITCH__)
+#include "SDLManager.h"
+#else
+#include <core/SDLManager.h>
+#endif
 #include <iostream>
 
 bool SDLManager::initialize(int width, int height, const char* title) {

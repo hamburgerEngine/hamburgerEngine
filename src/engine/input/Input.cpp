@@ -4,7 +4,7 @@
 #include "Input.h"
 #include <switch.h>
 #else
-#include <Input.h>
+#include <input/Input.h>
 #endif
 #include "../utils/Log.h"
 

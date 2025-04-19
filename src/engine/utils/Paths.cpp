@@ -8,9 +8,9 @@
 #include <algorithm>
 #include <regex>
 #else
-#include <Paths.h>
-#include <SDLManager.h>
-#include <SoundManager.h>
+#include <utils/Paths.h>
+#include <core/SDLManager.h>
+#include <audio/SoundManager.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>

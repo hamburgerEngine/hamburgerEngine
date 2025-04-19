@@ -5,10 +5,10 @@
 #include "../graphics/Sprite.h"
 #include <iostream>
 #else
-#include <State.h>
-#include <SubState.h>
-#include <Engine.h>
-#include <Sprite.h>
+#include <core/State.h>
+#include <core/SubState.h>
+#include <core/Engine.h>
+#include <graphics/Sprite.h>
 #include <iostream>
 #endif
 
