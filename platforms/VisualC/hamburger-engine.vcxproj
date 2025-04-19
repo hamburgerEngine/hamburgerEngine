@@ -32,6 +32,7 @@
     <ClCompile Include="..\..\src\engine\graphics\Text.cpp" />
     <ClCompile Include="..\..\src\engine\graphics\VideoPlayer.cpp" />
     <ClCompile Include="..\..\src\engine\input\Input.cpp" />
+    <ClCompile Include="..\..\src\engine\states\SplashState.cpp" />
     <ClCompile Include="..\..\src\engine\utils\Discord.cpp" />
     <ClCompile Include="..\..\src\engine\utils\Log.cpp" />
     <ClCompile Include="..\..\src\engine\utils\Paths.cpp" />

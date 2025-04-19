@@ -2,15 +2,18 @@
 #include "../engine/core/Engine.h"
 #include "gameName/states/PlayState.h"
 #include "../engine/input/Input.h"
+#include "../engine/states/SplashState.h"
 #elif defined(__SWITCH__)
 #include "../engine/core/Engine.h"
 #include "gameName/states/PlayState.h"
 #include "../engine/input/Input.h"
+#include "../engine/states/SplashState.h"
 #include <switch.h>
 #else
 #include <core/Engine.h>
 #include <states/PlayState.h>
 #include <input/Input.h>
+#include <states/SplashState.h>
 #include <utils/Discord.h>
 #endif
 
@@ -34,10 +37,17 @@ int main(int argc, char** argv) {
     int height = 720;
     int fps = 60;
     bool debug = true;
+    bool showSplash = true;
     Engine engine(width, height, "hamburger engine", fps);
     engine.debugMode = debug;
-    PlayState* initialState = new PlayState();
-    engine.pushState(initialState);
+    
+    if (showSplash) {
+        SplashState* splashState = new SplashState();
+        engine.pushState(splashState);
+    } else {
+        PlayState* initialState = new PlayState();
+        engine.pushState(initialState);
+    }
     
     #ifdef __SWITCH__
     while (appletMainLoop()) {

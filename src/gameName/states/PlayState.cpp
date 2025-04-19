@@ -15,7 +15,7 @@
 
 PlayState* PlayState::instance = nullptr;
 
-PlayState::PlayState() : backgroundSprite(nullptr), playerSprite(nullptr), button(nullptr) {
+PlayState::PlayState() : playerSprite(nullptr), button(nullptr) {
     instance = this; // haxeflixel reference
 }
 
@@ -24,12 +24,8 @@ PlayState::~PlayState() {
 }
 
 void PlayState::create() {
-    Engine* engine = Engine::getInstance();
-
-    backgroundSprite = new Sprite();
-    backgroundSprite->loadTexture(Paths::image("background"));
-    engine->addSprite(backgroundSprite);
-
+    Engine* engine = Engine::getInstance(); 
+    
     playerSprite = new AnimatedSprite();
     playerSprite->setPosition(100, 100);
     playerSprite->loadFrames(Paths::image("BOYFRIEND"), Paths::xml("images/BOYFRIEND"));
@@ -118,7 +114,6 @@ void PlayState::update(float deltaTime) {
 }
 
 void PlayState::render() {
-    backgroundSprite->render();
     playerSprite->render();
 
     if (!_subStates.empty()) {
@@ -129,11 +124,9 @@ void PlayState::render() {
 }
 
 void PlayState::destroy() {
-    delete backgroundSprite;
     delete playerSprite;
     delete button;
     
-    backgroundSprite = nullptr;
     playerSprite = nullptr;
     button = nullptr;
 }

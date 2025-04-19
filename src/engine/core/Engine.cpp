@@ -87,21 +87,29 @@ void Engine::update() {
     lastTime = currentTime;
 
     if (!states.empty()) {
-        states.top()->update(deltaTime);
+        State* currentState = states.top();
+        if (currentState) {
+            currentState->update(deltaTime);
+        }
     }
 
     updateTimeouts(deltaTime);
-    debugUI->update(deltaTime);
+    if (debugUI) {
+        debugUI->update(deltaTime);
+    }
 }
 
 void Engine::render() {
     SDLManager::getInstance().clear();
 
     if (!states.empty()) {
-        states.top()->render();
+        State* currentState = states.top();
+        if (currentState) {
+            currentState->render();
+        }
     }
 
-    if (debugMode) {
+    if (debugMode && debugUI) {
         debugUI->render();
     }
 
@@ -140,14 +148,34 @@ void Engine::switchState(State* state) {
     if (!states.empty()) {
         State* oldState = states.top();
         states.pop();
+        
+        for (auto sprite : sprites) {
+            if (sprite) {
+                delete sprite;
+            }
+        }
+        sprites.clear();
+        
+        for (auto sprite : animatedSprites) {
+            if (sprite) {
+                delete sprite;
+            }
+        }
+        animatedSprites.clear();
+        
+        for (auto text : texts) {
+            if (text) {
+                delete text;
+            }
+        }
+        texts.clear();
+        
         oldState->destroy();
         delete oldState;
-        
-        sprites.clear();
-        animatedSprites.clear();
-        texts.clear();
     }
-    pushState(state);
+    
+    states.push(state);
+    state->create();
 }
 
 void Engine::openSubState(SubState* subState) {

@@ -33,6 +33,8 @@ Sprite::~Sprite() {
 void Sprite::render() {
     if (!visible || !texture) return; 
 
+    SDL_SetTextureAlphaMod(texture, static_cast<Uint8>(alpha * 255));
+
     SDL_Rect destRect;
     destRect.x = static_cast<int>(x);
     destRect.y = static_cast<int>(y);

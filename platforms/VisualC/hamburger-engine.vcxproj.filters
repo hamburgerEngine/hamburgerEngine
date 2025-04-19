@@ -43,6 +43,9 @@
     <Filter Include="Source Files\engine\utils">
       <UniqueIdentifier>{8a9dc9a1-c7f5-4652-84d0-551a65082d7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\engine\states">
+      <UniqueIdentifier>{baae8f6e-7107-4fa6-b465-751e7bb4ef94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\gameName\states\PlayState.cpp">
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\engine\utils\Paths.cpp">
       <Filter>Source Files\engine\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\states\SplashState.cpp">
+      <Filter>Source Files\engine\states</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

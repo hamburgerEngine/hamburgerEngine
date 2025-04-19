@@ -15,7 +15,7 @@ SOURCES = $(wildcard $(SRC_DIR)/*.cpp) \
 		  $(wildcard $(SRC_DIR)/engine/graphics/*.cpp) \
 		  $(wildcard $(SRC_DIR)/engine/input/*.cpp) \
 		  $(wildcard $(SRC_DIR)/engine/utils/*.cpp) \
-          $(wildcard $(SRC_DIR)/states/*.cpp) \
+          $(wildcard $(SRC_DIR)/engine/states/*.cpp) \
 		  $(wildcard $(SRC_DIR)/gameName/*.cpp) \
 		  $(wildcard $(SRC_DIR)/gameName/states/*.cpp) \
 		  $(wildcard $(SRC_DIR)/gameName/substates/*.cpp) 

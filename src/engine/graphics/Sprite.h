@@ -13,6 +13,7 @@ protected:
     int width = 0;
     int height = 0;
     Camera* camera = nullptr;  
+    float alpha = 1.0f;
 
 public:
     struct Scale {
@@ -59,4 +60,7 @@ public:
     }
 
     virtual void loadTexture(const std::string& imagePath);
+    
+    void setAlpha(float alpha) { this->alpha = alpha; }
+    float getAlpha() const { return alpha; }
 };

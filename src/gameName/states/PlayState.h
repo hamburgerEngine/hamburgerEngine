@@ -31,7 +31,6 @@ public:
     void openSubState(SubState* subState) override;
 
 private:
-    Sprite* backgroundSprite;
     AnimatedSprite* playerSprite;
     Button* button;
 };
