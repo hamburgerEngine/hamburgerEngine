@@ -60,3 +60,4 @@ platforms/VisualC/hamburger-engine.vcxproj.user
 /.vscode
 platforms/VisualC/hamburger-engine/x64/Release/hamburger-engine.vcxproj.FileListAbsolute.txt
 platforms/VisualC/hamburger-engine/x64/Debug/hamburger-engine.vcxproj.FileListAbsolute.txt
+/src/flappyHE
