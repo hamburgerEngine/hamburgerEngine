@@ -28,6 +28,7 @@ VideoState::~VideoState() {
 void VideoState::create() {
     Engine* engine = Engine::getInstance();
     
+    /*
     videoPlayer = new VideoPlayer();
     if (videoPlayer->load("assets/videos/random_ass_alpha_3_run.mkv")) {
         videoPlayer->setWindowSize(engine->getWindowWidth(), engine->getWindowHeight());
@@ -37,6 +38,7 @@ void VideoState::create() {
     } else {
         Log::getInstance().error("Failed to load video");
     }
+    */
 }
 
 void VideoState::update(float deltaTime) {
@@ -46,9 +48,11 @@ void VideoState::update(float deltaTime) {
     if (!_subStates.empty()) {
         _subStates.back()->update(deltaTime);
     } else {
+        /*
         if (videoPlayer) {
             videoPlayer->update(deltaTime);
         }
+        */
     }
 }
 
@@ -57,17 +61,21 @@ void VideoState::render() {
         _subStates.back()->render();
     }
     else {
+        /*
         if (videoPlayer) {
             videoPlayer->render(SDLManager::getInstance().getRenderer());
         }
+        */
     }
 }
 
 void VideoState::destroy() {
+    /*
     if (videoPlayer) {
         delete videoPlayer;
         videoPlayer = nullptr;
     }
+    */
 }
 
 void VideoState::openSubState(SubState* subState) {

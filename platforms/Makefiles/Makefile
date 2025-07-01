@@ -1,50 +1,64 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra
-INCLUDES = -I./include -I/usr/include/freetype2 -I./external
-LIBS = -lopengl32 -lfreeglut -lglu32 -lfreetype -lopenal -lvorbisfile -lvorbis -logg
+CXXFLAGS = -std=c++20 -Wall -Wextra -O2 -g
 
-SRC_DIR = ../../src
-OBJ_DIR = obj
-BIN_DIR = bin
-		  
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp) \
-          $(wildcard $(SRC_DIR)/engine/*.cpp) \
-		  $(wildcard $(SRC_DIR)/engine/audio/*.cpp) \
-		  $(wildcard $(SRC_DIR)/engine/core/*.cpp) \
-		  $(wildcard $(SRC_DIR)/engine/debug/*.cpp) \
-		  $(wildcard $(SRC_DIR)/engine/graphics/*.cpp) \
-		  $(wildcard $(SRC_DIR)/engine/input/*.cpp) \
-		  $(wildcard $(SRC_DIR)/engine/utils/*.cpp) \
-          $(wildcard $(SRC_DIR)/engine/states/*.cpp) \
-		  $(wildcard $(SRC_DIR)/gameName/*.cpp) \
-		  $(wildcard $(SRC_DIR)/gameName/states/*.cpp) \
-		  $(wildcard $(SRC_DIR)/gameName/substates/*.cpp) 
+SRCDIR = ../../src
+BUILDDIR = ../../build
+BINDIR = ../../bin
+EXTERNALDIR = ../../external
 
-OBJECTS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SOURCES))
+SOURCES = $(shell find $(SRCDIR) -name "*.cpp")
+OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(BUILDDIR)/%.o)
 
-EXECUTABLE = $(BIN_DIR)/PhloxEngine
+INCLUDES = -I$(SRCDIR) \
+           -I$(SRCDIR)/engine \
+		   -I$(SRCDIR)/gameName \
+		   -I$(SRCDIR)/thirdparty \
+           -I$(EXTERNALDIR)/SDL2 \
+           -I$(EXTERNALDIR)/discord-rpc/include \
+           -I$(EXTERNALDIR)/al/include \
+           -I$(EXTERNALDIR)/ogg/include \
+           -I$(EXTERNALDIR)/vorbis/include \
 
-.PHONY: all clean copy_assets
+LIBS = -L$(EXTERNALDIR)/SDL2/lib -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2_gfx \
+       -L$(EXTERNALDIR)/al/lib -lopenal \
+       -L$(EXTERNALDIR)/ogg/lib -logg \
+       -L$(EXTERNALDIR)/vorbis/lib -lvorbis -lvorbisfile \
+       -lpthread -ldl -lm \
+       -L$(EXTERNALDIR)/lib/Linux64 -ldiscord-rpc
 
-all: $(EXECUTABLE) copy_assets
+TARGET = $(BINDIR)/hamburgerEngine
 
-$(EXECUTABLE): $(OBJECTS)
-	@mkdir -p $(BIN_DIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $^ -o $@ $(LIBS)
+all: directories $(TARGET)
 
-copy_assets:
-	@mkdir -p $(BIN_DIR)/assets
-	@cp -r assets/* $(BIN_DIR)/assets/
+directories:
+	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(BINDIR)
+	@mkdir -p $(BUILDDIR)/engine/audio
+	@mkdir -p $(BUILDDIR)/engine/core
+	@mkdir -p $(BUILDDIR)/engine/debug
+	@mkdir -p $(BUILDDIR)/engine/graphics
+	@mkdir -p $(BUILDDIR)/engine/input
+	@mkdir -p $(BUILDDIR)/engine/utils
+	@mkdir -p $(BUILDDIR)/gameName/states
+	@mkdir -p $(BUILDDIR)/gameName/substates
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(@D)
+$(TARGET): $(OBJECTS)
+	@echo "Linking $@..."
+	@$(CXX) $(OBJECTS) $(LIBS) -o $@
+	@echo "Build complete!"
+
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+$(BUILDDIR)/external/sdl2.vis/embedded_visualizer.o: $(EXTERNALDIR)/sdl2.vis/embedded_visualizer.cpp
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	@echo "Cleaning build files..."
+	@rm -rf $(BUILDDIR)
+	@rm -rf $(BINDIR)
+	@echo "Clean complete!"
 
--include $(OBJECTS:.o=.d)
-
-$(OBJ_DIR)/%.d: $(SRC_DIR)/%.cpp
-	@mkdir -p $(@D)
-	@$(CXX) $(CXXFLAGS) $(INCLUDES) -MM -MT $(@:.d=.o) $< > $@
+.PHONY: all clean directories

@@ -4,7 +4,9 @@
 
 #include <discord_register.h> 
 #include <discord_rpc.h> 
+#ifdef _WIN32
 #include <Windows.h> 
+#endif
 
 class Discord {
 public:
@@ -37,4 +39,29 @@ private:
 	const char* currentSmallImageText = "";
 };
 
-#endif // __MINGW32__
+#else
+
+// Stub implementation for non-Windows platforms
+class Discord {
+public:
+	static Discord& GetInstance() {
+		static Discord instance;
+		return instance;
+	}
+	void Initialize(const char* applicationId) {}
+	void Update() {}
+	void Shutdown() {}
+	void SetState(const char* state) {}
+	void SetDetails(const char* details) {}
+	void SetLargeImage(const char* largeImageKey) {}
+	void SetLargeImageText(const char* largeImageText) {}
+	void SetSmallImage(const char* smallImageKey) {}
+	void SetSmallImageText(const char* smallImageText) {}
+
+private:
+	Discord() {} 
+	Discord(const Discord&) = delete;
+	Discord& operator=(const Discord&) = delete;
+};
+
+#endif
