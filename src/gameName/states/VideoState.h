@@ -23,7 +23,13 @@ public:
     void destroy() override;
     
     void openSubState(SubState* subState) override;
+    bool loadVideo(const std::string& path);
+    void playVideo();
+    void pauseVideo();
+    void stopVideo();
+    void setVolume(int volume);
 
 private:
     VideoPlayer* videoPlayer;
+    std::string currentVideoPath;
 };

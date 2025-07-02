@@ -26,16 +26,11 @@ VideoState::~VideoState() {
 }
 
 void VideoState::create() {
-    Engine* engine = Engine::getInstance();
-    
     videoPlayer = new VideoPlayer();
-    if (videoPlayer->load("assets/videos/random_ass_alpha_3_run.mkv")) {
-        videoPlayer->setWindowSize(engine->getWindowWidth(), engine->getWindowHeight());
-        videoPlayer->setMaintainAspectRatio(false);
-        videoPlayer->play();
-        Log::getInstance().info("Video playback started");
-    } else {
-        Log::getInstance().error("Failed to load video");
+    VideoState* videoState = VideoState::instance;
+    if (videoState->loadVideo("assets/videos/bakurestu.mp4")) {
+        videoState->setVolume(100);
+        videoState->playVideo();
     }
 }
 
@@ -47,7 +42,19 @@ void VideoState::update(float deltaTime) {
         _subStates.back()->update(deltaTime);
     } else {
         if (videoPlayer) {
-            videoPlayer->update(deltaTime);
+            videoPlayer->update();
+
+            if (Input::justPressed(SDL_SCANCODE_SPACE)) {
+                if (videoPlayer->isPlaying()) {
+                    videoPlayer->pause();
+                } else {
+                    videoPlayer->play();
+                }
+            }
+
+            if (Input::justPressed(SDL_SCANCODE_ESCAPE)) {
+                videoPlayer->stop();
+            }
         }
     }
 }
@@ -56,10 +63,8 @@ void VideoState::render() {
     if (!_subStates.empty()) {
         _subStates.back()->render();
     }
-    else {
-        if (videoPlayer) {
-            videoPlayer->render(SDLManager::getInstance().getRenderer());
-        }
+    if (videoPlayer) {
+        videoPlayer->render(SDLManager::getInstance().getRenderer());
     }
 }
 
@@ -72,4 +77,38 @@ void VideoState::destroy() {
 
 void VideoState::openSubState(SubState* subState) {
     State::openSubState(subState);
+}
+
+bool VideoState::loadVideo(const std::string& path) {
+    if (!videoPlayer) {
+        Log::getInstance().error("Video player not initialized");
+        return false;
+    }
+
+    currentVideoPath = path;
+    return videoPlayer->loadVideo(path);
+}
+
+void VideoState::playVideo() {
+    if (videoPlayer) {
+        videoPlayer->play();
+    }
+}
+
+void VideoState::pauseVideo() {
+    if (videoPlayer) {
+        videoPlayer->pause();
+    }
+}
+
+void VideoState::stopVideo() {
+    if (videoPlayer) {
+        videoPlayer->stop();
+    }
+}
+
+void VideoState::setVolume(int volume) {
+    if (videoPlayer) {
+        videoPlayer->setVolume(volume);
+    }
 }

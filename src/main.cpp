@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
     int height = 720;
     int fps = 60;
     bool debug = true;
-    bool showSplash = true;
+    bool showSplash = false; // set to false cuz I lost the og splash png lmao! 
     Engine engine(width, height, "hamburger engine", fps);
     engine.debugMode = debug;
     

@@ -3,516 +3,279 @@
 #include "../utils/Log.h"
 #include "../core/Engine.h"
 
-VideoPlayer::VideoPlayer()
-    : formatContext(nullptr), videoCodecContext(nullptr), audioCodecContext(nullptr),
-      frame(nullptr), frameRGB(nullptr), swsContext(nullptr), swrContext(nullptr),
-      texture(nullptr), videoStream(-1), audioStream(-1), videoWidth(0), videoHeight(0),
-      windowWidth(0), windowHeight(0), duration(0), currentTime(0), frameTime(0),
-      timeSinceLastFrame(0), fps(0), volume(1.0f), playing(false), maintainAspectRatio(true),
-      hasAudio(false), buffer(nullptr), audioChunk(nullptr), audioClock(0), audioCallbackTime(0) {
-    renderRect = {0, 0, 0, 0};
-    Engine* engine = Engine::getInstance();
-    if (engine) {
-        setWindowSize(engine->getWindowWidth(), engine->getWindowHeight());
+void* VideoPlayer::lock(void* data, void** p_pixels) {
+    VideoPlayer* player = static_cast<VideoPlayer*>(data);
+    SDL_LockMutex(player->mutex);
+    *p_pixels = player->videoPixels;
+    return nullptr;
+}
+
+void VideoPlayer::unlock(void* data, void* id, void* const* p_pixels) {
+    VideoPlayer* player = static_cast<VideoPlayer*>(data);
+    SDL_UnlockMutex(player->mutex);
+    (void)id;
+    (void)p_pixels;
+}
+
+void VideoPlayer::display(void* data, void* id) {
+    (void)data;
+    (void)id;
+}
+
+VideoPlayer::VideoPlayer() 
+    : vlcInstance(nullptr), mediaPlayer(nullptr), media(nullptr), playing(false),
+      videoTexture(nullptr), mutex(nullptr), videoWidth(0), videoHeight(0), videoPixels(nullptr) {
+    vlcInstance = libvlc_new(0, nullptr);
+    if (!vlcInstance) {
+        Log::getInstance().error("Failed to initialize VLC instance");
+        return;
     }
+    mutex = SDL_CreateMutex();
 }
 
 VideoPlayer::~VideoPlayer() {
-    cleanup();
-}
-
-void VideoPlayer::setWindowSize(int width, int height) {
-    windowWidth = width;
-    windowHeight = height;
-    Log::getInstance().info("Video window size set to: " + std::to_string(width) + "x" + std::to_string(height));
-    calculateRenderRect();
-}
-
-void VideoPlayer::calculateRenderRect() {
-    if (videoWidth == 0 || videoHeight == 0 || windowWidth == 0 || windowHeight == 0) {
-        return;
+    stop();
+    if (mediaPlayer) {
+        libvlc_media_player_release(mediaPlayer);
+        mediaPlayer = nullptr;
     }
-
-    renderRect = {0, 0, windowWidth, windowHeight};
-    Log::getInstance().info("Video render rect set to: " + 
-                          std::to_string(renderRect.x) + "," + 
-                          std::to_string(renderRect.y) + "," + 
-                          std::to_string(renderRect.w) + "," + 
-                          std::to_string(renderRect.h));
-}
-
-bool VideoPlayer::load(const std::string& filePath) {
-    cleanup();
-
-    if (avformat_open_input(&formatContext, filePath.c_str(), nullptr, nullptr) < 0) {
-        Log::getInstance().error("Could not open video file: " + filePath);
-        return false;
+    if (media) {
+        libvlc_media_release(media);
+        media = nullptr;
     }
-
-    if (avformat_find_stream_info(formatContext, nullptr) < 0) {
-        Log::getInstance().error("Could not find stream info");
-        cleanup();
-        return false;
+    if (vlcInstance) {
+        libvlc_release(vlcInstance);
+        vlcInstance = nullptr;
     }
-
-    for (unsigned int i = 0; i < formatContext->nb_streams; i++) {
-        if (formatContext->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
-            videoStream = i;
-            break;
-        }
+    if (videoTexture) {
+        SDL_DestroyTexture(videoTexture);
+        videoTexture = nullptr;
     }
-
-    if (videoStream == -1) {
-        Log::getInstance().error("Could not find video stream");
-        cleanup();
-        return false;
+    if (mutex) {
+        SDL_DestroyMutex(mutex);
+        mutex = nullptr;
     }
-
-    for (unsigned int i = 0; i < formatContext->nb_streams; i++) {
-        if (formatContext->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO) {
-            audioStream = i;
-            break;
-        }
-    }
-
-    AVRational timeBase = formatContext->streams[videoStream]->time_base;
-    AVRational frameRate = formatContext->streams[videoStream]->r_frame_rate;
-    fps = frameRate.num / (float)frameRate.den;
-    frameTime = 1.0f / fps;
-
-    Log::getInstance().info("Video FPS: " + std::to_string(fps));
-    Log::getInstance().info("Frame time: " + std::to_string(frameTime) + " seconds");
-
-    const AVCodec* videoCodec = avcodec_find_decoder(formatContext->streams[videoStream]->codecpar->codec_id);
-    if (!videoCodec) {
-        Log::getInstance().error("Unsupported video codec");
-        cleanup();
-        return false;
-    }
-
-    videoCodecContext = avcodec_alloc_context3(videoCodec);
-    if (!videoCodecContext) {
-        Log::getInstance().error("Could not allocate video codec context");
-        cleanup();
-        return false;
-    }
-
-    if (avcodec_parameters_to_context(videoCodecContext, formatContext->streams[videoStream]->codecpar) < 0) {
-        Log::getInstance().error("Could not fill video codec context");
-        cleanup();
-        return false;
-    }
-
-    if (avcodec_open2(videoCodecContext, videoCodec, nullptr) < 0) {
-        Log::getInstance().error("Could not open video codec");
-        cleanup();
-        return false;
-    }
-
-    if (audioStream != -1) {
-        hasAudio = initializeAudio();
-        if (hasAudio) {
-            Log::getInstance().info("Audio stream initialized successfully");
-        } else {
-            Log::getInstance().warning("Failed to initialize audio stream");
-        }
-    }
-
-    videoWidth = videoCodecContext->width;
-    videoHeight = videoCodecContext->height;
-    duration = static_cast<float>(formatContext->duration) / AV_TIME_BASE;
-
-    frame = av_frame_alloc();
-    frameRGB = av_frame_alloc();
-    if (!frame || !frameRGB) {
-        cleanup();
-        return false;
-    }
-
-    int numBytes = av_image_get_buffer_size(AV_PIX_FMT_RGB24, videoWidth, videoHeight, 1);
-    buffer = (uint8_t*)av_malloc(numBytes);
-    av_image_fill_arrays(frameRGB->data, frameRGB->linesize, buffer,
-                        AV_PIX_FMT_RGB24, videoWidth, videoHeight, 1);
-
-    swsContext = sws_getContext(videoWidth, videoHeight, videoCodecContext->pix_fmt,
-                               videoWidth, videoHeight, AV_PIX_FMT_RGB24,
-                               SWS_BILINEAR, nullptr, nullptr, nullptr);
-
-    if (!swsContext) {
-        cleanup();
-        return false;
-    }
-
-    texture = SDL_CreateTexture(SDLManager::getInstance().getRenderer(),
-                              SDL_PIXELFORMAT_RGB24,
-                              SDL_TEXTUREACCESS_STREAMING,
-                              videoWidth, videoHeight);
-
-    if (!texture) {
-        cleanup();
-        return false;
-    }
-
-    Engine* engine = Engine::getInstance();
-    if (engine) {
-        setWindowSize(engine->getWindowWidth(), engine->getWindowHeight());
-    }
-
-    return true;
-}
-
-bool VideoPlayer::initializeAudio() {
-    const AVCodec* audioCodec = avcodec_find_decoder(formatContext->streams[audioStream]->codecpar->codec_id);
-    if (!audioCodec) {
-        Log::getInstance().error("Unsupported audio codec");
-        return false;
-    }
-
-    audioCodecContext = avcodec_alloc_context3(audioCodec);
-    if (!audioCodecContext) {
-        Log::getInstance().error("Could not allocate audio codec context");
-        return false;
-    }
-
-    if (avcodec_parameters_to_context(audioCodecContext, formatContext->streams[audioStream]->codecpar) < 0) {
-        Log::getInstance().error("Could not fill audio codec context");
-        return false;
-    }
-
-    if (avcodec_open2(audioCodecContext, audioCodec, nullptr) < 0) {
-        Log::getInstance().error("Could not open audio codec");
-        return false;
-    }
-
-    if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, AUDIO_CHUNK_SIZE) < 0) {
-        Log::getInstance().error("SDL_mixer initialization failed: " + std::string(Mix_GetError()));
-        return false;
-    }
-
-    Mix_AllocateChannels(4);
-
-    swrContext = swr_alloc();
-    if (!swrContext) {
-        Log::getInstance().error("Could not allocate resampler context");
-        return false;
-    }
-
-    AVChannelLayout out_ch_layout = AV_CHANNEL_LAYOUT_STEREO;
-    AVChannelLayout in_ch_layout = audioCodecContext->ch_layout;
-    if (in_ch_layout.nb_channels == 0) {
-        av_channel_layout_default(&in_ch_layout, 2);
-    }
-
-    int ret = swr_alloc_set_opts2(&swrContext,
-        &out_ch_layout,
-        AV_SAMPLE_FMT_S16,
-        44100,
-        &in_ch_layout,
-        audioCodecContext->sample_fmt,
-        audioCodecContext->sample_rate,
-        0,
-        nullptr);
-
-    if (ret < 0) {
-        Log::getInstance().error("Could not set resampler options");
-        return false;
-    }
-
-    if (swr_init(swrContext) < 0) {
-        Log::getInstance().error("Could not initialize resampler");
-        return false;
-    }
-
-    Log::getInstance().info("Audio initialized with sample rate: " + std::to_string(audioCodecContext->sample_rate));
-    return true;
-}
-
-void VideoPlayer::processAudioFrame(AVFrame* audioFrame) {
-    if (!hasAudio || !audioFrame) return;
-
-    if (audioQueue.size() >= MAX_AUDIO_QUEUE_SIZE) {
-        return;
-    }
-
-    double pts = audioFrame->pts;
-    if (pts != AV_NOPTS_VALUE) {
-        pts = av_q2d(formatContext->streams[audioStream]->time_base) * pts;
-    }
-
-    int out_samples = av_rescale_rnd(
-        swr_get_delay(swrContext, audioCodecContext->sample_rate) + audioFrame->nb_samples,
-        44100,
-        audioCodecContext->sample_rate,
-        AV_ROUND_UP);
-
-    uint8_t* output_buffer = (uint8_t*)malloc(AUDIO_BUFFER_SIZE);
-    if (!output_buffer) {
-        Log::getInstance().error("Failed to allocate audio output buffer");
-        return;
-    }
-
-    int samples_converted = swr_convert(swrContext,
-        &output_buffer, out_samples,
-        (const uint8_t**)audioFrame->data, audioFrame->nb_samples);
-
-    if (samples_converted > 0) {
-        int actual_buffer_size = av_samples_get_buffer_size(nullptr, 2, samples_converted, AV_SAMPLE_FMT_S16, 0);
-        if (actual_buffer_size > 0) {
-            queueAudio(output_buffer, actual_buffer_size, pts);
-        } else {
-            free(output_buffer);
-        }
-    } else {
-        free(output_buffer);
+    if (videoPixels) {
+        free(videoPixels);
+        videoPixels = nullptr;
     }
 }
 
-void VideoPlayer::queueAudio(uint8_t* data, int size, double pts) {
-    if (!data || size <= 0) return;
-
-    AudioBuffer buffer(data, size, pts);
-    audioQueue.push(buffer);
-
-    if (Mix_Playing(-1) == 0 && !audioQueue.empty()) {
-        AudioBuffer& front = audioQueue.front();
-        Mix_Chunk* chunk = Mix_QuickLoad_RAW(front.data, front.size);
-        if (chunk) {
-            Mix_VolumeChunk(chunk, static_cast<int>(volume * MIX_MAX_VOLUME));
-            if (Mix_PlayChannel(-1, chunk, 0) != -1) {
-                audioClock = front.pts;
-                audioCallbackTime = SDL_GetTicks() / 1000.0;
-                audioChunk = chunk;
-            } else {
-                Mix_FreeChunk(chunk);
-            }
-        }
-        free(front.data);
-        audioQueue.pop();
-    }
-}
-
-double VideoPlayer::getAudioClock() {
-    double delta = (SDL_GetTicks() / 1000.0) - audioCallbackTime;
-    return audioClock + delta;
-}
-
-void VideoPlayer::update(float deltaTime) {
-    if (!playing) return;
-
-    double videoTime = currentTime;
-    double audioTime = hasAudio ? getAudioClock() : videoTime;
+bool VideoPlayer::loadVideo(const std::string& path) {
+    Log::getInstance().info("Attempting to load video: " + path);
     
-    if (hasAudio) {
-        double diff = videoTime - audioTime;
+    FILE* file = fopen(path.c_str(), "rb");
+    if (!file) {
+        Log::getInstance().error("Video file not found: " + path);
+        return false;
+    }
+    fclose(file);
+    
+    if (!vlcInstance) {
+        Log::getInstance().error("VLC instance not initialized");
+        return false;
+    }
+
+    if (mediaPlayer) {
+        libvlc_media_player_release(mediaPlayer);
+        mediaPlayer = nullptr;
+    }
+    if (media) {
+        libvlc_media_release(media);
+        media = nullptr;
+    }
+
+    media = libvlc_media_new_path(vlcInstance, path.c_str());
+    if (!media) {
+        media = libvlc_media_new_location(vlcInstance, path.c_str());
+        if (!media) {
+            Log::getInstance().error("Failed to create media from path: " + path);
+            if (const char* err = libvlc_errmsg()) {
+                Log::getInstance().error("VLC Error: " + std::string(err));
+            }
+            return false;
+        }
+    }
+    libvlc_media_add_option(media, ":network-caching=1000");
+    libvlc_media_add_option(media, ":file-caching=1000");    
+    libvlc_media_parse_with_options(media, libvlc_media_parse_local, -1);
+    
+    libvlc_media_parsed_status_t status;
+    do {
+        status = libvlc_media_get_parsed_status(media);
+        if (status == libvlc_media_parsed_status_failed) {
+            Log::getInstance().error("Media parsing failed");
+            if (const char* err = libvlc_errmsg()) {
+                Log::getInstance().error("VLC Error: " + std::string(err));
+            }
+            libvlc_media_release(media);
+            media = nullptr;
+            return false;
+        }
+    } while (status != libvlc_media_parsed_status_done);
+    
+    mediaPlayer = libvlc_media_player_new_from_media(media);
+    if (!mediaPlayer) {
+        Log::getInstance().error("Failed to create media player");
+        if (const char* err = libvlc_errmsg()) {
+            Log::getInstance().error("VLC Error: " + std::string(err));
+        }
+        libvlc_media_release(media);
+        media = nullptr;
+        return false;
+    }
+
+    libvlc_media_track_t** tracks;
+    unsigned tracksCount = libvlc_media_tracks_get(media, &tracks);
+    
+    bool foundVideo = false;
+    for (unsigned i = 0; i < tracksCount; i++) {
+        const char* type;
+        switch (tracks[i]->i_type) {
+            case libvlc_track_audio: type = "audio"; break;
+            case libvlc_track_video: type = "video"; break;
+            case libvlc_track_text: type = "text"; break;
+            default: type = "unknown"; break;
+        }
         
-        if (fabs(diff) > AUDIO_SYNC_THRESHOLD) {
-            if (diff > 0) {
-                deltaTime *= 0.9f;
-            } else {
-                deltaTime *= 1.1f;
-            }
+        if (tracks[i]->i_type == libvlc_track_video) {
+            videoWidth = tracks[i]->video->i_width;
+            videoHeight = tracks[i]->video->i_height;
+            foundVideo = true;
+            break;
         }
     }
 
-    currentTime += deltaTime;
-    timeSinceLastFrame += deltaTime;
+    if (tracksCount > 0) {
+        libvlc_media_tracks_release(tracks, tracksCount);
+    }
+    
+    libvlc_media_release(media);
+    media = nullptr;
 
-    if (hasAudio && Mix_Playing(-1) == 0 && !audioQueue.empty()) {
-        if (audioChunk) {
-            Mix_FreeChunk(audioChunk);
-            audioChunk = nullptr;
+    if (!foundVideo) {
+        Log::getInstance().error("No video track found in media. File may be corrupted or in an unsupported format");
+        if (const char* err = libvlc_errmsg()) {
+            Log::getInstance().error("VLC Error: " + std::string(err));
         }
-
-        AudioBuffer& front = audioQueue.front();
-        Mix_Chunk* chunk = Mix_QuickLoad_RAW(front.data, front.size);
-        if (chunk) {
-            Mix_VolumeChunk(chunk, static_cast<int>(volume * MIX_MAX_VOLUME));
-            if (Mix_PlayChannel(-1, chunk, 0) != -1) {
-                audioClock = front.pts;
-                audioCallbackTime = SDL_GetTicks() / 1000.0;
-                audioChunk = chunk;
-            } else {
-                Mix_FreeChunk(chunk);
-            }
-        }
-        free(front.data);
-        audioQueue.pop();
+        return false;
     }
 
-    if (timeSinceLastFrame >= frameTime) {
-        if (decodeFrame()) {
-            convertFrame();
-            timeSinceLastFrame = fmod(timeSinceLastFrame, frameTime);
-        }
+    if (videoPixels) {
+        free(videoPixels);
     }
-}
+    if (videoTexture) {
+        SDL_DestroyTexture(videoTexture);
+    }
 
-void VideoPlayer::render(SDL_Renderer* renderer) {
-    if (!texture || !renderer) return;
-    SDL_RenderCopy(renderer, texture, nullptr, &renderRect);
+    videoPixels = malloc(videoWidth * videoHeight * 4);
+    if (!videoPixels) {
+        Log::getInstance().error("Failed to allocate video buffer of size: " + 
+            std::to_string(videoWidth * videoHeight * 4) + " bytes");
+        return false;
+    }
+
+    SDL_Renderer* renderer = SDLManager::getInstance().getRenderer();
+    videoTexture = SDL_CreateTexture(renderer, 
+                                   SDL_PIXELFORMAT_RGB888,
+                                   SDL_TEXTUREACCESS_STREAMING,
+                                   videoWidth, videoHeight);
+    if (!videoTexture) {
+        Log::getInstance().error("Failed to create video texture. SDL Error: " + std::string(SDL_GetError()));
+        return false;
+    }
+
+    libvlc_video_set_callbacks(mediaPlayer, lock, unlock, display, this);
+    libvlc_video_set_format(mediaPlayer, "RV32", videoWidth, videoHeight, videoWidth * 4);
+    return true;
 }
 
 void VideoPlayer::play() {
-    playing = true;
-    Mix_Resume(-1);
+    if (mediaPlayer) {
+        libvlc_media_player_play(mediaPlayer);
+        playing = true;
+    } else {
+        Log::getInstance().error("Cannot play: no media loaded");
+    }
 }
 
 void VideoPlayer::pause() {
-    playing = false;
-    Mix_Pause(-1);
+    if (mediaPlayer) {
+        libvlc_media_player_pause(mediaPlayer);
+        playing = false;
+    } else {
+        Log::getInstance().error("Cannot pause: no media loaded");
+    }
 }
 
 void VideoPlayer::stop() {
-    playing = false;
-    currentTime = 0;
-    Mix_HaltChannel(-1);
-    cleanupAudioQueue();
-    av_seek_frame(formatContext, videoStream, 0, AVSEEK_FLAG_BACKWARD);
+    if (mediaPlayer) {
+        libvlc_media_player_stop(mediaPlayer);
+        playing = false;
+    } else {
+        Log::getInstance().error("Cannot stop: no media loaded");
+    }
 }
 
-void VideoPlayer::seek(float time) {
-    if (!formatContext) return;
+void VideoPlayer::setVolume(int volume) {
+    if (mediaPlayer) {
+        volume = std::max(0, std::min(100, volume));
+        libvlc_audio_set_volume(mediaPlayer, volume);
+    } else {
+        Log::getInstance().error("Cannot set volume: no media loaded");
+    }
+}
 
-    Mix_HaltChannel(-1);
-    cleanupAudioQueue();
+void VideoPlayer::setPosition(float pos) {
+    if (mediaPlayer) {
+        pos = std::max(0.0f, std::min(1.0f, pos));
+        libvlc_media_player_set_position(mediaPlayer, pos);
+    } else {
+        Log::getInstance().error("Cannot set position: no media loaded");
+    }
+}
+
+float VideoPlayer::getPosition() const {
+    if (mediaPlayer) {
+        return libvlc_media_player_get_position(mediaPlayer);
+    }
+    return 0.0f;
+}
+
+bool VideoPlayer::isPlaying() const {
+    if (mediaPlayer) {
+        return libvlc_media_player_is_playing(mediaPlayer) != 0;
+    }
+    return false;
+}
+
+void VideoPlayer::update() {}
+
+void VideoPlayer::render(SDL_Renderer* renderer) {
+    if (!videoTexture || !playing) return;
+
+    SDL_LockMutex(mutex);
+    SDL_UpdateTexture(videoTexture, nullptr, videoPixels, videoWidth * 4);
+    SDL_UnlockMutex(mutex);
+
+    SDL_Rect dstRect;
+    int windowWidth, windowHeight;
+    SDL_GetRendererOutputSize(renderer, &windowWidth, &windowHeight);
     
-    int64_t timestamp = static_cast<int64_t>(time * AV_TIME_BASE);
-    av_seek_frame(formatContext, -1, timestamp, AVSEEK_FLAG_BACKWARD);
-    currentTime = time;
+    float videoAspect = (float)videoWidth / videoHeight;
+    float windowAspect = (float)windowWidth / windowHeight;
     
-    if (hasAudio && audioCodecContext) {
-        avcodec_flush_buffers(audioCodecContext);
+    if (windowAspect > videoAspect) {
+        dstRect.h = windowHeight;
+        dstRect.w = (int)(windowHeight * videoAspect);
+        dstRect.x = (windowWidth - dstRect.w) / 2;
+        dstRect.y = 0;
+    } else {
+        dstRect.w = windowWidth;
+        dstRect.h = (int)(windowWidth / videoAspect);
+        dstRect.x = 0;
+        dstRect.y = (windowHeight - dstRect.h) / 2;
     }
+
+    SDL_RenderCopy(renderer, videoTexture, nullptr, &dstRect);
 }
-
-bool VideoPlayer::decodeFrame() {
-    AVPacket* packet = av_packet_alloc();
-    bool frameDecoded = false;
-    int ret;
-
-    while (av_read_frame(formatContext, packet) >= 0) {
-        if (packet->stream_index == videoStream) {
-            ret = avcodec_send_packet(videoCodecContext, packet);
-            if (ret < 0) {
-                av_packet_free(&packet);
-                return false;
-            }
-
-            ret = avcodec_receive_frame(videoCodecContext, frame);
-            if (ret >= 0) {
-                frameDecoded = true;
-                break;
-            }
-        } else if (packet->stream_index == audioStream && hasAudio) {
-            ret = avcodec_send_packet(audioCodecContext, packet);
-            if (ret >= 0) {
-                AVFrame* audioFrame = av_frame_alloc();
-                ret = avcodec_receive_frame(audioCodecContext, audioFrame);
-                if (ret >= 0) {
-                    processAudioFrame(audioFrame);
-                }
-                av_frame_free(&audioFrame);
-            }
-        }
-        av_packet_unref(packet);
-    }
-
-    av_packet_free(&packet);
-    return frameDecoded;
-}
-
-void VideoPlayer::convertFrame() {
-    if (!frame || !frameRGB || !swsContext || !texture) return;
-
-    sws_scale(swsContext,
-             frame->data, frame->linesize, 0, videoHeight,
-             frameRGB->data, frameRGB->linesize);
-
-    SDL_UpdateTexture(texture, nullptr, frameRGB->data[0], frameRGB->linesize[0]);
-}
-
-void VideoPlayer::setVolume(float vol) {
-    volume = vol;
-    if (audioChunk) {
-        Mix_VolumeChunk(audioChunk, static_cast<int>(volume * MIX_MAX_VOLUME));
-    }
-}
-
-void VideoPlayer::cleanupAudioQueue() {
-    if (audioChunk) {
-        Mix_FreeChunk(audioChunk);
-        audioChunk = nullptr;
-    }
-
-    while (!audioQueue.empty()) {
-        AudioBuffer& buffer = audioQueue.front();
-        if (buffer.data) {
-            free(buffer.data);
-        }
-        audioQueue.pop();
-    }
-}
-
-void VideoPlayer::cleanup() {
-    if (swrContext) {
-        swr_free(&swrContext);
-        swrContext = nullptr;
-    }
-
-    if (audioCodecContext) {
-        avcodec_free_context(&audioCodecContext);
-        audioCodecContext = nullptr;
-    }
-
-    if (swsContext) {
-        sws_freeContext(swsContext);
-        swsContext = nullptr;
-    }
-
-    if (frameRGB) {
-        av_frame_free(&frameRGB);
-        frameRGB = nullptr;
-    }
-
-    if (frame) {
-        av_frame_free(&frame);
-        frame = nullptr;
-    }
-
-    if (videoCodecContext) {
-        avcodec_free_context(&videoCodecContext);
-        videoCodecContext = nullptr;
-    }
-
-    if (formatContext) {
-        avformat_close_input(&formatContext);
-        formatContext = nullptr;
-    }
-
-    if (buffer) {
-        av_free(buffer);
-        buffer = nullptr;
-    }
-
-    if (texture) {
-        SDL_DestroyTexture(texture);
-        texture = nullptr;
-    }
-
-    Mix_HaltChannel(-1);
-    cleanupAudioQueue();
-    
-    if (audioChunk) {
-        Mix_FreeChunk(audioChunk);
-        audioChunk = nullptr;
-    }
-
-    videoStream = -1;
-    audioStream = -1;
-    videoWidth = 0;
-    videoHeight = 0;
-    duration = 0;
-    currentTime = 0;
-    playing = false;
-    hasAudio = false;
-} 
