@@ -39,4 +39,4 @@ See [BUILDING.md](docs/BUILDING.md) for more information.
 - [SDL2_ttf](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.24.0)
 - [SDL_image](https://github.com/libsdl-org/SDL_image/releases/tag/release-2.8.8)
 - [SDL_mixer](https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.8.1)
-- [FFMPEG](https://github.com/BtbN/FFmpeg-Builds/releases)
+- [libVLC](https://www.videolan.org/vlc/libvlc.html)
