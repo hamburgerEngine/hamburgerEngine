@@ -4,3 +4,6 @@
 [submodule "src/engine"]
 	path = src/engine
 	url = https://github.com/hamburgerEngine/hamburgerEngine-lib.git
+[submodule "src/gameName"]
+	path = src/gameName
+	url = https://github.com/hamburgerEngine/hamburgerEngine-template.git
