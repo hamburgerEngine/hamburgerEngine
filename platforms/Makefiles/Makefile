@@ -18,13 +18,15 @@ INCLUDES = -I$(SRCDIR) \
            -I$(EXTERNALDIR)/al/include \
            -I$(EXTERNALDIR)/ogg/include \
            -I$(EXTERNALDIR)/vorbis/include \
+           -I$(EXTERNALDIR)/vlc/include
 
 LIBS = -L$(EXTERNALDIR)/SDL2/lib -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2_gfx \
        -L$(EXTERNALDIR)/al/lib -lopenal \
        -L$(EXTERNALDIR)/ogg/lib -logg \
        -L$(EXTERNALDIR)/vorbis/lib -lvorbis -lvorbisfile \
        -lpthread -ldl -lm \
-       -L$(EXTERNALDIR)/lib/Linux64 -ldiscord-rpc
+       -L$(EXTERNALDIR)/lib/Linux64 -ldiscord-rpc \
+       -L$(EXTERNALDIR)/vlc/lib -lvlc
 
 TARGET = $(BINDIR)/hamburgerEngine
 
