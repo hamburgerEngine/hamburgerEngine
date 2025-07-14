@@ -25,11 +25,11 @@ See [BUILDING.md](docs/BUILDING.md) for more information.
 - [x] Sound
 - [x] Buttons
 - [x] Debug UI
-- [x] Video Playback (Audio is kindy iffy but it does work.)
+- [x] Video Playback (~~Audio is kindy iffy but it does work.~~ LMAO WE'RE USING VLC NOW, AUDIO WORKS NORMALLY FOR VIDEOS!)
 
 # Projects made with hamburger engine:
 
-* [Flappy Bird PE](https://github.com/yophlox/FlappyBird-PE/tree/main) - A simple flappy bird port/clone. - By YoPhlox
+* [Flappy Bird PE](https://github.com/hamburgerEngine/hamburgerEngine-Projects/tree/main/FlappyBirdPE_LatestHE) - A simple flappy bird port/clone. - By me!
 
 * [Anti-Logic HE](https://github.com/maybekoi/AntiLogic-Git/tree/he-port) - A recreation of my monthly game (that I made for newgrounds)!
 
